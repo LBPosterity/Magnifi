@@ -1,0 +1,172 @@
+<style>
+
+p
+{
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+body
+{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #162733;
+}
+
+label
+{
+    color: #3f515d;
+}
+
+.content-wrapper 
+{
+    margin-inline: auto;
+    max-width: 1200px; 
+}
+
+.card-wrapper
+{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.stat-card
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 30px;
+    /* Styles */
+    border-radius: 12px;
+    border: 1px solid lightgray;
+
+    & .card-left
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 10px;
+        flex-grow: 1;
+    }
+
+    & .card-right
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-end;
+        gap: 5px;
+    }
+
+    & .title
+    {
+        font-size: 2rem;
+    }
+
+    & label
+    {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+}
+
+.stat-primary
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 10px;
+    text-align: right;
+
+    & .percentage
+    {
+        font-size: 2.75rem;
+        line-height: 0.9;
+    }
+
+    & .variance
+    {
+        margin-bottom: 2px;
+    }
+
+    & .variance label
+    {
+        font-size: 0.875rem;
+    }
+}
+
+.actual-budget-wrapper
+{
+    display: inline-flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 5px 10px;
+    font-size: 0.875rem;
+    line-height: 1;
+    /* Styles */
+    border-radius: 999px;
+    border: 1px solid lightgrey;
+
+    & label
+    {
+        margin-right: 5px;
+    }
+
+}
+
+
+</style>
+
+<body>
+
+<div class="content-wrapper">
+
+    <div class="card-wrapper">
+
+        <div class="stat-card">
+            <div class="card-left">
+                <div class="title">Card Title</div>
+                <div class="description">Description goes here.</div>
+            </div>
+            <div class="card-right">
+                <div class="stat-primary">
+                    <p class="variance"><label>Variance<br></label>-1,234</p>
+                    <div class="percentage">32%</div>
+                </div>
+                <div class="stat-secondary">
+                    <div class="actual-budget-wrapper"> 
+                        <p class=""><label>Actual</label>$9,876</p>
+                        <p class=""><label>Budget</label>$7,890</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="card-left">
+                <div class="title">Card Title</div>
+                <div class="description">Description goes here.</div>
+            </div>
+            <div class="card-right">
+                <div class="stat-primary">
+                    <p class="variance"><label>Variance<br></label>-1,234</p>
+                    <div class="percentage">32%</div>
+                </div>
+                <div class="stat-secondary">
+                    <div class="actual-budget-wrapper"> 
+                        <p class=""><label>Actual</label>$9,876</p>
+                        <p class=""><label>Budget</label>$7,890</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
