@@ -1,4 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title></title>
+  <script src="https://unpkg.com/feather-icons"></script>
+
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* 
+{
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  box-sizing: border-box;
+}
 
 p
 {
@@ -6,15 +22,16 @@ p
     margin-block-end: 0;
 }
 
+hr
+{
+    border: 1px solid lightgrey;
+    width: 100%;
+}
+
 body
 {
     font-family: Arial, Helvetica, sans-serif;
     color: #162733;
-}
-
-label
-{
-    color: #3f515d;
 }
 
 .content-wrapper 
@@ -28,6 +45,21 @@ label
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+}
+
+.btn
+{
+    padding: 4px 6px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background: transparent;
+    cursor: pointer;
+}
+
+.btn.tertiary
+{
+    border: 2px solid #79CABB;
 }
 
 .stat-card
@@ -46,10 +78,11 @@ label
     {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: space-between;
         align-items: flex-start;
         gap: 10px;
         flex-grow: 1;
+        height: 100%;
     }
 
     & .card-right
@@ -59,17 +92,27 @@ label
         justify-content: flex-start;
         align-items: flex-end;
         gap: 5px;
+        flex-shrink: 0;
+        height: 100%;
     }
 
     & .title
     {
-        font-size: 2rem;
+        font-size: 24px;
+        margin-bottom: 0.6ch;
+    }
+
+    & .description
+    {
+        font-size: 14px;
     }
 
     & label
     {
+        font-size: 12px;
         text-transform: uppercase;
         font-weight: bold;
+        opacity: 0.7;
     }
 }
 
@@ -78,13 +121,13 @@ label
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: flex-end;
+    align-items: center;
     gap: 10px;
     text-align: right;
 
     & .percentage
     {
-        font-size: 2.75rem;
+        font-size: 48px;
         line-height: 0.9;
     }
 
@@ -92,28 +135,48 @@ label
     {
         margin-bottom: 2px;
     }
+}
 
-    & .variance label
+.stat-icon svg
+{
+    --size: 20px;
+    width: var(--size);
+    height: var(--size);
+    vertical-align: bottom;
+    margin-right: 2px;
+}
+
+.positive {
+
+    & .percentage
     {
-        font-size: 0.875rem;
+        color: #3ec4ab;
     }
+
+    & .stat-icon svg
+    {
+        stroke: #3ec4ab;
+    }
+}
+
+.negative .stat-icon svg
+{
+    stroke: red;
 }
 
 .actual-budget-wrapper
 {
-    display: inline-flex;
-    flex-direction: row;
-    gap: 10px;
-    padding: 5px 10px;
-    font-size: 0.875rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 5px;
+    font-size: 14px;
     line-height: 1;
-    /* Styles */
-    border-radius: 999px;
-    border: 1px solid lightgrey;
 
     & label
     {
         margin-right: 5px;
+        min-width: 14ch;
     }
 
 }
@@ -127,16 +190,24 @@ label
 
     <div class="card-wrapper">
 
-        <div class="stat-card">
+        <div class="stat-card positive">
             <div class="card-left">
-                <div class="title">Card Title</div>
-                <div class="description">Description goes here.</div>
+                <div>
+                    <div class="title">Card Title</div>
+                    <div class="description">Description goes here.</div>
+                </div>
+                <div>
+                    <button class="btn tertiary">View Details</button>
+                </div>
             </div>
             <div class="card-right">
                 <div class="stat-primary">
-                    <p class="variance"><label>Variance<br></label>-1,234</p>
+                    <p class="variance"><label>Variance<br></label>
+                        <span class="stat-icon"><i data-feather="trending-up"></i></span>
+                        1,234</p>
                     <div class="percentage">32%</div>
                 </div>
+                <hr>
                 <div class="stat-secondary">
                     <div class="actual-budget-wrapper"> 
                         <p class=""><label>Actual</label>$9,876</p>
@@ -168,5 +239,9 @@ label
     </div>
 
 </div>
+
+<script>
+    feather.replace();
+  </script>
 
 </body>
