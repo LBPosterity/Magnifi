@@ -43,7 +43,7 @@ body
 .card-wrapper
 {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
@@ -69,7 +69,7 @@ body
     justify-content: space-between;
     align-items: flex-start;
     gap: 20px;
-    padding: 30px;
+    padding: 30px 20px;
     /* Styles */
     border-radius: 12px;
     border: 1px solid lightgray;
@@ -105,14 +105,15 @@ body
     & .description
     {
         font-size: 14px;
+        opacity: 0.7;
     }
 
     & label
     {
-        font-size: 12px;
+        font-size: 11px;
         text-transform: uppercase;
         font-weight: bold;
-        opacity: 0.7;
+        opacity: 0.5;
     }
 }
 
@@ -127,7 +128,7 @@ body
 
     & .percentage
     {
-        font-size: 48px;
+        font-size: 44px;
         line-height: 0.9;
     }
 
@@ -159,10 +160,21 @@ body
     }
 }
 
-.negative .stat-icon svg
-{
-    stroke: red;
+.negative {
+
+    & .percentage
+    {
+        color: #9b0043;
+    }
+
+    & .stat-icon svg
+    {
+        stroke: #9b0043;
+        transform: rotateX(180deg);
+    }
 }
+
+
 
 .actual-budget-wrapper
 {
@@ -217,16 +229,24 @@ body
             </div>
         </div>
 
-        <div class="stat-card">
+                <div class="stat-card negative">
             <div class="card-left">
-                <div class="title">Card Title</div>
-                <div class="description">Description goes here.</div>
+                <div>
+                    <div class="title">Card Title</div>
+                    <div class="description">Description goes here.</div>
+                </div>
+                <div>
+                    <button class="btn tertiary">View Details</button>
+                </div>
             </div>
             <div class="card-right">
                 <div class="stat-primary">
-                    <p class="variance"><label>Variance<br></label>-1,234</p>
+                    <p class="variance"><label>Variance<br></label>
+                        <span class="stat-icon"><i data-feather="trending-up"></i></span>
+                        1,234</p>
                     <div class="percentage">32%</div>
                 </div>
+                <hr>
                 <div class="stat-secondary">
                     <div class="actual-budget-wrapper"> 
                         <p class=""><label>Actual</label>$9,876</p>
@@ -235,6 +255,35 @@ body
                 </div>
             </div>
         </div>
+
+                <div class="stat-card positive">
+            <div class="card-left">
+                <div>
+                    <div class="title">Card Title</div>
+                    <div class="description">Description goes here.</div>
+                </div>
+                <div>
+                    <button class="btn tertiary">View Details</button>
+                </div>
+            </div>
+            <div class="card-right">
+                <div class="stat-primary">
+                    <p class="variance"><label>Variance<br></label>
+                        <span class="stat-icon"><i data-feather="trending-up"></i></span>
+                        1,234</p>
+                    <div class="percentage">32%</div>
+                </div>
+                <hr>
+                <div class="stat-secondary">
+                    <div class="actual-budget-wrapper"> 
+                        <p class=""><label>Actual</label>$9,876</p>
+                        <p class=""><label>Budget</label>$7,890</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
     </div>
 
