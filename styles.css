@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root
+{
+    --text: #162733;
+}
+
+* 
+{
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  box-sizing: border-box;
+  color: var(--text);
+}
+
+p
+{
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+hr
+{
+    border: 1px solid hsl(204, 40%, 85%);
+    width: 100%;
+}
+
+body
+{
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+}
+
+.content-wrapper 
+{
+    margin-inline: auto;
+    max-width: 1200px; 
+}
+
+.card-wrapper
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.btn
+{
+    padding: 4px 6px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background: transparent;
+    cursor: pointer;
+}
+
+.btn.tertiary
+{
+    border: 2px solid #79CABB;
+}
+
+.stat-card
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 30px 20px;
+    /* Styles */
+    border-radius: 12px;
+    border: 1px solid hsl(204, 40%, 85%);
+
+    & .card-left
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+        flex-grow: 1;
+        height: 100%;
+    }
+
+    & .card-right
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-end;
+        gap: 5px;
+        flex-shrink: 0;
+        height: 100%;
+    }
+
+    & .title
+    {
+        font-size: 24px;
+        line-height: 1.2;
+        margin-bottom: 0.6ch;
+    }
+
+    & .description
+    {
+        font-size: 14px;
+        opacity: 0.7;
+    }
+
+    & label
+    {
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: bold;
+        opacity: 0.45;
+    }
+}
+
+.stat-primary
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    text-align: right;
+
+    & .percentage
+    {
+        font-size: 44px;
+        line-height: 0.9;
+    }
+
+    & .variance
+    {
+        margin-bottom: 2px;
+    }
+}
+
+.stat-icon svg
+{
+    --size: 20px;
+    width: var(--size);
+    height: var(--size);
+    vertical-align: bottom;
+    transform: rotate(22deg);
+}
+
+.positive {
+
+    & .percentage
+    {
+        color: #3ec4ab;
+    }
+
+    & .stat-icon svg
+    {
+        stroke: #3ec4ab;
+        transform: rotate(0deg);
+    }
+}
+
+.negative {
+
+    & .percentage
+    {
+        color: #9b0043;
+    }
+
+    & .stat-icon svg
+    {
+        stroke: #9b0043;
+        transform: rotateX(180deg);
+    }
+}
+
+
+
+.actual-budget-wrapper
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 5px;
+    font-size: 14px;
+    line-height: 1;
+
+    & label
+    {
+        margin-right: 5px;
+        min-width: 14ch;
+    }
+
+}
+
