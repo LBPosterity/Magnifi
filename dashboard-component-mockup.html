@@ -5,6 +5,41 @@
 
 <style>
     @import url("styles.css");
+
+@media screen and (max-width: 1000px) {
+
+    .card-wrapper
+    {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    @media screen and (max-width: 800px) {
+
+    .card-wrapper
+    {
+        grid-template-columns: repeat(1, 1fr) !important;
+    }
+    
+}
+    
+}
+
+@media screen and (min-width: 1000px) {
+
+.card-wrapper:has(.stat-card:nth-child(odd):last-child)
+{
+    grid-template-columns: repeat(3, 1fr);
+}
+
+
+.card-wrapper:has(.stat-card:nth-child(odd):last-child) .stat-card:nth-child(1)
+{
+    grid-column-end: span 2;
+}
+
+}
+
+
 </style>
 
 <body>
@@ -68,6 +103,33 @@
             </div>
         </div>
 
+        <div class="stat-card positive">
+            <div class="card-left">
+                <div>
+                    <div class="title">Overhead Expenses</div>
+                    <div class="description">Includes: Administration, IT, Labour, Marketing, Motor Vehicle, Occupancy.</div>
+                </div>
+                <div>
+                    <button class="btn tertiary">View Details</button>
+                </div>
+            </div>
+            <div class="card-right">
+                <div class="stat-primary">
+                    <p class="variance"><label>Variance<br></label>
+                        <span class="stat-icon"><i data-feather="trending-up"></i></span>
+                        9.8K</p>
+                    <div class="percentage">51%</div>
+                </div>
+                <hr>
+                <div class="stat-secondary">
+                    <div class="actual-budget-wrapper"> 
+                        <p class=""><label>Actual</label>$9.2K</p>
+                        <p class=""><label>Budget</label>$19.1K</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="stat-card negative">
             <div class="card-left">
                 <div>
@@ -90,6 +152,33 @@
                     <div class="actual-budget-wrapper"> 
                         <p class=""><label>Actual</label>$670</p>
                         <p class=""><label>Budget</label>$18.5K</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <div class="stat-card negative">
+            <div class="card-left">
+                <div>
+                    <div class="title">Working Capital</div>
+                    <div class="description">Short term funds available. Current assets minus costs.</div>
+                </div>
+                <div>
+                    <button class="btn tertiary">View Details</button>
+                </div>
+            </div>
+            <div class="card-right">
+                <div class="stat-primary">
+                    <p class="variance"><label>Variance<br></label>
+                        <span class="stat-icon"><i data-feather="trending-up"></i></span>
+                        63.3K</p>
+                    <div class="percentage">30%</div>
+                </div>
+                <hr>
+                <div class="stat-secondary">
+                    <div class="actual-budget-wrapper"> 
+                        <p class=""><label>Opening</label>$209.9K</p>
+                        <p class=""><label>Closing</label>$146.6K</p>
                     </div>
                 </div>
             </div>
