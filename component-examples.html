@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title></title>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
+
+
+<style>
+    @import url("styles.css");
+
+    html
+    {
+        margin: 4rem;
+    }
+
+    .placeholder-header
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        background: var(--bg-light);
+        padding: 12px;
+        border-radius: 0px 0px 8px 8px;
+    }
+
+
+    .control-wrapper
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 12px;
+        width: fit-content ;
+        background: var(--bg-light);
+        border-radius: 4px;
+        padding: 4px 12px;
+        min-height: 40px;
+
+        &.active
+        {
+            background: var(--bg-light-green);
+        }
+
+        & .input
+        {
+            display: none;
+        }
+
+        &.active .input
+        {
+            display: inherit;
+        }
+    }
+
+    .checkbox-wrapper
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+
+        & .checkbox
+        {
+            --size: 16px;
+            width: var(--size);
+            height: var(--size);
+            border: 1px solid var(--text-light);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        & svg
+        {
+            --size: 12px;
+            width: var(--size);
+            height: var(--size);
+            stroke: transparent;
+        }
+
+        & label
+        {
+            font-size: 14px;
+            color: var(--text);
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    }
+
+    .checkbox-wrapper.active .checkbox
+    {
+        background: var(--green-contrast);
+        border-color: var(--green-contrast);
+
+        & svg
+        {
+            stroke: var(--white);
+        }
+    }
+
+    .divider
+    {
+        width: 1px;
+        height: 28px;
+        background: var(--border-dark);
+    }
+
+</style>
+
+<body>
+
+<div class="placeholder-header">
+
+        <div class="division-wrapper">
+            <div class="center-arrow"><i data-feather="arrow-right"></i></div>
+            <div class="input select left">
+                <i data-feather="star"></i>
+                <span>Divisions</span>
+                <i data-feather="chevron-down"></i>
+                <div class="dropdown-wrapper">
+                    <div class="menuItem">Menu Option</div>
+                    <div class="menuItem">Menu Option</div>
+                    <div class="menuItem">Menu Option</div>
+                    <div class="menuItem">Menu Option</div>
+                    <div class="menuItem">Menu Option</div>
+                </div>
+            </div>
+            <div class="input select right">
+                <span>All Divisions</span>
+                <i data-feather="chevron-down"></i>
+                <div class="dropdown-wrapper">
+                    <div class="menuItem">Menu Option</div>
+                    <div class="menuItem">Menu Option</div>
+                    <div class="menuItem">Menu Option</div>
+                    <div class="menuItem">Menu Option</div>
+                    <hr>
+                    <div class="menuButton"><button class="btn secondary"><i data-feather="plus"></i>Button</button></div>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+<br><br>
+
+<div class="control-wrapper">
+    <div class="checkbox-wrapper">
+        <div class="checkbox"><i data-feather="check"></i></div>
+        <label>With Actuals</label>
+    </div>
+    <div class="input select right">
+        <span>Apr 12</span>
+        <i data-feather="calendar"></i>
+    </div>
+    <div class="divider"></div>
+    <div class="">
+        <button class="btn"><i data-feather="file-plus"></i> Import New</button>
+    </div>
+</div>
+
+<script>
+$(document).on('click', '.select', function(e) {
+    e.stopPropagation();
+    // Close all other dropdowns
+    $('.select').not(this).removeClass('active').find('.dropdown-wrapper').removeClass('active');
+    // Toggle only the clicked one
+    $(this).toggleClass('active');
+    $(this).find('.dropdown-wrapper').toggleClass('active');
+});
+
+// Optional: close dropdowns when clicking outside
+$(document).on('click', function() {
+    $('.select').removeClass('active');
+    $('.dropdown-wrapper').removeClass('active');
+});
+</script>
+
+<script>
+    // Toggle "active" class on checkbox-wrapper when clicked
+    $(document).on('click', '.checkbox-wrapper', function() {
+        $(this).toggleClass('active');
+        $('.control-wrapper').toggleClass('active');
+    });
+</script>
+
+<script>
+    feather.replace();
+</script>
+
+</body>

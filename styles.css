@@ -2,7 +2,19 @@
 
 :root
 {
-    --text: #162733;
+    --text: #364458;
+    --text-light: #5B7395;
+    --label-light: #9FAEC6;
+    --hover: #F2F4F7;
+    --brand-green: #3EC4AB;
+    --green-contrast: #07B09D;
+    --green-contrast-text: #069382;
+    --border: #85B0CB30;
+    --border-light: #85B0CB20;
+    --border-dark: #85B0CB60;
+    --white: #ffffff;
+    --bg-light: #F1F6FC;
+    --bg-light-green: #E6FAEE;
 }
 
 * 
@@ -13,6 +25,7 @@
   font-style: normal;
   box-sizing: border-box;
   color: var(--text);
+  transition: 0.3s ease;
 }
 
 p
@@ -49,12 +62,25 @@ body
 
 .btn
 {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
     padding: 4px 6px;
     font-size: 14px;
     border-radius: 4px;
     border: 2px solid transparent;
     background: transparent;
     cursor: pointer;
+
+    & svg
+    {
+        --size: 16px;
+        width: var(--size);
+        height: var(--size);
+        stroke: var(--green-contrast);
+    }
 }
 
 .btn.secondary
@@ -86,7 +112,6 @@ body
     border-radius: 12px;
     border: 1px solid hsl(204, 40%, 85%);
     background: white;
-    transition: 0.3s ease;
     container-name: stat-card;
     container-type: inline-size;
 
@@ -168,14 +193,15 @@ body
 
 .stat-icon svg
 {
-    --size: 20px;
+    --size: 16px;
     width: var(--size);
     height: var(--size);
     vertical-align: bottom;
     transform: rotate(22deg);
 }
 
-.positive {
+.positive 
+{
 
     & .percentage
     {
@@ -250,4 +276,171 @@ body
     }
 
 }
+
+
+/* Toolbar ----------------------------------------  */
+
+.input
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    position: relative;
+    background: var(--white);
+    font-size: 14px;
+    max-width: 300px;
+    min-width: 150px;
+
+    & span
+    {
+        width: 100%;
+    }
+
+    & svg
+    {
+        --size: 16px;
+        width: var(--size);
+        height: var(--size);
+        flex-shrink: 0;
+        stroke: var(--green-contrast);
+        stroke: var(--green-contrast);
+    }
+}
+
+.select
+{
+    padding: 4px 12px;
+    min-height: 32px; 
+    border-radius: 4px;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.10),
+                0px 0px 4px 0px rgba(0, 0, 0, 0.10);
+}
+
+.select.active
+{
+
+    & .feather-chevron-down
+    {
+        rotate: 180deg;
+    }
+}
+
+
+.dropdown-wrapper
+{
+    position: absolute;
+    top: 40px;
+    right: 0;
+    opacity: 0;
+    pointer-events: none;
+    border-radius: 4px;
+    padding: 12px 0px;
+    background: var(--white);
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.06),
+                0px 0px 4px 0px rgba(0, 0, 0, 0.06),
+                0px 4px 12px 0px rgba(0, 0, 0, 0.06);
+    min-width: 250px;
+    z-index: 10;
+}
+
+.menuItem
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 12px;
+    color: var(--text);
+    font-size: 14px;
+
+    &:hover
+    {
+        background: var(--hover);
+    }
+
+    & hr
+    {
+        margin: 8px 0px;
+        border: 1px solid var(--border);
+    }
+}
+
+.menuButton
+{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 8px 12px;
+}
+
+.dropdown-wrapper.active
+{
+    top: 34px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+.division-wrapper
+{
+    position: relative;
+    width: fit-content ;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0px;
+
+    & .center-arrow
+    {
+        --size: 24px;
+        width: var(--size);
+        height: var(--size);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: var(--white);
+    }
+
+    & .center-arrow svg
+    {
+        --size: 14px;
+        width: var(--size);
+        height: var(--size);
+        stroke: var(--text-light);
+    }
+
+    & .input
+    {
+        width: 200px;
+    }
+
+    & .left
+    {
+        border-radius: 4px 0px 0px 4px;
+        padding-right: 20px;
+    }
+
+    & .right
+    {
+        border-radius: 0px 4px 4px 0px;
+        padding-left: 20px;
+    }
+
+    & span
+    {
+        width: 100%;
+    }
+    
+}
+
 
