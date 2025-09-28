@@ -67,7 +67,8 @@ body
     justify-content: center;
     align-items: center;
     gap: 8px;
-    padding: 4px 6px;
+    padding: 4px 12px;
+    min-height: 38px;
     font-size: 14px;
     border-radius: 4px;
     border: 2px solid transparent;
@@ -80,6 +81,23 @@ body
         width: var(--size);
         height: var(--size);
         stroke: var(--green-contrast);
+    }
+
+    &.small
+    {
+        min-height: 32px;
+    }
+}
+
+.btn.primary
+{
+    background: var(--green-contrast);
+    border-color: transparent;
+    color: var(--white);
+
+    &:hover
+    {
+        background: var(--green-contrast-text);
     }
 }
 
@@ -97,7 +115,12 @@ body
 
 .btn.tertiary
 {
-    border: 2px solid #79CABB;
+    border: 2px solid var(--brand-green);
+
+    & :hover
+    {
+        background: var(--green-contrast);
+    }
 }
 
 .stat-card
