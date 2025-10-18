@@ -5,6 +5,12 @@
 
 <style>
     @import url("styles.css");
+    
+
+    body
+    {
+        margin: 5%;
+    }
 
 
 
@@ -41,8 +47,7 @@
             & .title
             {
                 font-size: 24px;
-                line-height: 1.2;
-                margin-bottom: 0.6ch;
+                line-height: 1;
             }
 
             & .card-header
@@ -75,8 +80,37 @@
                 overflow-x: auto;
             }
 
+            & .actions-wrapper
+            {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+            }
+
     }
 
+
+    .actions-wrapper select
+    {
+        min-height: 38px;
+        padding: 6px 16px;
+        border: 1px solid var(--border-dark);
+        border-radius: 6px;
+        background: white;
+        font-size: 14px;
+        color: var(--text-primary);
+        outline: none;
+        -webkit-appearance: none; 
+        -moz-appearance: none;   
+        appearance: none;    
+        background-image: url('data:image/svg+xml;utf8,<svg fill="%23222" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Example SVG */
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 20px;
+        padding-right: 34px;
+    }
 
 
     .stat
