@@ -5,6 +5,33 @@
 
 <style>
     @import url("styles.css");
+
+    button.dropdown {
+        --size: 28px;
+        width: var(--size);
+        height: var(--size);
+        padding: 0px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        border: 0px solid transparent;
+        background: transparent;
+        font-size: 16px;
+        cursor: pointer;
+
+        &:hover {
+            background: var(--bg-light-green);
+        }
+
+        & svg
+        {
+            --size: 20px;
+            width: var(--size);
+            height: var(--size);
+            stroke: var(--text-light);
+        }
+    }
 </style>
 
 <body>
@@ -83,6 +110,35 @@
                         <span class="stat-icon"><i data-feather="trending-up"></i></span>
                         1.2K</p>
                     <div class="percentage">75%</div>
+                </div>
+                <hr>
+                <div class="stat-secondary">
+                    <div class="actual-budget-wrapper"> 
+                        <p class=""><label>Actual</label>$3.4K</p>
+                        <p class=""><label>Budget</label>$5.6K</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <div class="stat-card">
+            <div class="card-left">
+                <div>
+                    <div class="title">Card Title
+                        <button class="dropdown"><i data-feather="chevron-down"></i></button>
+                    </div>
+                    <div class="description">Description goes here.</div>
+                </div>
+                <div>
+                    <button class="btn tertiary">View Details</button>
+                </div>
+            </div>
+            <div class="card-right">
+                <div class="stat-primary">
+                    <p class="variance"><label>Variance<br></label>
+                        <span class="stat-icon"><i data-feather="trending-up"></i></span>
+                        1.2K</p>
+                    <div class="percentage">25%</div>
                 </div>
                 <hr>
                 <div class="stat-secondary">
