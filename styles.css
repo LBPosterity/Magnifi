@@ -369,6 +369,13 @@ body
     z-index: 10;
 }
 
+    .dropdown-wrapper.align-left
+    {
+        right: auto;
+        left: 0 !important;
+    }
+
+
 .menuItem
 {
     display: flex;
@@ -389,6 +396,11 @@ body
         border: 1px solid var(--border);
     }
 }
+
+.menuItem.active
+    {
+        background: var(--bg-light-green);
+    }
 
 .menuButton
 {

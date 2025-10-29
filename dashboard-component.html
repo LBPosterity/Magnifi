@@ -2,6 +2,7 @@
 <html lang="en">
   <title></title>
   <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
 
 <style>
     @import url("styles.css");
@@ -19,19 +20,37 @@
         background: transparent;
         font-size: 16px;
         cursor: pointer;
+        position: relative;
+        vertical-align: baseline;
 
         &:hover {
-            background: var(--bg-light-green);
+            background: var(--bg-light-green) !important;
         }
 
         & svg
         {
-            --size: 20px;
+            --size: 18px;
             width: var(--size);
             height: var(--size);
             stroke: var(--text-light);
         }
     }
+
+    .stat-card:hover button.dropdown
+    {
+        background: var(--bg-light);
+    }
+
+    .dropdown-wrapper.align-left
+    {
+        right: auto;
+        left: 0 !important;
+    }
+
+
+
+
+
 </style>
 
 <body>
@@ -121,11 +140,52 @@
             </div>
         </div>
 
-                <div class="stat-card">
+        <div class="stat-card">
             <div class="card-left">
                 <div>
                     <div class="title">Card Title
-                        <button class="dropdown"><i data-feather="chevron-down"></i></button>
+                        <button class="dropdown"><i data-feather="chevron-down"></i>
+                            <div class="dropdown-wrapper align-left">
+                                <div class="menuItem active">Data Type Selection A</div>
+                                <div class="menuItem">Data Type Selection B</div>
+                                <div class="menuItem">Data Type Selection C</div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="description">Description goes here.</div>
+                </div>
+                <div>
+                    <button class="btn tertiary">View Details</button>
+                </div>
+            </div>
+            <div class="card-right">
+                <div class="stat-primary">
+                    <p class="variance"><label>Variance<br></label>
+                        <span class="stat-icon"><i data-feather="trending-up"></i></span>
+                        1.2K</p>
+                    <div class="percentage">25%</div>
+                </div>
+                <hr>
+                <div class="stat-secondary">
+                    <div class="actual-budget-wrapper"> 
+                        <p class=""><label>Actual</label>$3.4K</p>
+                        <p class=""><label>Budget</label>$5.6K</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="card-left">
+                <div>
+                    <div class="title">Longer Card Title Text So It Wraps
+                        <button class="dropdown"><i data-feather="chevron-down"></i>
+                            <div class="dropdown-wrapper align-left">
+                                <div class="menuItem">Data Type Selection A</div>
+                                <div class="menuItem active">Data Type Selection B</div>
+                                <div class="menuItem">Data Type Selection C</div>
+                            </div>
+                        </button>
                     </div>
                     <div class="description">Description goes here.</div>
                 </div>
@@ -159,5 +219,23 @@
 <script>
     feather.replace();
   </script>
+
+  <script>
+$(document).on('click', '.dropdown', function(e) {
+    e.stopPropagation();
+    // Close all other dropdowns
+    $('.dropdown').not(this).removeClass('active').find('.dropdown-wrapper').removeClass('active');
+    // Toggle only the clicked one
+    $(this).toggleClass('active');
+    $(this).find('.dropdown-wrapper').toggleClass('active');
+});
+
+// Optional: close dropdowns when clicking outside
+$(document).on('click', function() {
+    $('.dropdown').removeClass('active');
+    $('.dropdown-wrapper').removeClass('active');
+});
+
+</script>
 
 </body>
