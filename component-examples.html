@@ -176,6 +176,22 @@
 <button class="btn secondary small">Small Button</button>
 <button class="btn tertiary small">Small Button</button>
 
+<br><br>
+
+<h3>Dual Button</h3>
+
+<div class="wrapper-dual-btn">
+    <button class="btn secondary">View Details</button>
+    <button class="btn secondary btn-dropdown"><i data-feather="chevron-down"></i></button>
+                    <div class="dropdown-wrapper">
+                    <div class="menuItem">Menu Option</div>
+                    <div class="menuItem">Menu Option</div>
+                    <div class="menuItem">Menu Option</div>
+                    <div class="menuItem">Menu Option</div>
+                </div>
+            </div>
+</div>
+
 
 
 <script>
@@ -191,6 +207,23 @@ $(document).on('click', '.select', function(e) {
 // Optional: close dropdowns when clicking outside
 $(document).on('click', function() {
     $('.select').removeClass('active');
+    $('.dropdown-wrapper').removeClass('active');
+});
+</script>
+
+<script>
+$(document).on('click', '.btn-dropdown', function(e) {
+    e.stopPropagation();
+    // Close all other dropdowns (use siblings, not descendants)
+    $('.btn-dropdown').not(this).removeClass('active').siblings('.dropdown-wrapper').removeClass('active');
+    // Toggle only the clicked one and its sibling dropdown
+    $(this).toggleClass('active');
+    $(this).siblings('.dropdown-wrapper').toggleClass('active');
+});
+
+// Optional: close dropdowns when clicking outside
+$(document).on('click', function() {
+    $('.btn-dropdown').removeClass('active');
     $('.dropdown-wrapper').removeClass('active');
 });
 </script>

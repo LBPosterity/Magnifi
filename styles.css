@@ -123,6 +123,43 @@ body
     }
 }
 
+
+/* dual Button ------------------------------------------------ */
+
+
+.wrapper-dual-btn
+{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+    position: relative;
+}
+
+.wrapper-dual-btn .btn:first-of-type
+    {
+        border-radius: 4px 0px 0px 4px;
+        border-right-color: transparent;
+    }
+
+.wrapper-dual-btn .btn:last-of-type
+    {
+        border-radius: 0px 4px 4px 0px !important;
+        border-left-color: transparent;
+        min-width: 38px;
+    }
+
+.wrapper-dual-btn .dropdown-wrapper
+{
+    left: 0;
+    right: auto;
+}
+
+
+
+/* Stats Cards ------------------------------------------------ */
+
 .stat-card
 {
     display: flex;
