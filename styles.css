@@ -41,6 +41,28 @@ hr
     width: 100%;
 }
 
+a
+{
+    text-decoration: none;
+    color: var(--green-contrast-text);
+}
+
+a:hover
+{
+    text-decoration: underline;
+    color: var(--green-contrast);
+}
+
+
+i
+{
+    --size: 16px;
+    font-size: var(--size);
+    width: var(--size);
+    height: var(--size);
+    color: var(--green-contrast);
+}
+
 body
 {
     font-family: Arial, Helvetica, sans-serif;
@@ -95,6 +117,11 @@ body
     border-color: transparent;
     color: var(--white);
 
+    i
+    {
+        color: currentColor;
+    }
+
     &:hover
     {
         background: var(--green-contrast-text);
@@ -140,13 +167,13 @@ body
 .wrapper-dual-btn .btn:first-of-type
     {
         border-radius: 4px 0px 0px 4px;
-        border-right-color: transparent;
+        border-right: none;
     }
 
 .wrapper-dual-btn .btn:last-of-type
     {
         border-radius: 0px 4px 4px 0px !important;
-        border-left-color: transparent;
+        border-left: none;
         min-width: 38px;
     }
 
@@ -156,6 +183,43 @@ body
     right: auto;
 }
 
+
+
+/* Tooltip */
+
+.tooltip-wrapper
+{
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip
+{
+    position: absolute;
+    z-index: 1;
+    bottom: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    visibility: hidden;
+    width: 175px;
+    background-color: var(--text);
+    color: var(--white);
+    text-align: center;
+    border-radius: 4px;
+    padding: 8px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 12px;
+}
+
+.tooltip-wrapper:hover .tooltip
+{
+    visibility: visible;
+    opacity: 1;
+
+}
 
 
 /* Stats Cards ------------------------------------------------ */

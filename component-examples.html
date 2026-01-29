@@ -2,6 +2,7 @@
 <html lang="en">
   <title></title>
   <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
 
 
@@ -37,6 +38,7 @@
         border-radius: 4px;
         padding: 4px 12px;
         min-height: 40px;
+        max-height: 40px;
 
         &.active
         {
@@ -51,6 +53,11 @@
         &.active .input
         {
             display: inherit;
+        }
+
+        & .stat-line
+        {
+            padding-inline: 6px;
         }
     }
 
@@ -82,15 +89,15 @@
             height: var(--size);
             stroke: transparent;
         }
+    }
 
-        & label
-        {
-            font-size: 14px;
-            color: var(--text);
-            cursor: pointer;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
+    label
+    {
+        font-size: 14px;
+        color: var(--text);
+        cursor: pointer;
+        text-transform: uppercase;
+        font-weight: bold;
     }
 
     .checkbox-wrapper.active .checkbox
@@ -110,6 +117,7 @@
         height: 28px;
         background: var(--border-dark);
     }
+
 
 </style>
 
@@ -149,6 +157,8 @@
 
 <br><br>
 
+<h3>Filter Bars Elements</h3>
+
 <div class="control-wrapper">
     <div class="checkbox-wrapper">
         <div class="checkbox"><i data-feather="check"></i></div>
@@ -163,6 +173,40 @@
         <button class="btn"><i data-feather="file-plus"></i> Import New</button>
     </div>
 </div>
+
+<br><br>
+
+<div class="control-wrapper">
+    <div>
+        <div><label>Basis </label>
+            <div class="tooltip-wrapper">
+                <i class="fa-regular fa-circle-question"></i>
+                <div class="tooltip">Basis values vary based on <a href="#">Monthly Capacity</a></div>
+            </div>
+        </div>
+        </div>
+        
+
+    <div>
+        <div class="wrapper-dual-btn">
+            <button class="btn small primary"><i class="fa-regular fa-circle-check"></i> Monthly</button>
+            <button class="btn small tertiary">Constant</button>
+        </div>
+    </div>
+
+    <div class="stat-line">
+        <div><p></p><label>Recovery</label> 81.00% from <a href="#">Monthly Capacity</a></p></div>
+    </div>
+
+    <div class="stat-line">
+        <div><p></p><label>Overtime</label> 10.00% from <a href="#">Labour Drivers</a></p></div>
+    </div>
+    
+
+    
+</div>
+
+<h3>Buttons</h3>
 
 <br><br>
 
@@ -232,7 +276,7 @@ $(document).on('click', function() {
     // Toggle "active" class on checkbox-wrapper when clicked
     $(document).on('click', '.checkbox-wrapper', function() {
         $(this).toggleClass('active');
-        $('.control-wrapper').toggleClass('active');
+        $(this).closest('.control-wrapper').toggleClass('active');
     });
 </script>
 
