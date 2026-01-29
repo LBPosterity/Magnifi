@@ -45,21 +45,22 @@
             background: var(--bg-light-green);
         }
 
-        & .input
-        {
-            display: none;
-        }
-
-        &.active .input
-        {
-            display: inherit;
-        }
-
         & .stat-line
         {
             padding-inline: 6px;
         }
     }
+
+    .control-wrapper.actuals-demo .input
+        {
+            display: none;
+        }
+
+    .control-wrapper.actuals-demo.active .input
+        {
+            display: inherit;
+        }
+
 
     .checkbox-wrapper
     {
@@ -159,7 +160,7 @@
 
 <h3>Filter Bars Elements</h3>
 
-<div class="control-wrapper">
+<div class="control-wrapper actuals-demo">
     <div class="checkbox-wrapper">
         <div class="checkbox"><i data-feather="check"></i></div>
         <label>With Actuals</label>
@@ -185,7 +186,7 @@
             </div>
         </div>
         </div>
-        
+
 
     <div>
         <div class="wrapper-dual-btn">
@@ -195,20 +196,56 @@
     </div>
 
     <div class="stat-line">
-        <div><p></p><label>Recovery</label> 81.00% from <a href="#">Monthly Capacity</a></p></div>
+        <div><p><label>Recovery</label> 81.00% from <a href="#">Monthly Capacity</a></p></div>
     </div>
 
     <div class="stat-line">
-        <div><p></p><label>Overtime</label> 10.00% from <a href="#">Labour Drivers</a></p></div>
+        <div><p><label>Overtime</label> 10.00% from <a href="#">Labour Drivers</a></p></div>
     </div>
-    
-
     
 </div>
 
-<h3>Buttons</h3>
+<br><br>
+
+<div class="control-wrapper">
+    <div>
+        <div><label>Basis </label>
+            <div class="tooltip-wrapper">
+                <i class="fa-regular fa-circle-question"></i>
+                <div class="tooltip">Basis values vary based on <a href="#">Monthly Capacity</a></div>
+            </div>
+        </div>
+        </div>
+
+
+    <div>
+        <div class="wrapper-dual-btn">
+            <button class="btn small tertiary">Monthly</button>
+            <button class="btn small primary"><i class="fa-regular fa-circle-check"></i> Constant</button>
+        </div>
+    </div>
+
+    <div class="stat-line">
+        <div><label>Recovery</label>
+                <div class="input small select right"><span>80</span><i data-feather="percent"></i></div>
+            </div>
+    </div>
+
+    <div class="stat-line">
+        <div><label>Overtime </label><div class="tooltip-wrapper">
+                <i class="fa-regular fa-circle-question"></i>
+                <div class="tooltip">Applying overtime entered at divisional level.</div>
+            </div>
+                <div class="input small select right"><span>10</span><i data-feather="percent"></i></div>
+            
+        </div>
+    </div>
+    
+</div>
 
 <br><br>
+
+<h3>Buttons</h3>
 
 <button class="btn primary">Primary Button</button>
 <button class="btn secondary">Secondary Button</button>

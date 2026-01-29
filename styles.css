@@ -406,7 +406,7 @@ body
 
 .input
 {
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
@@ -431,6 +431,12 @@ body
         flex-shrink: 0;
         stroke: var(--green-contrast);
         stroke: var(--green-contrast);
+    }
+
+    &.small
+    {
+        max-width: 200px;
+        min-width: 100px;
     }
 }
 
