@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title></title>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
+
+<style>
+    @import url("styles.css");
+
+    .content-wrapper
+    {
+      margin-inline: auto;
+      max-width: 500px;
+    }
+
+    .tab-content {
+      display: none;
+      transition: opacity 0.4s ease;
+
+      &.active  {
+        display: block;
+      }
+    }
+
+    @starting-style {
+      .tab-content {
+        opacity: 0; 
+  }
+}
+
+    #header-filter-dropdwon-example
+    {
+        position: relative;
+        max-width: 350px;
+    }
+
+.filter-select
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--brand-green);
+        border-radius: 999px;
+        background: white;
+        padding: 6px 12px;
+        cursor: pointer;
+        color: var(--text);
+        height: 34px;
+        max-width: 250px;
+
+        &:hover
+        {
+          border-color: var(--green-contrast-text);
+        }
+
+        & i
+        {
+          color: var(--text);
+        }
+
+        & i.fa-chevron-down
+        {
+          font-size: 12px;
+          margin-top: 4px;
+        }
+
+
+        &.active i.fa-chevron-down
+        {
+            transform: rotate(180deg);
+            margin-top: 0px;
+        }
+
+        & #select-value
+        {
+            flex-grow: 1;
+        }
+    }
+
+    #select-value 
+    {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .header-filter-dropdown
+    {
+        position: absolute;
+        top: 40px;
+        left: -50%;
+        transform: translateX(37%);
+        background: white;
+        border: 1px solid var(--bg-light);
+        border-radius: 8px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        width: 350px;
+        padding: 16px;
+        font-size: 14px;
+        display: none;
+
+        &.active
+        {
+            display: block;
+        }
+    }
+
+
+    .tab-wrapper
+    {
+      & button
+      {
+        flex-basis: 50%;
+      }
+
+    }
+
+    .title-wrapper
+    {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between; 
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border-bottom: 1px solid var(--bg-light);
+    }
+
+    .action-footer
+    {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 8px;
+      border-top: 1px solid var(--bg-light);
+    }
+
+    .title-wrapper h4
+    {
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+</style>
+
+<body>
+
+<div class="content-wrapper">
+
+    <div id="header-filter-dropdwon-example">
+
+      <div class="header-filter">
+
+          <div class="filter-select">
+            <i class="fa-solid fa-gear"></i>
+            <span id="select-value">NSW</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+
+    </div>
+
+    <div class="header-filter-dropdown">
+      <div class="header-filter-tabs tab-wrapper">
+        <button class="tab-button active" data-tab="divisions">Divisions | Segments</button>
+        <button class="tab-button" data-tab="groups">Groups (2 Orgs)</button>
+      </div>
+
+      <div class="tab-content active" id="divisions">
+        <div class="section">
+          <div class="title-wrapper">
+            <h4 class="section-title">Divisions</h4>
+            <button class="btn clear">Add New</button>
+          </div>
+
+          <div class="menu-wrapper">
+            <div class="menuItem" id="all-divisions">All Divisions</div>
+            <div class="menuItem" id="qld">QLD</div>
+            <div class="menuItem active" id="nsw">NSW</div>
+            <div class="menuItem" id="nsw-regional">NSW - Regional</div>
+            <div class="menuItem" id="vic">VIC</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="title-wrapper">
+            <h4 class="section-title">Segments</h4>
+            <button class="btn clear">Add New</button>
+          </div>
+          <div class="menu-wrapper">
+            <div class="menuItem" id="nsw-segment">NSW</div>
+            <div class="menuItem" id="qld-segment">QLD</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="groups">
+        <div class="section">
+          <div class="title-wrapper">
+            <h4 class="section-title">Select</h4>
+                      <div class="wrapper-dual-btn">
+            <button class="btn clear select-all">All</button>
+            <button class="btn clear select-none">None</button>
+          </div>
+          </div>
+
+          <div class="menu-wrapper">
+            <div class="menuItem" id="biz-admin"><input type="checkbox" checked> Biz Administration Pty Limited</div>
+            <div class="menuItem" id="biz-services"><input type="checkbox"> Biz Services Pty Limited</div>
+          </div>
+          <div class="action-footer">
+            <button class="btn primary apply-button">Apply</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<script>
+    feather.replace();
+  </script>
+
+<script>
+  $(document).ready(function() {
+    $('.filter-select').on('click', function() {
+      $(this).toggleClass('active'); // Toggle the .active class on .filter-select
+      $('.header-filter-dropdown').toggleClass('active');
+    });
+
+    $('.tab-button').on('click', function() {
+      $('.tab-button').removeClass('active');
+      $(this).addClass('active');
+
+      const tabId = $(this).data('tab');
+      $('.tab-content').removeClass('active');
+      $(`#${tabId}`).addClass('active');
+
+      // Update #select-value based on the active tab
+      if (tabId === 'divisions') {
+        $('#select-value').text('NSW');
+      } else if (tabId === 'groups') {
+        $('#select-value').text('Biz Administration Pty Limited');
+      }
+    });
+
+    $('.select-all').on('click', function() {
+      $('#groups .list input[type=checkbox]').prop('checked', true);
+    });
+
+    $('.select-none').on('click', function() {
+      $('#groups .list input[type=checkbox]').prop('checked', false);
+    });
+  });
+</script>
+
+
+</body>
