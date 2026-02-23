@@ -35,7 +35,7 @@
         max-width: 350px;
     }
 
-.filter-select
+.hfc-filter-select
     {
         display: flex;
         flex-direction: row;
@@ -108,6 +108,25 @@
         }
     }
 
+    .hfc-header-filter-dropdown {
+        position: absolute;
+        top: 40px;
+        left: -50%;
+        transform: translateX(37%);
+        background: white;
+        border: 1px solid var(--bg-light);
+        border-radius: 8px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        width: 350px;
+        padding: 16px;
+        font-size: 14px;
+        display: none;
+
+        &.active
+        {
+            display: block;
+        }
+    }
 
     .tab-wrapper
     {
@@ -118,15 +137,14 @@
 
     }
 
-    .title-wrapper
-    {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between; 
-      align-items: center;
-      gap: 8px;
-      padding: 8px;
-      border-bottom: 1px solid var(--bg-light);
+    .hfc-title-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between; 
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        border-bottom: 1px solid var(--bg-light);
     }
 
     .action-footer
@@ -154,7 +172,7 @@
 
       <div class="header-filter">
 
-          <div class="filter-select">
+          <div class="hfc-filter-select">
             <i class="fa-solid fa-gear"></i>
             <span id="select-value">NSW</span>
             <i class="fa-solid fa-chevron-down"></i>
@@ -225,9 +243,9 @@
 
 <script>
   $(document).ready(function() {
-    $('.filter-select').on('click', function() {
-      $(this).toggleClass('active'); // Toggle the .active class on .filter-select
-      $('.header-filter-dropdown').toggleClass('active');
+    $('.hfc-filter-select').on('click', function() {
+      $(this).toggleClass('active'); // Toggle the .active class on .hfc-filter-select
+      $('.hfc-header-filter-dropdown').toggleClass('active');
     });
 
     $('.tab-button').on('click', function() {
