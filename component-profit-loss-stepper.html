@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title></title>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
+
+
+<style>
+    @import url("styles.css");
+
+    html
+    {
+        margin: 4rem;
+    }
+
+    .stepper-wrapper
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        min-height: 300px;
+    }
+
+    .step-selector
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        border: 2px solid var(--border-dark);
+        background: white;
+        --size: 48px;
+        width: var(--size);
+        height: var(--size);
+        cursor: pointer;
+    }
+
+    .step-line
+    {
+        flex-grow: 1;
+        position: relative;
+
+        &::after
+        {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            width: 2px;
+            background: var(--border-dark);
+            border-radius: 999px;
+            z-index: -1;
+        }
+    }
+
+    .stepper-wrapper:hover
+    {
+        & .step-selector
+        {
+            border-color: red;
+        }
+        & .step-line::after
+        {
+            background-color: red;
+        }
+    }
+
+    .stepper-wrapper.active
+    {
+        & .step-selector
+        {
+            border-color: var(--green-contrast);
+        }
+        & .step-line::after
+        {
+            background-color: var(--green-contrast);
+        }
+    }
+
+
+
+</style>
+
+
+<div class="stepper-wrapper">
+    <div class="step-selector">
+        <i class="fa-regular fa-square"></i>
+    </div>
+    <div class="step-line"></div>
+</div>
+
+<script>
+    feather.replace();
+</script>
+
+</body>
