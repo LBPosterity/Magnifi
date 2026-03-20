@@ -18,15 +18,35 @@
     .profit-loss-wrapper
     {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         gap: 16px;
     }
 
     .table-wrapper
     {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         gap: 16px;
+        flex-grow: 1;
+    }
+
+    .table-header
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 16px;
+        padding: 8px 16px;
+        margin-top: 4px;
+        min-height: 48px;
+        border-radius: 8px;
+        background-color: var(--bg-light-green);
+
+        & .title
+        {
+            flex: 1;
+        }
     }
 
     .stepper-wrapper
@@ -48,7 +68,7 @@
         border-radius: 999px;
         border: 2px solid var(--border);
         background: white;
-        --size: 48px;
+        --size: 54px;
         width: var(--size);
         height: var(--size);
         cursor: pointer;
@@ -72,9 +92,11 @@
             left: 50%;
             transform: translateX(-50%);
             height: 100%;
-            width: 2px;
-            background: var(--border);
+            width: 0px;
+            background: transparent;
             border-radius: 999px;
+            border: 0px dotted var(--border);
+            border-width: 0px 0px 0px 3px;
             z-index: -1;
              transition: all 0.3s ease-in-out;
         }
@@ -88,7 +110,7 @@
         }
         .step-selector:hover ~ .step-line::after
         {
-            background-color: var(--border-dark);
+            border-color: var(--border-dark);
         }
     
 
@@ -96,11 +118,14 @@
     {
         & .step-selector
         {
-            border-color: var(--green-contrast);
+            background: var(--bg-light-green);
+            border-color: transparent;
         }
         & .step-line::after
         {
-            background-color: var(--green-contrast);
+            border-color: var(--bg-light-green);
+            border-style: solid;
+            border-width: 3px;
         }
     }
 
@@ -118,8 +143,14 @@
 
     <div class="table-wrapper">
         <div class="table-header">
-            <h2>Profit & Loss</h2>
+            <div class="title"> 
+               <h4>Profit & Loss</h4>
+            </div>
+            <div class="value">
+                <p>$00.00</p>
+            </div>
         </div>
+        <div><p>My table and data content here</p></div>
     </div>
 
     <div class="stepper-wrapper">
@@ -137,7 +168,15 @@
 
     $(document).ready(function() {
         $('.step-selector').on('click', function() {
-            $('.stepper-wrapper').toggleClass('active');
+            var $wrapper = $(this).closest('.stepper-wrapper');
+            $wrapper.toggleClass('active');
+
+            var $icon = $(this).find('i');
+            if ($wrapper.hasClass('active')) {
+                $icon.removeClass('fa-regular fa-square').addClass('fa-solid fa-square-check');
+            } else {
+                $icon.removeClass('fa-solid fa-square-check').addClass('fa-regular fa-square');
+            }
         });
     });
 </script>
