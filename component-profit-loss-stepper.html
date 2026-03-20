@@ -14,6 +14,21 @@
         margin: 4rem;
     }
 
+
+    .profit-loss-wrapper
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .table-wrapper
+    {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+    }
+
     .stepper-wrapper
     {
         display: flex;
@@ -31,12 +46,17 @@
         align-items: center;
         justify-content: center;
         border-radius: 999px;
-        border: 2px solid var(--border-dark);
+        border: 2px solid var(--border);
         background: white;
         --size: 48px;
         width: var(--size);
         height: var(--size);
         cursor: pointer;
+
+        & i
+        {
+            color: var(--text-light);
+        }
     }
 
     .step-line
@@ -53,23 +73,24 @@
             transform: translateX(-50%);
             height: 100%;
             width: 2px;
-            background: var(--border-dark);
+            background: var(--border);
             border-radius: 999px;
             z-index: -1;
+             transition: all 0.3s ease-in-out;
         }
     }
 
-    .stepper-wrapper:hover
-    {
-        & .step-selector
+
+
+    .step-selector:hover
         {
-            border-color: red;
+            border-color: var(--border-dark);
         }
-        & .step-line::after
+        .step-selector:hover ~ .step-line::after
         {
-            background-color: red;
+            background-color: var(--border-dark);
         }
-    }
+    
 
     .stepper-wrapper.active
     {
@@ -83,20 +104,43 @@
         }
     }
 
+    .stepper-wrapper.active .step-selector i
+    {
+        color: var(--green-contrast);
+    }
+
 
 
 </style>
 
 
-<div class="stepper-wrapper">
-    <div class="step-selector">
-        <i class="fa-regular fa-square"></i>
+<div class="profit-loss-wrapper">
+
+    <div class="table-wrapper">
+        <div class="table-header">
+            <h2>Profit & Loss</h2>
+        </div>
     </div>
-    <div class="step-line"></div>
+
+    <div class="stepper-wrapper">
+        <div class="step-selector">
+            <i class="fa-regular fa-square"></i>
+        </div>
+        <div class="step-line"></div>
+    </div>
+
 </div>
+
 
 <script>
     feather.replace();
+
+    $(document).ready(function() {
+        $('.step-selector').on('click', function() {
+            $('.stepper-wrapper').toggleClass('active');
+        });
+    });
 </script>
 
 </body>
+
