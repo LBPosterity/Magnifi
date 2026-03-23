@@ -20,6 +20,8 @@
         display: flex;
         flex-direction: row;
         gap: 16px;
+        max-width: 700px;
+        margin-bottom: 16px;
     }
 
     .table-wrapper
@@ -41,12 +43,19 @@
         margin-top: 4px;
         min-height: 48px;
         border-radius: 8px;
-        background-color: var(--bg-light-green);
+        background-color: white;
+        border: 1px solid var(--border);
 
         & .title
         {
             flex: 1;
         }
+    }
+
+    .table-wrapper.active .table-header
+    {
+        background-color: var(--bg-light-green);
+        border-color: transparent;
     }
 
     .stepper-wrapper
@@ -162,6 +171,52 @@
 
 </div>
 
+<div class="profit-loss-wrapper">
+
+    <div class="table-wrapper">
+        <div class="table-header">
+            <div class="title"> 
+               <h4>Profit & Loss</h4>
+            </div>
+            <div class="value">
+                <p>$00.00</p>
+            </div>
+        </div>
+        <div><p>My table and data content here</p></div>
+    </div>
+
+    <div class="stepper-wrapper">
+        <div class="step-selector">
+            <i class="fa-regular fa-square"></i>
+        </div>
+        <div class="step-line"></div>
+    </div>
+
+</div>
+
+<div class="profit-loss-wrapper">
+
+    <div class="table-wrapper">
+        <div class="table-header">
+            <div class="title"> 
+               <h4>Profit & Loss</h4>
+            </div>
+            <div class="value">
+                <p>$00.00</p>
+            </div>
+        </div>
+        <div><p>My table and data content here</p></div>
+    </div>
+
+    <div class="stepper-wrapper">
+        <div class="step-selector">
+            <i class="fa-regular fa-square"></i>
+        </div>
+        <div class="step-line"></div>
+    </div>
+
+</div>
+
 
 <script>
     feather.replace();
@@ -174,8 +229,10 @@
             var $icon = $(this).find('i');
             if ($wrapper.hasClass('active')) {
                 $icon.removeClass('fa-regular fa-square').addClass('fa-solid fa-square-check');
+                $wrapper.closest('.profit-loss-wrapper').find('.table-wrapper').addClass('active');
             } else {
                 $icon.removeClass('fa-solid fa-square-check').addClass('fa-regular fa-square');
+                $wrapper.closest('.profit-loss-wrapper').find('.table-wrapper').removeClass('active');
             }
         });
     });
