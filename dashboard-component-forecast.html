@@ -147,6 +147,15 @@
         background: var(--border-dark);
         margin-inline: -6px 24px;
     }
+
+    @container stat-card (width < 850px)
+    {
+        .forecast-wrapper .forecast:nth-last-of-type(1),
+        .forecast-wrapper .forecast:nth-last-of-type(2)
+        {
+            display: none;
+        }
+    }
     
 
 </style>
