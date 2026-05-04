@@ -33,7 +33,7 @@
         border-radius: 12px;
         border: 1px solid hsl(204, 40%, 85%);
         background: white;
-        container-name: stat-card;
+        container-name: forecast-card;
         container-type: inline-size;
 
             &:hover
@@ -148,7 +148,7 @@
         margin-inline: -6px 24px;
     }
 
-    @container stat-card (width < 850px)
+    @container forecast-card (width < 450px)
     {
         .forecast-wrapper .forecast:nth-last-of-type(1),
         .forecast-wrapper .forecast:nth-last-of-type(2)
