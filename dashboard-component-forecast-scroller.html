@@ -74,11 +74,11 @@
             {
                 display: flex;
                 flex-direction: row;
-                justify-content: space-between;
+                justify-content: flex-end;
                 align-items: center;
                 width: 100%;
                 height: 100%;
-                overflow: hidden;
+                overflow-x: auto;
             }
 
             & .actions-wrapper
@@ -149,13 +149,13 @@
         margin-inline: -6px 24px;
     }
 
-    @container forecast-card (width < 500px)
+    @container forecast-card (width < 450px)
     {
         .forecast-wrapper .stat
         {
             display: none;
         }
-        .forecast-wrapper .stat:nth-last-child(-n+5)
+        .forecast-wrapper .stat:nth-last-child(-n+6)
         {
             display: block;
         }
@@ -196,7 +196,26 @@
                         <p class="value">$000.0K</p>
                         <label>Apr</label>
                     </div>
-                
+                    <div class="stat">
+                        <p class="value">$000.0K</p>
+                        <label>May</label>
+                    </div>
+                    <div class="stat">
+                        <p class="value">$000.0K</p>
+                        <label>Jun</label>
+                    </div>
+                    <div class="stat">
+                        <p class="value">$000.0K</p>
+                        <label>Jul</label>
+                    </div>
+                    <div class="stat">
+                        <p class="value">$000.0K</p>
+                        <label>Aug</label>
+                    </div>
+                    <div class="stat">
+                        <p class="value">$00.0K</p>
+                        <label>Sept</label>
+                    </div>
                     <div class="divider-vertical"></div>
                     <div class="stat forecast">
                         <p class="value">$000.0K</p>
