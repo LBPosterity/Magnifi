@@ -151,13 +151,10 @@
 
     @container forecast-card (width < 500px)
     {
-        .forecast-wrapper .stat
+        .forecast-wrapper .stat:last-child,
+        .forecast-wrapper .stat:first-child
         {
             display: none;
-        }
-        .forecast-wrapper .stat:nth-last-child(-n+5)
-        {
-            display: block;
         }
     }
     
@@ -190,25 +187,25 @@
                 <div class="forecast-wrapper">
                     <div class="stat">
                         <p class="value">$000.0K</p>
-                        <label>Mar</label>
+                        <label>Mar 2026</label>
                     </div>
                     <div class="stat">
                         <p class="value">$000.0K</p>
-                        <label>Apr</label>
+                        <label>Apr 2026</label>
                     </div>
                 
                     <div class="divider-vertical"></div>
                     <div class="stat forecast">
                         <p class="value">$000.0K</p>
-                        <label>Oct</label>
+                        <label>Oct 2026</label>
                     </div>
                     <div class="stat forecast">
                         <p class="value">$000.0K</p>
-                        <label>Nov</label>
+                        <label>Nov 2026</label>
                     </div>
                     <div class="stat forecast">
                         <p class="value">$000.0K</p>
-                        <label>Dec</label>
+                        <label>Dec 2026</label>
                     </div>
                 </div>
             </div>
