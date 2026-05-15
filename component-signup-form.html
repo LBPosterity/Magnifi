@@ -9,8 +9,8 @@
 <style>
     @import url("styles.css");
 
- 
-    body {
+    body 
+    {
       background: var(--bg-light-green);
       min-height: 100vh;
       display: flex;
@@ -82,7 +82,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: border-color 0.15s, background 0.15s;
     }
  
     .radio-circle::after 
@@ -92,9 +91,10 @@
       height: 10px;
       border-radius: 50%;
       background: transparent;
-      transition: background 0.15s;
     }
  
+
+
     /* checked state via sibling trick ---------------------- */
 
     .account-type input[type="radio"]:checked + .radio-circle 
@@ -108,6 +108,7 @@
       background: #ffffff;
     }
 
+    
 
     /* Xero SSO button ------------------ */
 
