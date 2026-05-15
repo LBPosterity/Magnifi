@@ -17,23 +17,45 @@
     --bg-light: #F1F6FC;
     --bg-light-green: #E6FAEE;
     --bg-light-green-hover: #c8f9da;
+
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 12px;
+    --radius-rounded: 999px;
+
+    --brand-xero: #1AB4D7;
+    --brand-xero-light-bg: #E3F3F7;
+
+    --shadow-lg: 0px 1px 2px rgba(22, 39, 51, 0.10),
+                 0px 2px 4px rgba(22, 39, 51, 0.10),
+                 0px 0px 16px rgba(22, 39, 51, 0.10);;
 }
 
 * 
 {
+  box-sizing: border-box;
+  transition: 0.3s ease;
+}
+
+body
+{
+  color: var(--text);
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  box-sizing: border-box;
-  color: var(--text);
-  transition: 0.3s ease;
+
 }
 
 p
 {
     margin-block-start: 0;
     margin-block-end: 0;
+}
+
+p.small
+{
+    font-size: 14px;
 }
 
 hr
@@ -94,6 +116,8 @@ h1, h2, h3, h4, h5, h6
     gap: 20px;
 }
 
+/** Buttons ----------------------- */
+
 .btn
 {
     display: inline-flex;
@@ -120,6 +144,13 @@ h1, h2, h3, h4, h5, h6
     &.small
     {
         min-height: 32px;
+    }
+
+    &.large
+    {
+        min-height: 48px;
+        padding-inline: 16px;
+        font-size: 16px;
     }
 }
 
@@ -209,7 +240,7 @@ h1, h2, h3, h4, h5, h6
 
 
 
-/* Tooltip */
+/* Tooltip -------------------------------- */
 
 .tooltip-wrapper
 {
@@ -485,12 +516,25 @@ h1, h2, h3, h4, h5, h6
     justify-content: flex-start;
     align-items: center;
     gap: 12px;
+    padding: 4px 12px;
     cursor: pointer;
     position: relative;
+    border: transparent;
+    outline-color: var(--green-contrast);
     background: var(--white);
     font-size: 14px;
-    max-width: 300px;
     min-width: 150px;
+    min-height: 32px;
+    border-radius: var(--radius-md);
+    box-shadow: 0px 1px 2px 0px var(--border),
+                0px 0px 4px 0px var(--border),
+                0px 2px 4px 0px var(--border);
+
+    &::placeholder
+    {
+        color: var(--text-light);
+    }
+
 
     & span
     {
@@ -511,6 +555,11 @@ h1, h2, h3, h4, h5, h6
     {
         max-width: 200px;
         min-width: 100px;
+    }
+
+    &.large
+    {
+        min-height: 44px;
     }
 }
 
@@ -646,7 +695,7 @@ h1, h2, h3, h4, h5, h6
 
     & .input
     {
-        width: 200px;
+        max-width: 200px;
     }
 
     & .left
