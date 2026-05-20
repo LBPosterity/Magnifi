@@ -1,0 +1,136 @@
+    function getAmountValue( fieldName )
+    {
+        if ( document.getElementById( fieldName ) == null )
+        {
+            return 'ERROR: ' + fieldName + ' does not exist';   
+        }
+        var amt = document.getElementById( fieldName ).value;
+        if ( amt != null )
+        {
+            amt = accounting.unformat(amt);
+        }           
+        if ( amt == '' || amt == 'NaN' || isNaN(amt) )
+        {
+            amt = 0;
+        }
+        return Number(amt);
+    }
+
+    function roundNumber( amt )
+    {
+        return accounting.toFixed(amt);
+    }
+
+    function formatNegativeValue(elementId, amount)
+    {
+        if ( amount < 0 )
+        {
+            document.getElementById(elementId).style.color='red';
+        }
+        else
+        {
+            document.getElementById(elementId).style.color='';
+        }
+    }
+      
+    var isMaximised = false;
+    var lastWidth = 0;
+    var lastHeight = 0;
+    function maxMinGraph(divId, chart, data, options)
+    {
+        if ( !isMaximised )
+        {
+          lastWidth = $('#' + divId).width();
+          lastHeight = $('#' + divId).height();
+
+          //document.getElementById(divId).style.height = $(window).height();
+          document.getElementById(divId).style.height="100%";
+          document.getElementById(divId).style.width = "100%";
+          $('#' + divId).addClass('overlay');
+          isMaximised = true;
+          $('html,body').scrollTop(0);
+        }
+        else
+        {
+          document.getElementById(divId).style.height=lastHeight;
+          document.getElementById(divId).style.width=lastWidth;
+          $('#' + divId).removeClass('overlay');
+          isMaximised = false;
+        }
+        
+        chart.draw(data, options);
+    }
+
+    function formatNegativeValue(elementId, amount)
+    {
+      if ( amount < 0 )
+      {
+          document.getElementById(elementId).style.color='red';
+      }
+      else
+      {
+          document.getElementById(elementId).style.color='';
+      }
+    }
+
+    function lockMonth(yearMonth)
+    {
+        document.mainForm.LockMonth.value=yearMonth;   
+        $( "#dialog-lock-month" ).dialog("open");
+        //document.mainForm.submit();
+    }
+    
+    function unlockMonth(yearMonth)
+    {
+        document.mainForm.UnlockMonth.value=yearMonth;   
+        $( "#dialog-unlock-month" ).dialog("open");
+        //document.mainForm.submit();
+    }    
+    
+    function turnOffSaveWarning()
+    {
+        window.onbeforeunload = null;
+    }
+      
+    // Return an array of the selected opion values
+    // select is an HTML select element
+    function getSelectValues(select) {
+      var result = [];
+      var options = select && select.options;
+      var opt;
+    
+      for (var i=0, iLen=options.length; i<iLen; i++) {
+        opt = options[i];
+    
+        if (opt.selected) {
+          result.push(opt.value || opt.text);
+        }
+      }
+      return result;
+    }
+
+    function manuallySetWindowBeforeUnloadPrompt()
+    {
+        window.onbeforeunload = function(){ return true; };
+    }    
+
+      
+    function togglePopup(elementId)
+    {
+      if ( document.getElementById(elementId).style.visibility != '' )
+      {
+          document.getElementById(elementId).style.visibility = '';
+          $( '#' + elementId ).addClass( "hideAfter5Seconds" );          
+      }
+      else
+      {
+          document.getElementById(elementId).style.visibility = 'hidden';
+          $( '#' + elementId ).removeClass( "hideAfter5Seconds" );          
+      }
+    }
+        
+    function promptOnClose()
+    {
+        window.onbeforeunload = function(){ return true; };
+    }  
+    
