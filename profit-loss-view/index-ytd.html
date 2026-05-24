@@ -9,126 +9,15 @@
         content="Magnifi,Biz Services,Plan,Costing,Forecast,Planning,Projection,Budget,Actual,Xero,Zoho,Business development,Business planning,Australia,Accounting,Software,Business growth,Financial,Financial planning,What if,Cashflow,3 Way,Dashboard">
     <meta content="text/html" charset="UTF-8" http-equiv="text/html">
     <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" href="stylesheet/jquery-ui.min.css?v=1.99">
-    <link rel="stylesheet" href="stylesheet/font-awesome-7/css/all.min.css?v=1.99">
+    <link rel="stylesheet" href="jquery-ui.min.css?v=1.99">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="table-profit-loss-styles.css">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     
-    <script>
-        document.addEventListener("DOMContentLoaded", function (event) {
 
-            $('.menu-home').on('click', function () {
-                hideAllSubmenus('sub-menu-home', 'menu-home');
-                $('.menu-home').toggleClass('main-active');
-                $('#sub-menu-home').toggleClass('sub-open');
-            });
-
-            $('.menu-plans').on('click', function () {
-                hideAllSubmenus('sub-menu-plans', 'menu-plans');
-                $('.menu-plans').toggleClass('main-active');
-                $('#sub-menu-plans').toggleClass('sub-open');
-            });
-
-            $('.menu-employees').on('click', function () {
-                hideAllSubmenus('sub-menu-emloyees', 'menu-employees');
-                $('.menu-employees').toggleClass('main-active');
-                $('#sub-menu-employees').toggleClass('sub-open');
-            });
-
-            $('.menu-capacity').on('click', function () {
-                hideAllSubmenus('sub-menu-capacity', 'menu-capacity');
-                $('.menu-capacity').toggleClass('main-active');
-                $('#sub-menu-capacity').toggleClass('sub-open');
-            });
-
-            $('.menu-projections').on('click', function () {
-                hideAllSubmenus('sub-menu-projections', 'menu-projections');
-                $('.menu-projections').toggleClass('main-active');
-                $('#sub-menu-projections').toggleClass('sub-open');
-            });
-
-            $('.menu-cashflow').on('click', function () {
-                hideAllSubmenus('sub-menu-cashflow', 'menu-cashflow');
-                $('.menu-cashflow').toggleClass('main-active');
-                $('#sub-menu-cashflow').toggleClass('sub-open');
-            });
-
-            $('.menu-analysis').on('click', function () {
-                hideAllSubmenus('sub-menu-analysis', 'menu-analysis');
-                $('.menu-analysis').toggleClass('main-active');
-                $('#sub-menu-analysis').toggleClass('sub-open');
-            });
-
-            $('.menu-dashboards').on('click', function () {
-                hideAllSubmenus('sub-menu-dashboards', 'menu-dashboards');
-                $('.menu-dashboards').toggleClass('main-active');
-                $('#sub-menu-dashboards').toggleClass('sub-open');
-            });
-
-            $('.menu-dashboard').on('click', function () {
-                hideAllSubmenus('sub-menu-dashboard', 'menu-dashboard');
-                $('.menu-dashboard').toggleClass('main-active');
-                $('#sub-menu-dashboard').toggleClass('sub-open');
-            });
-
-            $('.menu-settings').on('click', function () {
-                hideAllSubmenus('sub-menu-settings', 'menu-settings');
-                $('.menu-settings').toggleClass('main-active');
-                $('#sub-menu-settings').toggleClass('sub-open');
-            });
-
-            $('.menu-help').on('click', function () {
-                hideAllSubmenus('sub-menu-help', 'menu-help');
-                $('.menu-help').toggleClass('main-active');
-                $('#sub-menu-help').toggleClass('sub-open');
-            });
-
-            $('.menu-service-providers').on('click', function () {
-                hideAllSubmenus('sub-menu-service-providers', 'menu-service-providers');
-                $('.menu-service-providers').toggleClass('main-active');
-                $('#sub-menu-service-providers').toggleClass('sub-open');
-            });
-
-            $(document).on('click', '.select', function (e) {
-                e.stopPropagation();
-                // Close all other dropdowns
-                $('.select').not(this).removeClass('active').find('.dropdown-wrapper').removeClass('active');
-                // The below 2 lines wont work for drop down within drop down
-                //$('.btn-dropdown').not(this).removeClass('active').siblings('.btn-dropdown-wrapper').removeClass('active');
-                //$('.dash-dropdown').not(this).removeClass('active').siblings('.dash-dropdown-wrapper').removeClass('active');
-                // Toggle only the clicked one
-                $(this).toggleClass('active');
-                $(this).find('.dropdown-wrapper').toggleClass('active');
-            });
-
-            // Optional: close dropdowns when clicking outside
-            $(document).on('click', function () {
-                $('.select').removeClass('active');
-                $('.dropdown-wrapper').removeClass('active');
-            });
-
-        });
-
-        function hideAllSubmenus(activeSubmenu, mainMenu) {
-            $('.main-menu-link').not('#' + mainMenu).removeClass('main-active');
-            $('.sub-menu-container').not('#' + activeSubmenu).removeClass('sub-open');
-            $('.sub-menu-link').not('#' + activeSubmenu).removeClass('sub-open');
-        }
-
-        function switchOrganisation(id) {
-
-            document.getElementById("ServiceProviderId").value = id;
-            if (document.getElementById("Reporting") != null) {
-                document.getElementById("Reporting").value = '';
-            }
-            document.getElementById("SwitchServiceProviderForm").submit();
-
-        }
-
-    </script>
     <link rel="stylesheet" href="stylesheet/dashboard.css">
     <script src="stylesheet/jquery.min.js?v=1.99"></script>
     <script src="stylesheet/jquery-ui.min.js?v=1.99"></script>
@@ -1083,9 +972,9 @@
             }
 
             var html = '<tr>' +
-                '<td class="small" style="border-bottom: solid 1px; width: 80px" title="Click to sort" onclick="getTransactions(' + accountId + ', true, ' + ytd + ')">Date <i class="fa fa-arrow-' + dateArrow + '" style="font-size:8pt"></i></td>' +
+                '<td class="small" style="border-bottom: solid 1px; width: 80px" title="Click to sort" onclick="getTransactions(' + accountId + ', true, ' + ytd + ')">Date <i class="fa-solid fa-arrow-' + dateArrow + '" style="font-size:8pt"></i></td>' +
                 '<td class="small" style="border-bottom: solid 1px">Description</td>' +
-                '<td class="small" align="right" style="border-bottom: solid 1px; min-width: 60px" title="Click to sort" onclick="getTransactions(' + accountId + ', false, ' + ytd + ')">Amount <i class="fa fa-arrow-' + amountArrow + '" style="font-size:8pt"></i></td>' +
+                '<td class="small" align="right" style="border-bottom: solid 1px; min-width: 60px" title="Click to sort" onclick="getTransactions(' + accountId + ', false, ' + ytd + ')">Amount <i class="fa-solid fa-arrow-' + amountArrow + '" style="font-size:8pt"></i></td>' +
                 '</tr>';
 
             if ((byDate && dateReversed) || (!byDate && amountReversed)) {
@@ -2226,10 +2115,10 @@
             }
 
             var html = '<tr>' +
-                '<td class="small" style="border-bottom: solid 1px; min-width: 250px" title="Click to sort" onclick="getPlAccounts(' + plAccountId + ', true, ' + cost + ', ' + ytd + ')">Name <i class="fa fa-arrow-' + nameArrow + '" style="font-size:8pt"></i></td>' +
+                '<td class="small" style="border-bottom: solid 1px; min-width: 250px" title="Click to sort" onclick="getPlAccounts(' + plAccountId + ', true, ' + cost + ', ' + ytd + ')">Name <i class="fa-solid fa-arrow-' + nameArrow + '" style="font-size:8pt"></i></td>' +
                 '<td class="small" style="border-bottom: solid 1px; min-width: 80px; width: 100%" align="right">Actual</td>' +
                 '<td class="small" style="border-bottom: solid 1px; min-width: 80px; width: 100%" align="right">Budget</td>' +
-                '<td class="small" align="right" style="border-bottom: solid 1px; min-width: 80px; width: 100%" title="Click to sort" onclick="getPlAccounts(' + plAccountId + ', false, ' + cost + ', ' + ytd + ')">Variance <i class="fa fa-arrow-' + amountArrow + '" style="font-size:8pt"></i></td>' +
+                '<td class="small" align="right" style="border-bottom: solid 1px; min-width: 80px; width: 100%" title="Click to sort" onclick="getPlAccounts(' + plAccountId + ', false, ' + cost + ', ' + ytd + ')">Variance <i class="fa-solid fa-arrow-' + amountArrow + '" style="font-size:8pt"></i></td>' +
                 '</tr>';
 
             if ((byName && (plNameReversed || plNameReversedYtd)) || (!byName && (plAmountReversed || plAmountReversedYtd))) {
@@ -2383,7 +2272,7 @@
                                     </a><a href="#" class="main-menu-link menu-analysis">
                                         Analysis
                                     </a><a title="Wizard" href="WizardHome">
-                                        <div class="popup"><i class="fa fa-magic" aria-hidden="true"
+                                        <div class="popup"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"
                                                 style="color:#74e4a0; font-size: 18px"></i></div>
                                     </a></td>
                                 <td valign="middle" align="left" class="subMenuColour" style="padding-right: 10px;">
@@ -2391,15 +2280,15 @@
                                         <tr>
                                             <td style="padding-left: 10px">
                                                 <div class="division-wrapper">
-                                                    <div class="input select right"><i class="fa fa-cog"></i><span>Biz
+                                                    <div class="input select right"><i class="fa-solid fa-gear"></i><span>Biz
                                                             Services Pty Limited</span><i
-                                                            class="fa fa-chevron-down"></i>
+                                                            class="fa-solid fa-chevron-down"></i>
                                                         <div class="dropdown-wrapper" style="min-width:300px">
                                                             <div class="menuItem"
                                                                 onclick="javascript:gotoLocation('Home?view=Divisions')">
                                                                 <a href="Home?view=Divisions"
                                                                     style="text-decoration:none">Add Division <i
-                                                                        class="fa fa-fw fa-plus "></i></a></div><br>
+                                                                        class="fa-solid fa-plus"></i></a></div><br>
                                                             <div class="menuItem" style="cursor: default;">
                                                                 &nbsp;<b>Switch Organisations for Biz Group</b></div>
                                                             <hr class="menuHr">
@@ -2624,12 +2513,12 @@
                                 </td>
                                 <td nowrap="true" width="300px"><a href="LoggedOut" class="small-menu-link menuRight">
                                         Logout
-                                        <i class="fa fa-fw fa-sign-out"></i></a><a href="#"
+                                        <i class="fa-solid fa-arrow-right-from-door"></i></a><a href="#"
                                         class="small-menu-link menu-help menuRight">
                                         <div class="popup">
-                                            Help <i class="fa fa-fw fa-question-circle"></i></div>
+                                            Help <i class="fa-solid fa-circle-question"></i></div>
                                     </a><a href="#" class="small-menu-link menu-settings menuRight">
-                                        Account <i class="fa fa-fw fa-user"></i></a></td>
+                                        Account <i class="fa-solid fa-user"></i></a></td>
                             </tr>
                         </table>
                     </div>
@@ -2686,11 +2575,11 @@
                             class="sub-menu-link " target="">Overheads</a></div>
                     <div id="sub-menu-settings" class="sub-menu-container"><a href="MyDetails"
                             class="sub-menu-link menuRight" target=""><i
-                                class="fa fa-fw fa-id-card"></i><small>&nbsp;</small>My Details</a><a href="MyPassword"
+                                class="fa-solid fa-id-card"></i><small>&nbsp;</small>My Details</a><a href="MyPassword"
                             class="sub-menu-link menuRight" target=""><i
-                                class="fa fa-fw fa-key"></i><small>&nbsp;</small>My Password</a><a href="LoginUsers"
+                                class="fa-solid fa-key"></i><small>&nbsp;</small>My Password</a><a href="LoginUsers"
                             class="sub-menu-link menuRight" target=""><i
-                                class="fa fa-fw fa-user"></i><small>&nbsp;</small>Users</a></div>
+                                class="fa-solid fa-user"></i><small>&nbsp;</small>Users</a></div>
                     <div id="sub-menu-help" class="sub-menu-container"><a href="TipsAction?on=true"
                             class="sub-menu-link menuRight" target="">Turn on Tips</a><a
                             href="mailto:support@magnifi.com.au?subject=Magnifi Support" class="sub-menu-link menuRight"
@@ -2712,7 +2601,7 @@
                             id="Tab">
 
 
-                            <!-- Start Option Header -->>
+                            <!-- Start Option Header -->
                         <table border="0" class="centreTable" width="1170">
                             <tr>
                                 <td align="left" nowrap="true" valign="top" width="870">
@@ -2816,11 +2705,11 @@
 
                                     &nbsp;&nbsp;
                                     <span id="expandAllPicture"><a href="javascript:expandAll();"><i
-                                                class="fa fa-plus-square" title="Click to expand"
-                                                style="color: b3b3b3"></i></a><small> expand all</small></span><span
+                                                class="fa-solid fa-square-plus inline-icon" title="Click to expand"
+                                                style=""></i></a><small> expand all</small></span><span
                                         id="collapseAllPicture" style="display:none;"><a
-                                            href="javascript:collapseAll();"><i class="fa fa-minus-square"
-                                                title="Click to collapse" style="color: b3b3b3"></i></a><small
+                                            href="javascript:collapseAll();"><i class="fa-solid fa-square-minus"
+                                                title="Click to collapse" style=""></i></a><small
                                             style="font-weight: normal; text-transform: none;"> collapse
                                             all</small></span>
 
@@ -2891,18 +2780,17 @@
                                 <td colspan="1" class="titleRowWithoutLine "><a
                                         href="GraphIncome?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
                                         title="Click to view chart"
-                                        style="color:#162733; text-decoration: none;"><b>Income</b></a><a
+                                        style="color:#162733; text-decoration: none;"><b>Income</b></a><span id="Income_expandPicture"><a href="javascript:expandIncome();"><i
+                                                class="fa-solid fa-square-plus inline-icon" title="Click to expand"
+                                                style="font-size: 14px; "></i></a></span><a
                                         href="GraphIncome?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
-                                        title="Click to view chart"><img src="images/bar-chart2.png" width="12px"
-                                            style="opacity: 30%; margin-left: 5px"></a>
+                                        title="Click to view chart"><p class="inline-action">View<i class="fa-solid fa-arrow-up-right-from-square inline-icon"></i></p></a>
                                     &nbsp;
-                                    <span id="Income_expandPicture"><a href="javascript:expandIncome();"><i
-                                                class="fa fa-plus-square" title="Click to expand"
-                                                style="font-size: 14px; color: b3b3b3"></i></a></span><span
+                                    <span
                                         id="Income_collapsePicture" style="display:none;"><a
-                                            href="javascript:collapseIncome();"><i class="fa fa-minus-square"
+                                            href="javascript:collapseIncome();"><i class="fa-solid fa-square-minus"
                                                 title="Click to collapse"
-                                                style="font-size: 14px; color: b3b3b3"></i></a></span>
+                                                style="font-size: 14px; "></i></a></span>
                                 </td>
                                 <td align="right">$68,031</td>
                                 <td align="right">$100,000</td>
@@ -2919,7 +2807,7 @@
                                 class="tableRowBackground hoverRow" onclick="javascript:openTop5Dialog(1, false);"
                                 title="Click to show top 5">
                                 <td style="padding-left: 10px">Income
-                                    &nbsp;<i class="fa fa-info-circle" style="font-size: 14px; color: b3b3b3"></i></td>
+                                    &nbsp;<i class="fa fa-info-circle inline-icon" style="font-size: 14px; "></i></td>
                                 <td align="right">$68,031</td>
                                 <td align="right">$100,000</td>
                                 <td align="right" class="actualAmount" style="color: var(--state-red);">-$31,969</td>
@@ -2936,21 +2824,24 @@
                                 <td colspan="2" class="actualAmount"></td>
                             </tr>
                             <tr class="hoverRow">
-                                <td colspan="1" class="titleRowWithoutLine"><a
+                                <td colspan="1" class="titleRowWithoutLine">
+                                    <span
+                                        id="DirectCosts_collapsePicture" style="display:none;"><a
+                                            href="javascript:collapseDirectCosts();"><i class="fa-solid fa-square-minus"
+                                                title="Click to collapse"
+                                                style="font-size: 14px; "></i></a></span>
+                                                &nbsp;
+                                    <a
                                         href="GraphDirectCosts?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
                                         title="Click to view chart" style="color:#162733; text-decoration: none;">Less:
-                                        Direct Costs</a><a
+                                        Direct Costs</a><span id="DirectCosts_expandPicture">
+                                            <a href="javascript:expandDirectCosts();">
+                                                <i
+                                                class="fa-solid fa-square-plus inline-icon" title="Click to expand"
+                                                style="font-size: 14px; "></i></a></span><a
                                         href="GraphDirectCosts?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
-                                        title="Click to view chart"><img src="images/bar-chart2.png" width="12px"
-                                            style="opacity: 30%; margin-left: 5px"></a>
-                                    &nbsp;
-                                    <span id="DirectCosts_expandPicture"><a href="javascript:expandDirectCosts();"><i
-                                                class="fa fa-plus-square" title="Click to expand"
-                                                style="font-size: 14px; color: b3b3b3"></i></a></span><span
-                                        id="DirectCosts_collapsePicture" style="display:none;"><a
-                                            href="javascript:collapseDirectCosts();"><i class="fa fa-minus-square"
-                                                title="Click to collapse"
-                                                style="font-size: 14px; color: b3b3b3"></i></a></span>
+                                        title="Click to view chart"><p class="inline-action">View<i class="fa-solid fa-arrow-up-right-from-square inline-icon"></i></p></a>
+                                    
                                 </td>
                                 <td align="right">$58,070</td>
                                 <td align="right">$62,637</td>
@@ -2968,7 +2859,7 @@
                                 title="Click to show top 5">
                                 <td style="padding-left: 10px">
                                     Labour Costs
-                                    &nbsp;<i class="fa fa-info-circle" style="font-size: 14px; color: b3b3b3"></i></td>
+                                    <i class="fa fa-info-circle inline-icon" style="font-size: 14px; "></i></td>
                                 <td align="right">$41,650</td>
                                 <td align="right">$42,637</td>
                                 <td align="right" class="actualAmount" style="color: var(--state-green);">-$987</td>
@@ -2983,7 +2874,7 @@
                                 onclick="javascript:openTop5Dialog(4, true);" title="Click to show top 5">
                                 <td style="padding-left: 10px">
                                     Other Direct Costs
-                                    &nbsp;<i class="fa fa-info-circle" style="font-size: 14px; color: b3b3b3"></i></td>
+                                    <i class="fa fa-info-circle inline-icon" style="font-size: 14px; "></i></td>
                                 <td align="right">$16,420</td>
                                 <td align="right">$20,000</td>
                                 <td align="right" class="actualAmount" style="color: var(--state-green);">-$3,580</td>
@@ -3007,8 +2898,7 @@
                                             title="Click to view chart"
                                             style="color:#162733; text-decoration: none;">Direct Profit</a></b><a
                                         href="GraphDirectProfit?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
-                                        title="Click to view chart"><img src="images/bar-chart2.png" width="12px"
-                                            style="opacity: 30%; margin-left: 5px"></a></td>
+                                        title="Click to view chart"><p class="inline-action">View<i class="fa-solid fa-arrow-up-right-from-square inline-icon"></i></p></a></td>
                                 <td align="right" style="font-weight:bold;color: var(--state-green);" title="% of Income 14.64%">$9,961
                                 </td>
                                 <td align="right" style="font-weight:bold;color: var(--state-green);" title="% of Income 37.36%">
@@ -3041,18 +2931,17 @@
                                 <td colspan="1" class="titleRowWithoutLine"><a
                                         href="GraphOverheadExpenses?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
                                         title="Click to view chart" style="color:#162733; text-decoration: none;">Less:
-                                        Overhead Expenses</a><a
+                                        Overhead Expenses</a><span id="OH_expandPicture"><a href="javascript:expandOh();"><i
+                                                class="fa-solid fa-square-plus inline-icon" title="Click to expand"
+                                                style="font-size: 14px; "></i></a></span><a
                                         href="GraphOverheadExpenses?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
-                                        title="Click to view chart"><img src="images/bar-chart2.png" width="12px"
-                                            style="opacity: 30%; margin-left: 5px"></a>
+                                        title="Click to view chart"><p class="inline-action">View<i class="fa-solid fa-arrow-up-right-from-square inline-icon"></i></p></a>
                                     &nbsp;
-                                    <span id="OH_expandPicture"><a href="javascript:expandOh();"><i
-                                                class="fa fa-plus-square" title="Click to expand"
-                                                style="font-size: 14px; color: b3b3b3"></i></a></span><span
+                                    <span
                                         id="OH_collapsePicture" style="display:none;"><a
-                                            href="javascript:collapseOh();"><i class="fa fa-minus-square"
+                                            href="javascript:collapseOh();"><i class="fa-solid fa-square-minus"
                                                 title="Click to collapse"
-                                                style="font-size: 14px; color: b3b3b3"></i></a></span>
+                                                style="font-size: 14px; "></i></a></span>
                                 </td>
                                 <td align="right">$9,290</td>
                                 <td align="right">$19,120</td>
@@ -3070,7 +2959,7 @@
                                 title="Click to show top 5">
                                 <td style="padding-left: 10px">
                                     Administration
-                                    &nbsp;<i class="fa fa-info-circle" style="font-size: 14px; color: b3b3b3"></i></td>
+                                    <i class="fa fa-info-circle inline-icon" style="font-size: 14px; "></i></td>
                                 <td align="right">$1,544</td>
                                 <td align="right">$12,510</td>
                                 <td align="right" class="actualAmount" style="color: var(--state-green);">-$10,966</td>
@@ -3085,7 +2974,7 @@
                                 onclick="javascript:openTop5Dialog(8, true);" title="Click to show top 5">
                                 <td style="padding-left: 10px">
                                     IT
-                                    &nbsp;<i class="fa fa-info-circle" style="font-size: 14px; color: b3b3b3"></i></td>
+                                    <i class="fa fa-info-circle inline-icon" style="font-size: 14px; "></i></td>
                                 <td align="right">$0</td>
                                 <td align="right">$200</td>
                                 <td align="right" class="actualAmount" style="color: var(--state-green);">-$200</td>
@@ -3100,7 +2989,7 @@
                                 title="Click to show top 5">
                                 <td style="padding-left: 10px">
                                     Labour
-                                    &nbsp;<i class="fa fa-info-circle" style="font-size: 14px; color: b3b3b3"></i></td>
+                                    <i class="fa fa-info-circle inline-icon" style="font-size: 14px; "></i></td>
                                 <td align="right">$0</td>
                                 <td align="right">$0</td>
                                 <td align="right" class="actualAmount" style="">$0</td>
@@ -3115,7 +3004,7 @@
                                 onclick="javascript:openTop5Dialog(9, true);" title="Click to show top 5">
                                 <td style="padding-left: 10px">
                                     Marketing
-                                    &nbsp;<i class="fa fa-info-circle" style="font-size: 14px; color: b3b3b3"></i></td>
+                                    <i class="fa fa-info-circle inline-icon" style="font-size: 14px; "></i></td>
                                 <td align="right">$35</td>
                                 <td align="right">$240</td>
                                 <td align="right" class="actualAmount" style="color: var(--state-green);">-$205</td>
@@ -3130,7 +3019,7 @@
                                 title="Click to show top 5">
                                 <td style="padding-left: 10px">
                                     Motor Vehicle
-                                    &nbsp;<i class="fa fa-info-circle" style="font-size: 14px; color: b3b3b3"></i></td>
+                                    <i class="fa fa-info-circle inline-icon" style="font-size: 14px; "></i></td>
                                 <td align="right">$4,662</td>
                                 <td align="right">$6,170</td>
                                 <td align="right" class="actualAmount" style="color: var(--state-green);">-$1,508</td>
@@ -3145,7 +3034,7 @@
                                 onclick="javascript:openTop5Dialog(11, true);" title="Click to show top 5">
                                 <td style="padding-left: 10px">
                                     Occupancy
-                                    &nbsp;<i class="fa fa-info-circle" style="font-size: 14px; color: b3b3b3"></i></td>
+                                    <i class="fa fa-info-circle inline-icon" style="font-size: 14px; "></i></td>
                                 <td align="right">$3,048</td>
                                 <td align="right">$0</td>
                                 <td align="right" class="actualAmount" style="color: var(--state-red);">$3,048</td>
@@ -3169,8 +3058,7 @@
                                             title="Click to view chart"
                                             style="color:#162733; text-decoration: none;">Operating Profit</a></b><a
                                         href="GraphOperatingProfit?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
-                                        title="Click to view chart"><img src="images/bar-chart2.png" width="12px"
-                                            style="opacity: 30%; margin-left: 5px"></a></td>
+                                        title="Click to view chart"><p class="inline-action">View<i class="fa-solid fa-arrow-up-right-from-square inline-icon"></i></p></a></td>
                                 <td align="right" id="OperatingProfitDisplay" style="font-weight:bold;color: var(--state-green);"
                                     title="% of Income 0.99%">$670</td>
                                 <td align="right" style="font-weight:bold;color: var(--state-green);" title="% of Income 18.24%">
@@ -3203,7 +3091,7 @@
                                 style="" title="Click to show top 5">
                                 <td>
                                     Add: Other Income
-                                    &nbsp;<i class="fa fa-info-circle" style="font-size: 14px; color: b3b3b3"></i></td>
+                                    <i class="fa fa-info-circle inline-icon" style="font-size: 14px; "></i></td>
                                 <td align="right">$0</td>
                                 <td align="right">$5,000</td>
                                 <td align="right" class="actualAmount" style="color: var(--state-red);">-$5,000</td>
@@ -3256,14 +3144,13 @@
                             <tr>
                                 <td colspan="1" class="titleRowWithoutLine">
                                     Less: Dep'n &amp; Interest
-                                    &nbsp;
                                     <span id="DepInt_expandPicture"><a href="javascript:expandDepInt();"><i
-                                                class="fa fa-plus-square" title="Click to expand"
-                                                style="font-size: 14px; color: b3b3b3"></i></a></span><span
+                                                class="fa-solid fa-square-plus inline-icon" title="Click to expand"
+                                                style="font-size: 14px; "></i></a></span><span
                                         id="DepInt_collapsePicture" style="display:none;"><a
-                                            href="javascript:collapseDepInt();"><i class="fa fa-minus-square"
+                                            href="javascript:collapseDepInt();"><i class="fa-solid fa-square-minus"
                                                 title="Click to collapse"
-                                                style="font-size: 14px; color: b3b3b3"></i></a></span>
+                                                style="font-size: 14px; "></i></a></span>
                                 </td>
                                 <td align="right">$0</td>
                                 <td align="right">$2,000</td>
@@ -3279,7 +3166,7 @@
                                 onclick="javascript:openTop5Dialog(16, true);" title="Click to show top 5">
                                 <td>
                                     Depreciation
-                                    &nbsp;<i class="fa fa-info-circle" style="font-size: 14px; color: b3b3b3"></i></td>
+                                    &nbsp;<i class="fa fa-info-circle inline-icon" style="font-size: 14px; "></i></td>
                                 <td align="right">$0</td>
                                 <td align="right">$2,000</td>
                                 <td align="right" class="actualAmount" style="color: var(--state-green);">-$2,000</td>
@@ -3294,7 +3181,7 @@
                                 onclick="javascript:openTop5Dialog(17, true);" title="Click to show top 5">
                                 <td>
                                     Interest
-                                    &nbsp;<i class="fa fa-info-circle" style="font-size: 14px; color: b3b3b3"></i></td>
+                                    &nbsp;<i class="fa fa-info-circle inline-icon" style="font-size: 14px; "></i></td>
                                 <td align="right">$0</td>
                                 <td align="right">$0</td>
                                 <td align="right" class="actualAmount" style="">$0</td>
@@ -3318,8 +3205,7 @@
                                             title="Click to view chart"
                                             style="color:#162733; text-decoration: none;">Net Profit</a></b><a
                                         href="GraphNetProfit?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
-                                        title="Click to view chart"><img src="images/bar-chart2.png" width="12px"
-                                            style="opacity: 30%; margin-left: 5px"></a></td>
+                                        title="Click to view chart"><p class="inline-action">View<i class="fa-solid fa-arrow-up-right-from-square inline-icon"></i></p></a></td>
                                 <td align="right" style="font-weight:bold;color: var(--state-green);" title="% of Income 0.99%">$670
                                 </td>
                                 <td align="right" style="font-weight:bold;color: var(--state-green);" title="% of Income 21.24%">
@@ -3345,12 +3231,18 @@
                             <tr>
                                 <td height="20" colspan="5"></td>
                             </tr>
+                            <tr>
+                                <td>*Excludes Inter Group Accounts</td>
+                            </tr>
        
                         </table>
+
+                        
                         <div id="dialog-transactions" style="display:none;" title="Transactions">
                             <table width="100%" id="TransactionsListData"></table>
                         </div>
                     </form>
+      
                     <script>
                         $(function () {
                             $("#dialog-actual-1").dialog({
@@ -5291,3 +5183,4 @@
 </body>
 
 </html>
+

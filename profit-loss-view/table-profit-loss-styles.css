@@ -3,15 +3,19 @@
     --text: #364458;
     --text-light: #5B7395;
     --label-light: #9FAEC6;
+
     --hover: #F2F4F7;
+
     --brand-green: #3EC4AB;
     --green-tint: #E6FAEE;
     --green-shade: #c4f0dc;
     --green-contrast: #07B09D;
     --green-contrast-text: #069382;
+
     --border: #85B0CB30;
     --border-light: #85B0CB20;
     --border-dark: #85B0CB60;
+
     --white: #ffffff;
     --bg-light: #F1F6FC;
     --bg-light-green: #E6FAEE;
@@ -19,6 +23,7 @@
 
     --state-red: rgb(207, 0, 62);
     --state-green: rgb(0, 148, 86);
+    --state-blue: rgb(25, 189, 218);
 
     --radius-sm: 4px;
     --radius-md: 6px;
@@ -28,9 +33,17 @@
     --brand-xero: #1AB4D7;
     --brand-xero-light-bg: #E3F3F7;
 
+    --shadow-sm: 0px 1px 1px rgba(22, 39, 51, 0.10),
+                 0px 1px 2px rgba(22, 39, 51, 0.10),
+                 0px 0px 3px rgba(22, 39, 51, 0.10);
+
+    --shadow-md: 0px 1px 2px rgba(22, 39, 51, 0.10),
+                 0px 1px 3px rgba(22, 39, 51, 0.10),
+                 0px 0px 8px rgba(22, 39, 51, 0.10);
+
     --shadow-lg: 0px 1px 2px rgba(22, 39, 51, 0.10),
                  0px 2px 4px rgba(22, 39, 51, 0.10),
-                 0px 0px 16px rgba(22, 39, 51, 0.10);;
+                 0px 0px 16px rgba(22, 39, 51, 0.10);
 }
         
         
@@ -150,7 +163,62 @@
         tr.hoverRow:hover td
         {
             color: var(--text);
-            padding-block: 6px;
+        }
+
+        td .inline-action
+        {   color: var(--text-light);
+            font-size: 13px;
+            text-decoration: none;
+            display: inline-block;
+            margin-left: 8px;
+            background: var(--white);
+            padding: 3px 6px;
+            border-radius: 4px;
+
+            & .inline-icon:before
+            {
+                font-size: 11px;
+            }
+
+            &:hover
+            {
+                color: var(--green-contrast-text);
+            }
+        }
+
+        tr.hoverRow:hover .inline-action
+       {
+            box-shadow: var(--shadow-sm);
+        }
+
+        td .inline-icon
+        {
+            font-size: 12px;
+            display: inline;
+            cursor: pointer;
+            margin-left: 6px;
+
+            &:hover
+            {
+                opacity: 0.8;
+            }
+        }
+
+        td .inline-icon::before
+        {
+            font-size: 14px;
+            display: inline;
+        }
+
+        td i.inline-icon.fa-info-circle
+        {
+            color: var(--state-blue);
+            opacity: 0;
+        }
+
+        tr.hoverRow:hover i.inline-icon.fa-info-circle
+        {
+            opacity: 1;
         }
 
         .colHeader
@@ -168,7 +236,7 @@
 
         .colHeader.colActual
         {
-            background-color: ;
+            
         }
 
         .colHeader.colYtd
@@ -203,10 +271,7 @@
 
         a {
             color: #319C84;
-        }
-
-        a:hover {
-            color: #85decd;
+            text-decoration: none;
         }
 
         .button {
