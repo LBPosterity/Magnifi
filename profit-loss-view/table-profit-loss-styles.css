@@ -146,6 +146,7 @@
         table {
             font-size: 14px;
             border-collapse: collapse;
+            border-collapse: separate
         }
 
         tr, td
@@ -236,7 +237,8 @@
 
         .colHeader.colActual
         {
-            
+            border: 1px solid var(--brand-green);
+            border-bottom-width: 0px;
         }
 
         .colHeader.colYtd
@@ -418,9 +420,8 @@
         th {
             color: #162733;
             font-weight: bold;
-            border-bottom: solid 0px;
-            border-color: #E7F0FA;
-            text-transform: uppercase;
+            text-transform: uppercase !important;
+            padding-block: 6px;
         }
 
         select optgroup {
@@ -465,7 +466,7 @@
 
         tr.primaryColourBackground:hover
         {
-            outline-color: var(--brand-green);
+            outline-color: var(--green-contrast);
         }
 
         tr.primaryColourBackground:hover td {
