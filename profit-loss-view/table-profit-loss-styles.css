@@ -227,7 +227,9 @@
             padding: 16px 8px;
             outline: 0px solid white;
             outline-width: 1px 1px 0px 1px;
-            border-radius: 4px 4px 0px 0px;
+            border-radius: 8px 8px 0px 0px;
+            border: 1px solid var(--brand-green);
+            border-width: 0px 0px 1px 0px;
             background-color: var(--green-tint) !important;
             font-size: 16px !important;
             color: var(--green-contrast-text);
@@ -237,13 +239,14 @@
 
         .colHeader.colActual
         {
-            border: 1px solid var(--brand-green);
-            border-bottom-width: 0px;
+            border-right-width: 1px;
+            border-right-color: var(--white);
         }
 
         .colHeader.colYtd
         {
-            
+            border-left-width: 1px;
+            border-left-color: var(--white);
         }
 
         .primaryColour {
