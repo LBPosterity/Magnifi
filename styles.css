@@ -569,16 +569,49 @@ h1, h2, h3, h4, h5, h6
     }
 }
 
-.select
+/* Dropdowns/Select ----------------------------------------  */
+
+select, select
 {
+    appearance: base-select;
+    align-items: center;
+    background: white;
+    border: 1px solid transparent;
     padding: 4px 12px;
     min-height: 32px; 
     border-radius: 4px;
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.10),
                 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
+    position: relative;
 }
 
-.select.active
+select::picker-icon
+{
+    color: var(--green-contrast);
+    font-family: "Font Awesome 7 Free";
+    font-weight: 900;
+        content: "\f078";
+}
+
+select::picker(select)
+{
+    appearance: base-select;
+    max-height: 24rem;
+    border: 1px solid transparent;
+    padding: 12px 0px;
+    background: var(--white);
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.06),
+                0px 0px 4px 0px rgba(0, 0, 0, 0.06),
+                0px 4px 12px 0px rgba(0, 0, 0, 0.06);
+}
+
+select option::checkmark
+{
+    display: none;
+}
+
+
+option:active, option:checked, .select.active
 {
 
     & .feather-chevron-down
@@ -612,7 +645,7 @@ h1, h2, h3, h4, h5, h6
     }
 
 
-.menuItem
+option, .menuItem
 {
     display: flex;
     justify-content: flex-start;
@@ -624,7 +657,7 @@ h1, h2, h3, h4, h5, h6
     cursor: pointer;
     accent-color: var(--brand-green);
 
-    &:hover
+    &:hover, option:hover
     {
         background: var(--hover);
     }
@@ -636,16 +669,19 @@ h1, h2, h3, h4, h5, h6
     }
 }
 
-    .menuItem.active
+    .menuItem.active, option:active, option:checked
     {
         background: var(--bg-light-green);
     }
 
 
-    .menuItem.active:hover
+    .menuItem.active:hover, option:active:hover, option:checked:hover
     {
         background: var(--bg-light-green-hover);
     }
+    
+
+
 
 .menuButton
 {
