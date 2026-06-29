@@ -1855,3 +1855,67 @@
             }
         }
     </style>
+
+    <style>
+        /* New section: migrated inline styles from index-ytd.html (table section, class-based only) */
+        #header0 {
+            width: 300px;
+            border-bottom: 1px solid #E7F0FA;
+        }
+
+        #header3,
+        #header4,
+        #header7,
+        #header8 {
+            width: 100px;
+            text-transform: none;
+            border-bottom: 1px solid #E7F0FA;
+        }
+
+        .new-actual-red {
+            color: var(--state-red);
+        }
+
+        .new-actual-green {
+            color: var(--state-green);
+        }
+
+        .new-actual-bold {
+            font-weight: bold;
+        }
+
+        .new-detail-row-collapsed {
+            display: none;
+            font-size: 14px;
+        }
+
+        .new-header-th-150 {
+            width: 150px;
+            text-transform: none;
+            border-bottom: 1px solid #E7F0FA;
+        }
+
+        .new-column2-display {
+            text-align: right;
+            font-weight: bold;
+            width: 130px;
+            font-size: 15px !important;
+        }
+
+        .new-link-title {
+            color: #162733;
+            text-decoration: none;
+        }
+
+        .new-hidden {
+            display: none;
+        }
+
+        .new-td-indent {
+            padding-left: 10px;
+        }
+
+        .new-td-heading18 {
+            font-size: 18px;
+        }
+    </style>
