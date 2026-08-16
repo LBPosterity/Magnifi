@@ -28,7 +28,34 @@
 
     --shadow-lg: 0px 1px 2px rgba(22, 39, 51, 0.10),
                  0px 2px 4px rgba(22, 39, 51, 0.10),
-                 0px 0px 16px rgba(22, 39, 51, 0.10);;
+                 0px 0px 16px rgba(22, 39, 51, 0.10);
+    --size-0-5: 0.25rem;
+    --size-1: 0.5rem;
+    --size-2: 1rem;
+    --size-3: 1.5rem;
+    --size-4: 2rem;
+    --size-5: 2.5rem;
+    --size-6: 3rem;
+    --size-7: 3.5rem;
+    --size-8: 4rem;
+    --size-9: 4.5rem;
+    --size-10: 5rem;
+    --size-11: 5.5rem;
+    --size-12: 6rem;
+    --size-13: 6.5rem;
+    --size-14: 7rem;
+    --size-15: 7.5rem;
+    --size-16: 8rem;
+    --size-17: 8.5rem;
+    --size-18: 9rem;
+    --size-19: 9.5rem;
+    --size-20: 10rem;
+    --size-21: 10.5rem;
+    --size-22: 11rem;
+    --size-23: 11.5rem;
+    --size-24: 12rem;
+    --size-25: 12.5rem;
+    
 }
 
 * 
@@ -202,6 +229,19 @@ h1, h2, h3, h4, h5, h6
     {
         background: #e6faee;
         border-color: #e6faee;
+    }
+}
+
+.btn.text
+{
+    color: var(--green-contrast);
+    background: transparent;
+    border-color: transparent;
+
+    &:hover
+    {
+        color: var(--green-contrast-text);
+        background: var(--bg-light-green);
     }
 }
 
