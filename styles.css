@@ -29,6 +29,7 @@
     --shadow-lg: 0px 1px 2px rgba(22, 39, 51, 0.10),
                  0px 2px 4px rgba(22, 39, 51, 0.10),
                  0px 0px 16px rgba(22, 39, 51, 0.10);
+    --size-0-25: 0.12rem;
     --size-0-5: 0.25rem;
     --size-1: 0.5rem;
     --size-2: 1rem;
@@ -55,6 +56,32 @@
     --size-23: 11.5rem;
     --size-24: 12rem;
     --size-25: 12.5rem;
+    --size-26: 13rem;
+    --size-27: 13.5rem;
+    --size-28: 14rem;
+    --size-29: 14.5rem;
+    --size-30: 15rem;
+    --size-31: 15.5rem;
+    --size-32: 16rem;
+    --size-33: 16.5rem;
+    --size-34: 17rem;
+    --size-35: 17.5rem;
+    --size-36: 18rem;
+    --size-37: 18.5rem;
+    --size-38: 19rem;
+    --size-39: 19.5rem;
+    --size-40: 20rem;
+    --size-41: 20.5rem;
+    --size-42: 21rem;
+    --size-43: 21.5rem;
+    --size-44: 22rem;
+    --size-45: 22.5rem;
+    --size-46: 23rem;
+    --size-47: 23.5rem;
+    --size-48: 24rem;
+    --size-49: 24.5rem;
+    --size-50: 25rem;
+    
     
 }
 
@@ -187,9 +214,10 @@ h1, h2, h3, h4, h5, h6
     border-color: transparent;
     color: var(--white);
 
-    i
+    i, svg
     {
         color: currentColor;
+        stroke: currentColor;
     }
 
     &:hover
@@ -237,6 +265,7 @@ h1, h2, h3, h4, h5, h6
     color: var(--green-contrast);
     background: transparent;
     border-color: transparent;
+    padding: 4px 8px;
 
     &:hover
     {
