@@ -10,6 +10,12 @@
     --green-tint: #E6FAEE;
     --green-contrast: #07B09D;
     --green-contrast-text: #069382;
+
+    --purple: #7A2FF2;
+    --purple-dark: #5d1ebc;
+
+    --ai-btn-gradient: linear-gradient(0deg, var(--purple-dark) 20%, var(--purple) 100%);
+
     --border: #85B0CB30;
     --border-light: #85B0CB20;
     --border-dark: #85B0CB60;
@@ -105,6 +111,7 @@ p
 {
     margin-block-start: 0;
     margin-block-end: 0;
+    line-height: 1.4;
 }
 
 p.small
@@ -186,6 +193,7 @@ h1, h2, h3, h4, h5, h6
     border: 2px solid transparent;
     background: transparent;
     cursor: pointer;
+    transition: all 0.3s ease;
 
     & svg
     {
@@ -198,6 +206,7 @@ h1, h2, h3, h4, h5, h6
     &.small
     {
         min-height: 32px;
+        padding: 4px 8px;
     }
 
     &.large
@@ -252,6 +261,7 @@ h1, h2, h3, h4, h5, h6
 {
     background: transparent;
     border-color: transparent;
+    mix-blend-mode: multiply;
 
     &:hover
     {
@@ -273,6 +283,24 @@ h1, h2, h3, h4, h5, h6
         background: var(--bg-light-green);
     }
 }
+
+    .btn.ai 
+    {
+        background: var(--ai-btn-gradient);
+        background-position: 100% 50%;
+        background-size: 100% 150%;
+        border-color: transparent;
+        color: var(--white);
+
+        & i, & svg {
+            color: currentColor;
+            stroke: currentColor;
+        }
+
+        &:hover {
+            background-position: 100% 100%;
+        }
+    }
 
 
 /* dual Button ------------------------------------------------ */

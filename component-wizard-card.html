@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<head>
+
+  <title></title>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<meta charset="UTF-8">
+
+</head>
+
+<html lang="en">
+
+
+<style>
+    @import url("styles.css");
+
+    html
+    {
+        margin: 4rem;
+    }
+
+    body
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 1200px;
+    }
+
+    .wizard-card {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-2);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border);
+        padding: var(--size-3) var(--size-4);
+        background: linear-gradient(120deg, var(--bg-light-green) 0%, var(--bg-light) 100%);
+    }
+
+    .wizard-body {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: stretch;
+        gap: var(--size-4);
+    }
+
+    .wizard-left {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-2);
+        flex-grow: 1;
+    }
+
+    .wizard-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: var(--size-2);
+        flex-shrink: 0;
+    }
+
+    .wizard-heading {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-0-5);
+    }
+
+    .wizard-section-title {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: var(--text-light);
+    }
+
+    .wizard-heading h2 {
+        font-size: 24px;
+        line-height: 1.2;
+    }
+
+    .wizard-step-nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--size-2);
+        flex-shrink: 0;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 0 var(--size-2) 0 0;
+    }
+
+    .wizard-step-nav .step-count {
+        color: var(--text-light);
+    }
+
+    .wizard-description {
+        color: var(--text-light);
+        max-width: 70ch;
+    }
+
+    .wizard-actions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--size-1);
+        margin-top: var(--size-1);
+    }
+
+    .wizard-nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--size-1);
+    }
+
+
+
+</style>
+
+<body>
+
+<div class="wizard-card">
+    <div class="wizard-body">
+        <div class="wizard-left">
+            <div class="wizard-heading">
+                <p class="wizard-section-title small">Profit and Loss Projections</p>
+                <h2>Import Chart of Accounts</h2>
+            </div>
+
+            <p class="wizard-description">Import your accounts from Xero or a CSV file so Magnifi can map them to categories and build accurate projections. Green accounts are matched with high confidence — orange ones need your review before they're finalised.</p>
+
+            <div class="wizard-actions">
+                <button class="btn ai"><i data-feather="message-square"></i>AI Assistant</button>
+                <button class="btn clear">Learn More <i data-feather="external-link"></i></button>
+            </div>
+        </div>
+
+        <div class="wizard-right">
+            <div class="wizard-step-nav">
+                <button class="btn small clear"><i data-feather="chevron-left"></i>Account Setup</button>
+                <span class="step-count small">1 of 5 Steps</span>
+            </div>
+
+            <div class="wizard-nav">
+                <button class="btn tertiary">Back</button>
+                <button class="btn primary">Next <i data-feather="chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    feather.replace();
+</script>
+
+</body>
+
+</html>
