@@ -49,7 +49,7 @@
         width: fit-content ;
         background: var(--bg-light);
         border-radius: 4px;
-        padding: 4px 12px;
+        padding: 4px;
         min-height: 40px;
         max-height: 40px;
 
@@ -132,10 +132,66 @@
         background: var(--border-dark);
     }
 
+    #dropdown-filters-btn
+    {
+        position: relative;
+    }
+
+    #dropdown-filters-btn .dropdown-wrapper
+    {
+        left: auto;
+        right: 0;
+    }
+
+    #last-actual-value
+    {
+        font-weight: bold;
+    }
+
+    #dropdown-filters-btn .fa-xmark
+    {
+        opacity: 0.5;
+    }
+
+    .custom-filter-wrapper
+    {
+        display: none;
+    }
 
 </style>
 
 <body>
+
+    <h3>Toolbar Filters<br><br></h3>
+
+    <div class="control-wrapper">
+        <div>
+            <div class="wrapper-dual-btn">
+                
+                <button id="la-btn" class="btn small primary">Last Actual<span id="last-actual-value">Apr 2026</span></button>
+                <button id="ytd-btn" class="btn small tertiary">Year To Date</button>
+                
+                    <button id="dropdown-filters-btn" class="btn small tertiary btn-dropdown"><i class="fa-solid fa-angle-down"></i></button>
+                    <div class="dropdown-wrapper align-right">
+                        <div id="menu-last-month" class="menuItem">Last Month</div>
+                        <div id="menu-this-month" class="menuItem">This Month</div>
+                        <div id="menu-custom" class="menuItem">Custom Range</div>
+                    </div>
+                
+            </div>
+        </div>
+            <div class="custom-filter-wrapper">
+                <div class="dual-select">
+                    <input type="month" id="start-month" name="start-month" value="2025-09">
+                    <input type="month" id="end-month" name="end-month" value="2026-09">
+                    <div class="center-arrow"><i data-feather="arrow-right"></i></div>
+                </div>
+            </div>
+    </div>
+
+
+
+    <h3><br><br>Division Switch</h3>
 
 <div class="placeholder-header">
 
@@ -341,6 +397,29 @@ $(document).on('click', function() {
 
 <script>
 $(document).on('click', '.btn-dropdown', function(e) {
+    // If the button has an xmark icon, clicking it clears the selection
+    if ($(this).find('.fa-xmark').length > 0) {
+        e.stopPropagation();
+        
+        // Restore YTD and LA buttons if they were removed
+        if (!$('#ytd-btn').length || !$('#la-btn').length) {
+            $('#ytd-btn, #la-btn').remove(); // avoid duplicates
+            $('#dropdown-filters-btn').before('<button id="ytd-btn" class="btn small tertiary">Year To Date</button><button id="la-btn" class="btn small primary">Last Actual<span id="last-actual-value">Apr 2026</span></button>');
+        } else {
+            $('#ytd-btn').removeClass('primary').addClass('tertiary');
+            $('#la-btn').removeClass('tertiary').addClass('primary');
+        }
+        
+        // Reset dropdown filter button icon and classes
+        $('#dropdown-filters-btn')
+            .html('<i class="fa-solid fa-angle-down"></i>')
+            .removeClass('primary active')
+            .addClass('tertiary');
+            
+        $(this).siblings('.dropdown-wrapper').removeClass('active');
+        return;
+    }
+
     e.stopPropagation();
     // Close all other dropdowns (use siblings, not descendants)
     $('.btn-dropdown').not(this).removeClass('active').siblings('.dropdown-wrapper').removeClass('active');
@@ -353,6 +432,47 @@ $(document).on('click', '.btn-dropdown', function(e) {
 $(document).on('click', function() {
     $('.btn-dropdown').removeClass('active');
     $('.dropdown-wrapper').removeClass('active');
+});
+
+// Toolbar buttons selection handler (YTD & LA standalone buttons)
+$(document).on('click', '#ytd-btn, #la-btn', function() {
+    $('#ytd-btn, #la-btn').removeClass('primary').addClass('tertiary');
+    $(this).removeClass('tertiary').addClass('primary');
+    
+    // Reset dropdown filter button to default (no text label) and set to tertiary
+    $('#dropdown-filters-btn')
+        .html('<i class="fa-solid fa-angle-down"></i>')
+        .removeClass('primary')
+        .addClass('tertiary');
+
+    $('.custom-filter-wrapper').hide();
+});
+
+// Toolbar filters dropdown menu item selection handler
+$(document).on('click', '#dropdown-filters-btn ~ .dropdown-wrapper .menuItem', function(e) {
+    e.stopPropagation();
+    var selectedText = $(this).text().trim();
+    var itemId = $(this).attr('id');
+    
+    // Remove YTD and LA buttons for Last Month, This Month, Custom Range
+    $('#ytd-btn, #la-btn').remove();
+    
+    // Update dropdown filters button text with xmark icon and set to primary
+    $('#dropdown-filters-btn')
+        .html(selectedText + ' <i class="fa-solid fa-xmark"></i>')
+        .removeClass('tertiary')
+        .addClass('primary');
+    
+    // Show custom filter wrapper only when #menu-custom is selected
+    if (itemId === 'menu-custom') {
+        $('.custom-filter-wrapper').show();
+    } else {
+        $('.custom-filter-wrapper').hide();
+    }
+    
+    // Close the dropdown
+    $('#dropdown-filters-btn').removeClass('active');
+    $(this).closest('.dropdown-wrapper').removeClass('active');
 });
 </script>
 

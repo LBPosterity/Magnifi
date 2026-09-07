@@ -9,7 +9,7 @@
     --brand-green: #3EC4AB;
     --green-tint: #E6FAEE;
     --green-contrast: #07B09D;
-    --green-contrast-text: #069382;
+    --green-contrast-text: #00998f;
 
     --purple: #7A2FF2;
     --purple-dark: #5d1ebc;
@@ -249,11 +249,11 @@ h1, h2, h3, h4, h5, h6
 
 .btn.tertiary
 {
-    border: 2px solid var(--brand-green);
+    border: 1px solid var(--brand-green);
 
-    & :hover
+    &:hover
     {
-        background: var(--green-contrast);
+        background: var(--bg-light-green);
     }
 }
 
@@ -315,17 +315,31 @@ h1, h2, h3, h4, h5, h6
     position: relative;
 }
 
+.wrapper-dual-btn .btn:not(:first-of-type):not(:last-of-type)
+{
+    border-radius: 0px;
+    border-right-width: 0;
+    border-left-width: 0;
+}
+
 .wrapper-dual-btn .btn:first-of-type
     {
         border-radius: 4px 0px 0px 4px;
-        border-right: none;
+        border-right-width: 0;
+        border-left-width: 1px;
     }
 
 .wrapper-dual-btn .btn:last-of-type
     {
-        border-radius: 0px 4px 4px 0px !important;
-        border-left: none;
+        border-radius: 0px 4px 4px 0px;
+        border-left-width: 0;
+        border-right-width: 1px;
         min-width: 38px;
+    }
+
+.wrapper-dual-btn .btn:only-of-type
+    {
+        border-radius: 4px;
     }
 
 .wrapper-dual-btn .dropdown-wrapper
@@ -605,7 +619,7 @@ h1, h2, h3, h4, h5, h6
 
 /* Toolbar ----------------------------------------  */
 
-.input
+input, .input
 {
     display: inline-flex;
     flex-direction: row;
@@ -747,6 +761,12 @@ option:active, option:checked, .select.active
         left: 0 !important;
     }
 
+        .dropdown-wrapper.align-right
+    {
+        right: 0 !important;
+        left: auto;
+    }
+
 
 option, .menuItem
 {
@@ -802,7 +822,8 @@ option, .menuItem
 }
 
 
-.division-wrapper
+.division-wrapper,
+.dual-select
 {
     position: relative;
     width: fit-content ;
@@ -810,7 +831,7 @@ option, .menuItem
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    gap: 0px;
+    gap: 4px;
 
     & .center-arrow
     {
