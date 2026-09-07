@@ -38,6 +38,15 @@
         border-radius: 0px 0px 8px 8px;
     }
 
+    .toolbar-wrapper
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+    }
+
 
     .control-wrapper
     {
@@ -48,19 +57,27 @@
         gap: 12px;
         width: fit-content ;
         background: var(--bg-light);
-        border-radius: 4px;
+        border-radius: 6px;
+        outline: 1px solid transparent;
+        outline-offset: 0px;
+        outline-width: 2px;
         padding: 4px;
         min-height: 40px;
         max-height: 40px;
+
+        &:hover
+        {
+            outline-color: var(--border);
+        }
 
         &.active
         {
             background: var(--bg-light-green);
         }
-
-        & .stat-line
+        
+        & label
         {
-            padding-inline: 6px;
+            padding-inline: 8px 4px;
         }
     }
 
@@ -164,6 +181,8 @@
 
     <h3>Toolbar Filters<br><br></h3>
 
+    <div class="toolbar-wrapper">
+
     <div class="control-wrapper">
         <div>
             <div class="wrapper-dual-btn">
@@ -181,12 +200,24 @@
             </div>
         </div>
             <div class="custom-filter-wrapper">
+                
                 <div class="dual-select">
                     <input type="month" id="start-month" name="start-month" value="2025-09">
                     <input type="month" id="end-month" name="end-month" value="2026-09">
                     <div class="center-arrow"><i data-feather="arrow-right"></i></div>
                 </div>
             </div>
+    </div>
+
+        <div class="control-wrapper">
+            <label>Compare</label>
+            <div class="wrapper-dual-btn">
+                <button class="btn small primary">Budget</button>
+                <button class="btn small tertiary">Last Year</button>
+            </div>
+    
+
+        </div>
     </div>
 
 
@@ -259,7 +290,7 @@
 
     <div>
         <div class="wrapper-dual-btn">
-            <button class="btn small primary"><i class="fa-regular fa-circle-check"></i> Monthly</button>
+            <button class="btn small primary">Monthly</button>
             <button class="btn small tertiary">Constant</button>
         </div>
     </div>
@@ -271,6 +302,7 @@
     <div class="stat-line">
         <div><p><label>Overtime</label> 10.00% from <a href="#">Labour Drivers</a></p></div>
     </div>
+    <div style="width:1px;"></div>
     
 </div>
 
@@ -290,7 +322,7 @@
     <div>
         <div class="wrapper-dual-btn">
             <button class="btn small tertiary">Monthly</button>
-            <button class="btn small primary"><i class="fa-regular fa-circle-check"></i> Constant</button>
+            <button class="btn small primary">Constant</button>
         </div>
     </div>
 
@@ -434,11 +466,15 @@ $(document).on('click', function() {
     $('.dropdown-wrapper').removeClass('active');
 });
 
-// Toolbar buttons selection handler (YTD & LA standalone buttons)
-$(document).on('click', '#ytd-btn, #la-btn', function() {
-    $('#ytd-btn, #la-btn').removeClass('primary').addClass('tertiary');
+// Generic wrapper-dual-btn toggle logic for direct button children (excluding dropdown buttons unless targeted specifically)
+$(document).on('click', '.wrapper-dual-btn > .btn:not(.btn-dropdown)', function() {
+    var $wrapper = $(this).closest('.wrapper-dual-btn');
+    $wrapper.children('.btn').removeClass('primary').addClass('tertiary');
     $(this).removeClass('tertiary').addClass('primary');
-    
+});
+
+// Toolbar buttons selection handler (YTD & LA standalone buttons specific behavior)
+$(document).on('click', '#ytd-btn, #la-btn', function() {
     // Reset dropdown filter button to default (no text label) and set to tertiary
     $('#dropdown-filters-btn')
         .html('<i class="fa-solid fa-angle-down"></i>')
