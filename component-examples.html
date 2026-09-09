@@ -165,12 +165,22 @@
         font-weight: bold;
     }
 
+    #la-btn:not(.primary) #last-actual-value
+    {
+        display: none;
+    }
+
     #dropdown-filters-btn .fa-xmark
     {
         opacity: 0.5;
     }
 
     .custom-filter-wrapper
+    {
+        display: none;
+    }
+
+    .ytd-filter-wrapper
     {
         display: none;
     }
@@ -206,6 +216,11 @@
                     <input type="month" id="end-month" name="end-month" value="2026-09">
                     <div class="center-arrow"><i data-feather="arrow-right"></i></div>
                 </div>
+            </div>
+            <div class="ytd-filter-wrapper">
+                <label>From</label>
+                    <input type="month" id="start-month" name="start-month" value="2025-09">
+             
             </div>
     </div>
 
@@ -436,7 +451,7 @@ $(document).on('click', '.btn-dropdown', function(e) {
         // Restore YTD and LA buttons if they were removed
         if (!$('#ytd-btn').length || !$('#la-btn').length) {
             $('#ytd-btn, #la-btn').remove(); // avoid duplicates
-            $('#dropdown-filters-btn').before('<button id="ytd-btn" class="btn small tertiary">Year To Date</button><button id="la-btn" class="btn small primary">Last Actual<span id="last-actual-value">Apr 2026</span></button>');
+            $('#dropdown-filters-btn').before('<button id="la-btn" class="btn small primary">Last Actual<span id="last-actual-value">Apr 2026</span></button><button id="ytd-btn" class="btn small tertiary">Year To Date</button>');
         } else {
             $('#ytd-btn').removeClass('primary').addClass('tertiary');
             $('#la-btn').removeClass('tertiary').addClass('primary');
@@ -482,6 +497,9 @@ $(document).on('click', '#ytd-btn, #la-btn', function() {
         .addClass('tertiary');
 
     $('.custom-filter-wrapper').hide();
+
+    // Show the YTD filter only when the Year To Date button is selected
+    $('.ytd-filter-wrapper').toggle($('#ytd-btn').hasClass('primary'));
 });
 
 // Toolbar filters dropdown menu item selection handler
@@ -505,6 +523,9 @@ $(document).on('click', '#dropdown-filters-btn ~ .dropdown-wrapper .menuItem', f
     } else {
         $('.custom-filter-wrapper').hide();
     }
+
+    // Hide the YTD filter since the Year To Date button is no longer selected
+    $('.ytd-filter-wrapper').hide();
     
     // Close the dropdown
     $('#dropdown-filters-btn').removeClass('active');
