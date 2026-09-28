@@ -1,0 +1,130 @@
+:root {
+    --green: #12BE7A;
+    /* vibrant primary */
+    --green-bright: #37DFA1;
+    /* glow / highlight */
+    --green-deep: #0E9A62;
+    --teal-deep: #344150;
+    --navy: #344150;
+    /* heading colour */
+    --teal: #45576A;
+    --ink: #2C3744;
+    --near-black: #1E2733;
+    --navy-deep: #1E2733;
+    /* dark sections/footer */
+    --slate: #5C6979;
+    --paper: #FFFFFF;
+    --paper-soft: #F4F7F9;
+    --paper-tint: #EAF2EF;
+    --line: #DBE2E8;
+    --mint: #6FC0B0;
+    --mint-soft: #A6D7CD;
+    --amber: #E8A33D;
+    --shadow: 0 24px 60px -26px rgba(35, 45, 58, .38);
+    --shadow-sm: 0 10px 26px -14px rgba(35, 45, 58, .32);
+    --glow: 0 0 60px -8px rgba(59, 224, 162, .65);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+}
+
+html {
+    scroll-behavior: smooth
+}
+
+body {
+    font-family: 'Hanken Grotesk', sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    line-height: 1.04;
+    letter-spacing: -.012em
+}
+
+.wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px
+}
+
+.eyebrow {
+    font-size: .74rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--green-deep);
+    margin-bottom: 18px
+}
+
+a {
+    color: inherit;
+    text-decoration: none
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5em;
+    font-weight: 700;
+    font-size: .98rem;
+    padding: .88em 1.6em;
+    border-radius: 10px;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s;
+    cursor: pointer;
+    border: 1.5px solid transparent
+}
+
+.btn-primary {
+    background: var(--green);
+    color: #fff;
+    box-shadow: 0 12px 26px -10px rgba(20, 192, 124, .6)
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    background: var(--green-deep);
+    box-shadow: 0 18px 34px -12px rgba(20, 192, 124, .7)
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--navy);
+    border-color: var(--line)
+}
+
+.btn-ghost:hover {
+    border-color: var(--green);
+    background: var(--paper-soft)
+}
+
+.btn-onDark {
+    background: var(--green);
+    color: #fff
+}
+
+.btn-onDark:hover {
+    transform: translateY(-2px);
+    background: var(--green-bright)
+}
+
+.btn-ghostDark {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255, 255, 255, .3)
+}
+
+.btn-ghostDark:hover {
+    border-color: var(--green-bright);
+    color: var(--green-bright)
+}
