@@ -1,0 +1,57 @@
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="component-styles.css">
+</head>
+<body>
+
+<div class="nav-sticky">
+<header class="nav">
+  <div class="wrap nav-inner" style="display:flex;align-items:center;gap:0">
+    <a href="/" style="display:flex;align-items:center;margin-right:32px;flex-shrink:0;text-decoration:none">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" style="height:30px;width:auto">
+        <text x="0" y="29" font-family="Georgia,serif" font-size="26" font-weight="700" fill="#344150">magnifi</text>
+        <circle cx="192" cy="18" r="7" fill="#6FC0B0"/>
+      </svg>
+    </a>
+    <nav style="display:flex;align-items:stretch;flex:1;height:72px">
+      <div class="nav-link-item"><a class="nav-link-btn" href="#">Home</a></div>
+      <div class="nav-link-item">
+        <button class="nav-link-btn current" id="feat-btn" onclick="toggleNav('feat')">Features
+          <svg class="nav-chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="nav-link-item"><a class="nav-link-btn" href="#">For Business</a></div>
+      <div class="nav-link-item"><a class="nav-link-btn" href="#">For Advisors</a></div>
+      <div class="nav-link-item"><a class="nav-link-btn" href="#">Pricing</a></div>
+      <div class="nav-link-item res-item-wrap">
+        <button class="nav-link-btn" id="res-btn" onclick="toggleNav('res')">Resources
+          <svg class="nav-chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="res-dropdown" id="res-menu">
+          <a class="res-link" href="#"><svg class="res-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Blog</a>
+          <a class="res-link" href="#"><svg class="res-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Help Centre</a>
+          <a class="res-link" href="#"><svg class="res-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.27 9.81 19.79 19.79 0 011.21 3.18 2 2 0 013.2 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>Contact Us</a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="#">See how it works</a>
+      <a class="btn btn-primary" href="#">Start Free</a>
+    </div>
+  </div>
+  <!-- Features mega menu -->
+  <div class="mega-menu" id="feat-menu">
+    <div class="mega-inner">
+      <a class="mega-cap" href="#">
+        <div class="mega-cap-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>The differentiator</div>
+        <div class="mega-cap-name">Capacity Planning</div>
+        <div class="mega-cap-desc">Forecast your team's income-earning potential and see the surplus or shortfall before it hits your bottom line.</div>
+        <span class="mega-cap-link">Learn more →</span>
+      </a>
+      <div>
+        <div class="mega-grid">
+          <a class="mega-item" href="#"><div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12BE7A" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div><div class="mega-item-name">4-Way Forecasting</div><div class="mega-item-desc">P&amp;L, cashflow, balance sheet and capacity — all connected.</div></a>
+          <a class="mega-item" href="#"><div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12BE7A" stroke-width="2" stroke-linecap="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div><div class="mega-item-name">Profit to Cash</div><div class="mega-item-desc">Bridge the gap between profit and your bank balance.</div></a>
+          <a class="mega-item" href="#"><div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12BE7A" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="mega-item-name">Rolling Cashflow</div><div class="mega-item-desc">Re-forecasts automatically as Xero actuals come in.</div></a>
+          <a class="mega-item" href="#"><div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12BE7A" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div class="mega-item-name">Dashboards</div><div class="mega-item-desc">Key numbers on one screen. Share live — no login needed.</div></a>
+          <a class="mega-item" href="#"><div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12BE7A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div><div class="mega-item-name">What-if &amp; Playground</div><div class="mega-item-desc">Model any change without touching your live forecast.</div></a>

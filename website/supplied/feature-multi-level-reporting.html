@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Level Reporting – Magnifi | Group, Entity, Division & Segment</title>
+<meta name="description" content="Magnifi lets you report at every level of your business — group, entity, division and segment — from a single connected forecast. Drill from consolidated to granular in seconds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#344150;--navy-deep:#1E2733;--ink:#2C3744;
+  --green:#12BE7A;--green-bright:#37DFA1;--green-deep:#0E9A62;
+  --mint:#6FC0B0;--mint-soft:#A6D7CD;--slate:#5C6979;
+  --line:#DBE2E8;--paper:#FFFFFF;--paper-soft:#F4F7F9;--paper-tint:#EAF2EF;
+  --amber:#E8A33D;
+  --radius:10px;
+  --shadow-sm:0 1px 4px rgba(52,65,80,.08);
+  --shadow-md:0 4px 20px rgba(52,65,80,.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Hanken Grotesk',sans-serif;font-size:16px;line-height:1.6;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:'Fraunces',serif;color:var(--navy);line-height:1.2;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+.container{max-width:1140px;margin:0 auto;padding:0 32px;}
+.container-wide{max-width:1240px;margin:0 auto;padding:0 32px;}
+.container-narrow{max-width:800px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;background:var(--paper);border-bottom:1px solid var(--line);height:72px;display:flex;align-items:center;transition:box-shadow .2s;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1140px;margin:0 auto;padding:0 32px;}
+.nav-links{display:flex;align-items:center;gap:26px;list-style:none;font-size:14px;font-weight:500;color:var(--navy);}
+.nav-links a:hover{color:var(--green-deep);}
+.nav-links .active{color:var(--green-deep);border-bottom:2px solid var(--green);padding-bottom:2px;}
+.nav-ctas{display:flex;align-items:center;gap:10px;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;border-radius:6px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;border:none;}
+.btn-primary{background:var(--green);color:#fff;}
+.btn-primary:hover{background:var(--green-deep);}
+.btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--navy);}
+.btn-ghost:hover{border-color:var(--navy);}
+.btn-lg{padding:14px 32px;font-size:15px;border-radius:8px;}
+.btn-outline-lg{padding:13px 32px;font-size:15px;border-radius:8px;background:transparent;border:1.5px solid var(--line);color:var(--navy);display:inline-flex;align-items:center;}
+.btn-outline-lg:hover{border-color:var(--navy);}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;padding:4px;}
+.nav-hamburger span{display:block;height:2px;background:var(--navy);border-radius:2px;transition:all .25s;}
+.nav-mobile{display:none;position:fixed;top:72px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);z-index:199;padding:16px 24px 24px;flex-direction:column;gap:0;box-shadow:0 8px 24px rgba(52,65,80,.12);}
+.nav-mobile.open{display:flex;}
+.nav-mobile a{display:block;padding:12px 0;font-size:15px;font-weight:500;color:var(--navy);border-bottom:1px solid var(--line);}
+.nav-mobile a:last-child{border-bottom:none;}
+.mob-cta{margin-top:16px;display:flex;flex-direction:column;gap:10px;}
+.mob-cta a{text-align:center;border-radius:8px;padding:13px;font-weight:600;border-bottom:none !important;}
+.mob-start{background:var(--green);color:#fff !important;}
+.mob-ghost{border:1.5px solid var(--line);color:var(--navy) !important;}
+
+/* BREADCRUMB */
+.breadcrumb{background:var(--paper-soft);border-bottom:1px solid var(--line);padding:10px 0;font-size:13px;color:var(--slate);}
+.breadcrumb a{color:var(--slate);}
+.breadcrumb a:hover{color:var(--green-deep);}
+.breadcrumb span{margin:0 6px;}
+.breadcrumb .current{color:var(--navy);font-weight:500;}
+
+/* HERO */
+.hero{background:var(--paper);padding:72px 0 64px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:600px;height:600px;background:radial-gradient(ellipse at 70% 30%,rgba(18,190,122,.10) 0%,transparent 65%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--paper-tint);border:1px solid var(--mint-soft);color:var(--green-deep);font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;margin-bottom:20px;text-transform:uppercase;letter-spacing:.05em;}
+.hero h1{font-size:clamp(30px,4.5vw,52px);font-weight:600;color:var(--navy);max-width:680px;margin-bottom:20px;}
+.hero-lead{font-size:18px;color:var(--slate);max-width:580px;margin-bottom:20px;line-height:1.65;}
+.hero-declarative{font-size:14px;color:var(--slate);margin-bottom:32px;padding:12px 16px;border-left:3px solid var(--mint);background:var(--paper-soft);border-radius:0 6px 6px 0;max-width:620px;line-height:1.6;}
+.hero-ctas{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:40px;}
+.hero-proof{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--line);}
+.proof-pill{display:inline-flex;align-items:center;font-size:13px;font-weight:500;color:var(--green-deep);background:var(--paper-tint);border:1px solid var(--mint-soft);padding:5px 13px;border-radius:20px;}
+
+/* ON THIS PAGE */
+.otp-wrap{background:var(--paper);padding:0 0 56px;}
+.otp-bar{border:1px solid var(--line);border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:16px;background:linear-gradient(180deg,var(--paper) 0%,var(--paper-soft) 100%);box-shadow:var(--shadow-sm);flex-wrap:wrap;}
+.otp-label{font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;display:flex;align-items:center;gap:7px;}
+.otp-label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);}
+.otp-pills{display:flex;flex-wrap:wrap;gap:7px;list-style:none;}
+.otp-pills a{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:500;color:var(--navy);background:var(--paper);border:1px solid var(--line);padding:5px 13px;border-radius:20px;transition:all .18s;}
+.otp-pills a:hover{border-color:var(--green);color:var(--green-deep);background:var(--paper-tint);transform:translateY(-1px);}
+.otp-pills .num{font-family:'Fraunces',serif;font-size:12px;font-weight:600;color:var(--green-deep);}
+
+/* SECTION HELPERS */
+.eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-deep);margin-bottom:12px;}
+.section-heading{font-size:clamp(24px,3.2vw,36px);font-weight:600;margin-bottom:16px;}
+.section-sub{font-size:17px;color:var(--slate);line-height:1.65;max-width:680px;}
+.screenshot-frame{border-radius:var(--radius);border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow-md);background:#fff;}
+.kb-link{color:var(--green-deep);font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);background:var(--paper-soft);padding:3px 10px;border-radius:20px;margin-top:4px;}
+.kb-link:hover{border-color:var(--green-deep);}
+.kb-link::after{content:'↗';font-size:11px;}
+
+/* WHAT IS IT */
+.what-is{background:var(--paper);}
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:40px;}
+.concept-text p{color:var(--ink);line-height:1.7;margin-bottom:16px;}
+.concept-text p:last-of-type{margin-bottom:0;}
+.define-box{background:var(--paper-tint);border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:20px 22px;margin-bottom:16px;font-size:15px;color:var(--ink);line-height:1.65;}
+.define-box strong{color:var(--navy);}
+
+/* ORG TREE */
+.org-tree-wrap{background:var(--paper-soft);border:1px solid var(--line);border-radius:var(--radius);padding:28px 20px;overflow-x:auto;}
+.org-tree-wrap svg{display:block;margin:0 auto;}
+
+/* STATS STRIP */
+.stats-strip{background:var(--paper-tint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:44px 0;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+.stat-item{text-align:center;padding:0 24px;border-right:1px solid var(--line);}
+.stat-item:last-child{border-right:none;}
+.stat-value{font-family:'Fraunces',serif;font-size:28px;font-weight:600;color:var(--navy);margin-bottom:6px;white-space:nowrap;line-height:1.1;}
+.stat-value em{color:var(--green-deep);font-style:normal;}
+.stat-label{font-size:13px;color:var(--slate);line-height:1.45;}
+
+/* WHO IT'S FOR */
+.who-for{background:var(--paper-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px;}
+.persona-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:24px;}
+.persona-icon{width:40px;height:40px;border-radius:8px;background:var(--paper-tint);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
+.persona-card h3{font-size:17px;font-weight:600;margin-bottom:8px;}
+.persona-card p{font-size:14px;color:var(--slate);line-height:1.65;}
+.verticals{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;}
+.verticals span{font-size:13px;font-weight:600;color:var(--navy);background:var(--paper);border:1px solid var(--line);padding:7px 15px;border-radius:30px;}
+
+/* HOW IT WORKS */
+.how-it-works{background:var(--paper);}
+.step-sequence{display:flex;flex-direction:column;margin-top:40px;}
+.step-item{display:grid;grid-template-columns:56px 1fr;gap:0 28px;}
+.step-item+.step-item{margin-top:44px;}
+.step-left{display:flex;flex-direction:column;align-items:center;}
+.step-num{width:38px;height:38px;border-radius:50%;background:var(--navy);color:#fff;font-family:'Fraunces',serif;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;}
+.step-line{width:2px;flex:1;background:var(--line);margin-top:6px;min-height:24px;}
+.step-item:last-child .step-line{display:none;}
+.step-right h3{font-size:19px;font-weight:600;margin-bottom:8px;margin-top:6px;}
+.step-right p{font-size:15px;color:var(--slate);line-height:1.65;margin-bottom:14px;}
+.step-right p:last-of-type{margin-bottom:0;}
+
+/* LEVEL CARDS */
+.levels-section{background:var(--paper-tint);}
+.levels-intro{max-width:700px;margin-bottom:36px;}
+.levels-intro p{font-size:15px;color:var(--slate);line-height:1.7;margin-top:12px;}
+.levels-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.level-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;position:relative;}
+.level-num{font-family:'Fraunces',serif;font-size:11px;font-weight:700;color:var(--green-deep);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.level-num::before{content:'';display:inline-block;width:18px;height:2px;background:var(--green);}
+.level-card h3{font-size:16px;font-weight:600;margin-bottom:8px;}
+.level-card p{font-size:13px;color:var(--slate);line-height:1.6;}
+.level-example{font-size:12px;color:var(--green-deep);font-weight:600;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);}
+
+/* CONSOLIDATION BAND */
+.consol-band{background:var(--navy-deep);padding:64px 0;position:relative;overflow:hidden;}
+.consol-band::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:radial-gradient(ellipse at 50% 50%,rgba(55,223,161,.07) 0%,transparent 65%);pointer-events:none;}
+.consol-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
+.consol-text h2{color:#fff;font-size:clamp(22px,3vw,34px);margin-bottom:14px;}
+.consol-text p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:14px;}
+.consol-text p:last-of-type{margin-bottom:0;}
+.consol-features{display:flex;flex-direction:column;gap:14px;}
+.consol-feature{display:flex;align-items:flex-start;gap:12px;padding:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:8px;}
+.consol-feature-dot{width:8px;height:8px;border-radius:50%;background:var(--green-bright);flex-shrink:0;margin-top:6px;}
+.consol-feature-text strong{display:block;font-size:14px;color:#fff;margin-bottom:3px;}
+.consol-feature-text span{font-size:13px;color:rgba(255,255,255,.6);line-height:1.55;}
+
+/* SHARE SECTION */
+.share-section{background:var(--paper-soft);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
+.two-col-text h2{margin-bottom:14px;}
+.two-col-text p{font-size:15px;color:var(--slate);line-height:1.7;margin-bottom:14px;}
+.two-col-text p:last-of-type{margin-bottom:0;}
+.share-bullets{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:20px;}
+.share-bullets li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--slate);line-height:1.6;}
+.share-bullets li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:7px;}
+
+/* SHARE VISUAL */
+.share-visual{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-md);}
+.share-bar{display:flex;align-items:center;gap:8px;background:var(--paper-soft);border:1px solid var(--line);border-radius:6px;padding:8px 12px;margin-bottom:16px;}
+.share-bar-url{font-size:12px;color:var(--slate);flex:1;font-family:monospace;}
+.share-bar-lock{font-size:11px;color:var(--green-deep);font-weight:600;background:var(--paper-tint);padding:2px 8px;border-radius:10px;border:1px solid var(--mint-soft);}
+.share-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.share-kpi{background:var(--paper-soft);border-radius:8px;padding:14px;}
+.share-kpi-label{font-size:11px;color:var(--slate);margin-bottom:4px;}
+.share-kpi-val{font-family:'Fraunces',serif;font-size:20px;font-weight:600;color:var(--navy);}
+.share-kpi-var{font-size:11px;margin-top:2px;font-weight:600;}
+.var-pos{color:var(--green-deep);}
+.var-neg{color:#C0392B;}
+.share-no-login{text-align:center;margin-top:14px;font-size:12px;color:var(--slate);display:flex;align-items:center;justify-content:center;gap:6px;}
+.share-no-login::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);}
+
+/* SEGMENTS SECTION */
+.segments-section{background:var(--paper);}
+.segments-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:36px;}
+.segment-visual{background:var(--paper-soft);border:1px solid var(--line);border-radius:var(--radius);padding:24px;}
+.seg-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--slate);margin-bottom:16px;}
+.seg-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.seg-div{font-size:13px;font-weight:600;color:var(--navy);background:var(--paper);border:1px solid var(--line);padding:6px 14px;border-radius:20px;}
+.seg-arrow{color:var(--green-deep);font-size:14px;}
+.seg-tag{font-size:12px;font-weight:600;color:var(--green-deep);background:var(--paper-tint);border:1px solid var(--mint-soft);padding:4px 10px;border-radius:20px;}
+.seg-divider{border:none;border-top:1px dashed var(--line);margin:14px 0;}
+
+/* CREDIBILITY */
+.credibility{background:var(--navy-deep);padding:64px 0;}
+.cred-inner{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
+.cred-text h2{color:#fff;font-size:clamp(22px,3vw,32px);margin-bottom:14px;}
+.cred-text p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:20px;}
+.cred-badges{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px;}
+.cred-badge{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:8px 14px;font-size:13px;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:6px;}
+.cred-badge::before{content:'✓';color:var(--green-bright);font-weight:700;}
+.cred-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:12px;padding:28px;}
+.cred-card-quote{font-size:15px;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:18px;font-style:italic;}
+.cred-card-attr{display:flex;align-items:center;gap:12px;}
+.cred-card-avatar{width:40px;height:40px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:#fff;flex-shrink:0;}
+.cred-card-name{font-size:14px;color:#fff;font-weight:600;}
+.cred-card-role{font-size:12px;color:rgba(255,255,255,.5);}
+
+/* FAQ */
+.faq-section{background:var(--paper-soft);}
+.faq-list{display:flex;flex-direction:column;max-width:760px;margin:36px auto 0;}
+details{border-bottom:1px solid var(--line);}
+details:first-child{border-top:1px solid var(--line);}
+summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;font-size:15px;font-weight:600;color:var(--navy);user-select:none;}
+summary::-webkit-details-marker{display:none;}
+.faq-marker{width:24px;height:24px;border-radius:50%;background:var(--paper-tint);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--green-deep);flex-shrink:0;transition:all .2s;}
+details[open] .faq-marker{background:var(--green);color:#fff;border-color:var(--green);}
+.faq-marker::after{content:'+';}
+details[open] .faq-marker::after{content:'–';}
+.faq-body{padding:0 0 18px;font-size:14px;color:var(--slate);line-height:1.7;}
+.faq-body a{color:var(--green-deep);text-decoration:underline;}
+
+/* FINAL CTA */
+.final-cta{background:var(--paper);position:relative;overflow:hidden;text-align:center;}
+.final-cta::before{content:'';position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse at 50% 80%,rgba(18,190,122,.09) 0%,transparent 65%);pointer-events:none;}
+.final-cta-inner{position:relative;z-index:1;}
+.final-cta h2{font-size:clamp(26px,3.8vw,40px);margin-bottom:14px;}
+.final-cta p{font-size:17px;color:var(--slate);max-width:520px;margin:0 auto 28px;line-height:1.65;}
+.cta-buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.cta-note{font-size:13px;color:var(--slate);margin-top:14px;}
+
+/* FOOTER */
+.footer{background:var(--navy-deep);padding:44px 0 28px;}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;list-style:none;font-size:13px;color:rgba(255,255,255,.5);}
+.footer-links a:hover{color:rgba(255,255,255,.9);}
+.footer-copy{font-size:13px;color:rgba(255,255,255,.3);width:100%;text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);margin-top:20px;}
+
+/* MOBILE */
+@media(max-width:860px){
+  .nav-links,.nav-ctas{display:none;}
+  .nav-hamburger{display:flex;}
+  .nav-inner{padding:0 20px;}
+  .container,.container-wide,.container-narrow{padding:0 20px;}
+  section{padding:52px 0;}
+  .hero{padding:44px 0 36px;}
+  .hero h1{font-size:28px;}
+  .hero-lead{font-size:16px;}
+  .hero-proof{gap:6px;}
+  .proof-pill{font-size:12px;}
+  .otp-wrap{padding:0 0 36px;}
+  .otp-bar{padding:12px 16px;}
+  .otp-pills{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;}
+  .otp-pills a{white-space:nowrap;}
+  .concept-grid,.two-col,.cred-inner,.consol-inner,.segments-grid{grid-template-columns:1fr;gap:28px;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .stat-item{border-right:none;border-bottom:1px solid var(--line);padding:16px 8px;}
+  .stat-item:nth-child(odd){border-right:1px solid var(--line);}
+  .stat-item:nth-last-child(-n+2){border-bottom:none;}
+  .stat-value{font-size:22px;}
+  .persona-grid{grid-template-columns:1fr;}
+  .levels-grid{grid-template-columns:1fr 1fr;}
+  .cta-buttons{flex-direction:column;align-items:center;}
+  .cta-buttons a{width:100%;max-width:320px;justify-content:center;}
+  .footer-inner{flex-direction:column;align-items:flex-start;}
+  .footer-links{gap:14px;}
+}
+@media(max-width:480px){
+  .hero h1{font-size:25px;}
+  .section-heading{font-size:22px;}
+  .levels-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="main-nav">
+  <div class="nav-inner">
+    <a href="/">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" style="height:30px;width:auto">
+        <text x="0" y="29" font-family="Georgia,serif" font-size="26" font-weight="700" fill="#344150">magnifi</text>
+        <circle cx="192" cy="18" r="7" fill="#6FC0B0"/>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/features" class="active">Features</a></li>
+      <li><a href="/for-business">For Business</a></li>
+      <li><a href="/for-advisors">For Advisors</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="#">Resources</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="#" class="btn btn-ghost">See how it works</a>
+      <a href="#" class="btn btn-primary">Start Free</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile" id="mobile-menu">
+  <a href="/">Home</a>
+  <a href="/features">Features</a>
+  <a href="/for-business">For Business</a>
+  <a href="/for-advisors">For Advisors</a>
+  <a href="/pricing">Pricing</a>
+  <a href="#">Resources</a>
+  <div class="mob-cta">
+    <a href="#" class="mob-ghost">See how it works</a>
+    <a href="#" class="mob-start">Start Free</a>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="container">
+    <a href="/">Home</a><span>&rsaquo;</span>
+    <a href="/features">Features</a><span>&rsaquo;</span>
+    <span class="current">Multi-Level Reporting</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">&#9632; Consolidations &amp; reporting</div>
+    <h1>See the whole picture. Drill to the detail that matters.</h1>
+    <p class="hero-lead">Whether you run one business or many, Magnifi lets you report at every level — group, entity, division and segment — from a single connected forecast. Start high. Go as deep as you need.</p>
+    <p class="hero-declarative">Magnifi is a multi-level reporting platform for service businesses. Report consolidated results for a group of entities, then drill to any entity, division or segment — all from the same forecast data, with no manual consolidation required.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn btn-primary btn-lg">Start Free</a>
+    </div>
+    <div class="hero-proof">
+      <span class="proof-pill">Group, entity, division &amp; segment reporting</span>
+      <span class="proof-pill">Unlimited entities and divisions</span>
+      <span class="proof-pill">Share live dashboards — no login required</span>
+      <span class="proof-pill">Built and refined since 2017</span>
+    </div>
+  </div>
+</section>
+
+<!-- ON THIS PAGE -->
+<div class="otp-wrap">
+  <div class="container">
+    <div class="otp-bar">
+      <div class="otp-label">On this page</div>
+      <ul class="otp-pills">
+        <li><a href="#what-is"><span class="num">01</span> What it is</a></li>
+        <li><a href="#who-for"><span class="num">02</span> Who it's for</a></li>
+        <li><a href="#how-it-works"><span class="num">03</span> How it works</a></li>
+        <li><a href="#levels"><span class="num">04</span> Reporting levels</a></li>
+        <li><a href="#consolidation"><span class="num">05</span> Consolidation</a></li>
+        <li><a href="#sharing"><span class="num">06</span> Sharing</a></li>
+        <li><a href="#faq"><span class="num">07</span> FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IS IT -->
+<section class="what-is" id="what-is">
+  <div class="container">
+    <span class="eyebrow">What it is</span>
+    <h2 class="section-heading">One forecast. Every level of your business.</h2>
+    <div class="concept-grid">
+      <div class="concept-text">
+        <div class="define-box"><strong>Multi-level reporting in Magnifi</strong> is the ability to view your forecast and actuals at any layer of your organisation — consolidated group, individual entity, division, or custom segment — all from the same data, without rebuilding or exporting anything.</div>
+        <p>Most businesses outgrow a single P&amp;L. As you expand — opening a new office, adding a service line, or defining teams around specific areas of delivery — the structure grows too, and staying across results at every level becomes harder. The numbers might look fine at the top until something goes wrong, and you need to know exactly which part of the business is driving it.</p>
+        <p>Magnifi structures your forecast to match how your business is actually organised. Set up the hierarchy once and every report — profit, cashflow, balance sheet, capacity — reflects it automatically. The group view consolidates; the entity view isolates; the division view goes deeper still.</p>
+        <a href="https://support.magnifi.com.au/portal/en/kb/articles/file-structure" class="kb-link" target="_blank">Organisation structure options — Help Centre</a>
+      </div>
+      <!-- ORG STRUCTURE SCREENSHOT -->
+      <div class="screenshot-frame">
+        <div style="background:var(--paper-soft);padding:48px 32px;text-align:center;border-radius:var(--radius);">
+          <div style="font-size:13px;font-weight:600;color:var(--slate);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;">[SCREENSHOT]</div>
+          <div style="font-size:14px;color:var(--slate);line-height:1.6;">Organisation structure view — showing group, entities and divisions as they are built in Magnifi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-value"><em>4</em> levels</div>
+        <div class="stat-label">Group, entity, division &amp; segment — all from one forecast</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">Unlimited<em> entities</em></div>
+        <div class="stat-label">No cap on the number of entities or divisions</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">No<em> manual</em> work</div>
+        <div class="stat-label">Consolidation happens automatically — no spreadsheet stitching</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">Live<em> dashboards</em></div>
+        <div class="stat-label">Share dashboards with a link — recipients need no login</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHO IT'S FOR -->
+<section class="who-for" id="who-for">
+  <div class="container">
+    <span class="eyebrow">Who it's for</span>
+    <h2 class="section-heading">Built for businesses that have outgrown a single P&amp;L</h2>
+    <p class="section-sub">Multi-level reporting in Magnifi serves three distinct audiences — each with different needs from the same underlying data.</p>
+    <div class="persona-grid" style="grid-template-columns:1fr 1fr;">
+      <div class="persona-card">
+        <div class="persona-icon">&#128202;</div>
+        <h3>Business owners</h3>
+        <p>As your business grows — more entities, more divisions, more moving parts — keeping across the numbers gets harder. Magnifi organises your structure neatly and gives you a consolidated view that answers the big question first. When something needs attention, drill in from the top. No digging, no spreadsheet requests, no waiting for month-end.</p>
+      </div>
+      <div class="persona-card">
+        <div class="persona-icon">&#128101;</div>
+        <h3>Accountants &amp; advisors</h3>
+        <p>Managing reporting across multiple entities and profit centres is complex — and the margin for error is real. Magnifi organises your client's structure cleanly, handles inter-entity eliminations automatically, and produces consolidated results without manual stitching. The numbers are accurate, the process is seamless, and your clients get a clear view via live dashboards without you having to rebuild it every month.</p>
+      </div>
+    </div>
+    <div class="verticals">
+      <span>Accounting</span>
+      <span>Engineering</span>
+      <span>Consulting</span>
+      <span>Marketing &amp; Creative</span>
+      <span>Legal</span>
+      <span>IT &amp; Technology</span>
+      <span>Architecture</span>
+      <span>Health &amp; Beauty</span>
+      <span>Trade Services</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+    <span class="eyebrow">How it works</span>
+    <h2 class="section-heading">Set up your structure once. Report at every level.</h2>
+    <p class="section-sub">Magnifi mirrors how your business is actually organised. Here's how to get from a blank file to consolidated reporting.</p>
+    <div class="step-sequence">
+
+      <div class="step-item">
+        <div class="step-left">
+          <div class="step-num">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-right">
+          <h3>Add your entities</h3>
+          <p>Create a file for each legal entity. Connect each one to Xero or import via CSV — Magnifi's read-only Xero connection pulls in your chart of accounts and actuals automatically. Each entity gets its own P&amp;L projection, cashflow forecast and balance sheet.</p>
+          <a href="https://support.magnifi.com.au/portal/en/kb/articles/organisation-add-and-manage" class="kb-link" target="_blank">Add an organisation — Help Centre</a>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-left">
+          <div class="step-num">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-right">
+          <h3>Add divisions within each entity</h3>
+          <p>If an entity has multiple offices, service lines or locations, add divisions. Assign income and cost accounts to the relevant division — shared overheads can remain unassigned and roll up at the entity level only. Employees can be split across divisions by percentage, with labour costs and capacity allocated accordingly.</p>
+          <a href="https://support.magnifi.com.au/portal/en/kb/articles/maintaining-divisions" class="kb-link" target="_blank">Divisions — Help Centre</a>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-left">
+          <div class="step-num">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-right">
+          <h3>Group your entities for consolidated reporting</h3>
+          <p>Create a Group and assign your entity files to it. Magnifi adds a third reporting layer: Group → Entity → Division. Mark any inter-entity accounts to exclude them from consolidated results. Group reports are available across Profit, Cashflow, Balance Sheet and Dashboards — and can be exported to Excel with a single click.</p>
+          <a href="https://support.magnifi.com.au/portal/en/kb/articles/consolidated-reporting" class="kb-link" target="_blank">Groups &amp; consolidation — Help Centre</a>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-left">
+          <div class="step-num">4</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-right">
+          <h3>Switch between levels instantly</h3>
+          <p>Once your structure is set up, use the organisation selector to move between Group, entity and division views. The same forecast data underlies every level — there's no re-import, no reconciliation, no manual consolidation. A problem at the group level can be traced to an entity, then to a division, in seconds.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- REPORTING LEVELS -->
+<section class="levels-section" id="levels">
+  <div class="container">
+    <div class="levels-intro">
+      <span class="eyebrow">Reporting levels</span>
+      <h2 class="section-heading">Four levels of visibility. One source of truth.</h2>
+      <p>Magnifi structures reporting into four layers. Each layer gives a different view of the same underlying forecast — so you always know what you're looking at and where to go next.</p>
+    </div>
+    <div class="levels-grid">
+      <div class="level-card">
+        <div class="level-num">Level 01</div>
+        <h3>Group</h3>
+        <p>Consolidated results across all entity files in a group. Inter-entity transactions excluded automatically. The starting point for a board pack or management report.</p>
+        <div class="level-example">e.g. XYZ Group — all three entities combined</div>
+      </div>
+      <div class="level-card">
+        <div class="level-num">Level 02</div>
+        <h3>Entity</h3>
+        <p>Results for a single legal entity — its own P&amp;L, cashflow and balance sheet. Use this to isolate performance at the entity level before drilling further.</p>
+        <div class="level-example">e.g. XYZ Financial Planning Pty Ltd</div>
+      </div>
+      <div class="level-card">
+        <div class="level-num">Level 03</div>
+        <h3>Division</h3>
+        <p>Results for one division within an entity — a branch, service line or location. Accounts and employees can be split across divisions with unassigned items rolling up to the entity view.</p>
+        <div class="level-example">e.g. XYZ Financial Planning — NSW office</div>
+      </div>
+      <div class="level-card">
+        <div class="level-num">Level 04</div>
+        <h3>Segment</h3>
+        <p>A custom combination of divisions — report on any grouping that isn't captured by the standard hierarchy. Set up once; available alongside other reporting levels.</p>
+        <div class="level-example">e.g. East Coast = NSW + QLD divisions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONSOLIDATION BAND -->
+<section class="consol-band" id="consolidation">
+  <div class="container">
+    <div class="consol-inner">
+      <div class="consol-text">
+        <span class="eyebrow" style="color:var(--green-bright);">Consolidation</span>
+        <h2>No spreadsheet stitching. No manual eliminations.</h2>
+        <p>Consolidating results across multiple entities is usually the job nobody wants — pulling exports, pasting into a master sheet, manually removing inter-entity transactions, hoping nothing's changed since last month.</p>
+        <p>In Magnifi, the group consolidation updates automatically when you import actuals. Assign your entities to a group once, mark the inter-entity accounts, and the consolidated view reflects the latest data every time you import. Export to Excel in one click when you need a formatted report.</p>
+      </div>
+      <div class="consol-features">
+        <div class="consol-feature">
+          <div class="consol-feature-dot"></div>
+          <div class="consol-feature-text">
+            <strong>Automatic inter-entity eliminations</strong>
+            <span>Mark accounts as inter-entity or inter-group — they're excluded from consolidated results without manual adjustment.</span>
+          </div>
+        </div>
+        <div class="consol-feature">
+          <div class="consol-feature-dot"></div>
+          <div class="consol-feature-text">
+            <strong>Group export to Excel</strong>
+            <span>Export group reports with a single click — includes individual entity worksheets and a consolidated comparison.</span>
+          </div>
+        </div>
+        <div class="consol-feature">
+          <div class="consol-feature-dot"></div>
+          <div class="consol-feature-text">
+            <strong>Available across all reporting areas</strong>
+            <span>Group results are visible in Profit, Cashflow, Balance Sheet and Dashboards — not just the P&amp;L.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHARING -->
+<section class="share-section" id="sharing">
+  <div class="container">
+    <div class="two-col">
+      <div class="two-col-text">
+        <span class="eyebrow">Sharing</span>
+        <h2 class="section-heading">Share any view. No login needed.</h2>
+        <p>Every organisation in Magnifi — entity or group view — can be shared as a live dashboard link. The recipient sees current numbers, updated each time you import, without needing a Magnifi account.</p>
+        <p>Useful for board reporting, owner updates, or keeping a client across their numbers between advisory meetings.</p>
+        <ul class="share-bullets">
+          <li>Share the group view with a board or management team</li>
+          <li>Share an entity dashboard with the owner of that business</li>
+          <li>Recipients see current data — updated each time you import from Xero</li>
+          <li>You control what's shared; revoke access at any time</li>
+        </ul>
+      </div>
+      <div class="share-visual">
+        <div class="share-bar">
+          <span class="share-bar-url">dashboard.magnifi.com.au/share/xyz-group-q3</span>
+          <span class="share-bar-lock">&#128274; Current</span>
+        </div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--slate);margin-bottom:10px;">XYZ Group — consolidated</div>
+        <div class="share-kpis">
+          <div class="share-kpi">
+            <div class="share-kpi-label">Revenue</div>
+            <div class="share-kpi-val">$4.2m</div>
+            <div class="share-kpi-var var-pos">▲ 8% vs budget</div>
+          </div>
+          <div class="share-kpi">
+            <div class="share-kpi-label">Operating profit</div>
+            <div class="share-kpi-val">$840k</div>
+            <div class="share-kpi-var var-pos">▲ 12% vs budget</div>
+          </div>
+          <div class="share-kpi">
+            <div class="share-kpi-label">Cash</div>
+            <div class="share-kpi-val">$1.1m</div>
+            <div class="share-kpi-var var-neg">▼ 4% vs budget</div>
+          </div>
+          <div class="share-kpi">
+            <div class="share-kpi-label">Capacity vs income</div>
+            <div class="share-kpi-val">+$62k</div>
+            <div class="share-kpi-var var-pos">Surplus</div>
+          </div>
+        </div>
+        <div class="share-no-login">No login required for recipients</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CREDIBILITY -->
+<section class="credibility">
+  <div class="container">
+    <div class="cred-inner">
+      <div class="cred-text">
+        <span class="eyebrow" style="color:var(--green-bright);">Built by an accountant</span>
+        <h2>Designed by someone who's done your job.</h2>
+        <p>Magnifi was built by a Chartered Accountant with 20 years in public practice and CFO roles — someone who has personally consolidated multi-entity groups in spreadsheets and understood exactly why that process breaks down at scale.</p>
+        <p>The multi-level reporting structure in Magnifi reflects how businesses actually organise themselves and report — not how it's easiest to build software.</p>
+        <div class="cred-badges">
+          <div class="cred-badge">Xero accredited app</div>
+          <div class="cred-badge">Built &amp; refined since 2017</div>
+          <div class="cred-badge">Used by listed entities</div>
+          <div class="cred-badge">AWS infrastructure</div>
+        </div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-quote">"We manage seven entities across three states. Before Magnifi we were spending two days a month consolidating results in Excel. Now the group view is just there — and when something's off at the group level I can see exactly which entity is driving it."</div>
+        <div class="cred-card-attr">
+          <div class="cred-card-avatar">FC</div>
+          <div>
+            <div class="cred-card-name">Group Financial Controller</div>
+            <div class="cred-card-role">Professional services group, NSW</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="container-narrow">
+    <span class="eyebrow">FAQ</span>
+    <h2 class="section-heading" style="text-align:center;">Common questions</h2>
+    <div class="faq-list">
+
+      <details>
+        <summary>What's the difference between a division and a segment? <span class="faq-marker"></span></summary>
+        <div class="faq-body">Divisions are the core structural unit within a Magnifi file — a branch, service line, or location that has its own P&amp;L projection with accounts and employees allocated to it. Segments are custom combinations of divisions that you create for a specific reporting view. For example, if you have NSW, QLD and VIC divisions, you could create an "East Coast" segment that combines NSW and QLD without changing the underlying division structure. Divisions are set up as part of your file structure; segments are layered on top for flexible reporting.</div>
+      </details>
+
+      <details>
+        <summary>What's the difference between divisions and groups? <span class="faq-marker"></span></summary>
+        <div class="faq-body">Divisions live inside a single Magnifi file and give you multiple reporting streams within one entity — or a simple consolidation if you set up each entity as a division. Groups connect separate entity files and add a third reporting layer above entities and divisions: Group → Entity → Division. Use divisions for simpler structures; use groups when each entity needs its own file and potentially its own divisions. See the <a href="https://support.magnifi.com.au/portal/en/kb/articles/file-structure" target="_blank">organisation structure overview</a> for guidance on which approach fits your situation.</div>
+      </details>
+
+      <details>
+        <summary>How many entities or divisions can I have? <span class="faq-marker"></span></summary>
+        <div class="faq-body">There's no hard limit on the number of entities. Magnifi charges per entity based on the number of connections, so you can add as many as you need. For divisions within a single file, we recommend keeping the number under 10 for optimal performance — but most businesses are well within that range.</div>
+      </details>
+
+      <details>
+        <summary>How does Magnifi handle inter-entity transactions? <span class="faq-marker"></span></summary>
+        <div class="faq-body">You mark accounts as inter-entity or inter-group in the Chart of Accounts. Inter-entity accounts are excluded when viewing at the All Divisions level; inter-group accounts are excluded when you export a group report to Excel. This keeps your consolidated figures clean without any manual adjustment each month.</div>
+      </details>
+
+
+      <details>
+        <summary>Does multi-level reporting include cashflow and balance sheet, not just P&amp;L? <span class="faq-marker"></span></summary>
+        <div class="faq-body">Yes. All reporting levels — group, entity, division and segment — are available across Profit, Cashflow and Balance Sheet in Magnifi, as well as in Dashboards. The group consolidation also extends to the Dashboard charts. When you export a group report to Excel, it includes entity-level worksheets and a consolidated comparison across all reporting areas.</div>
+      </details>
+
+      <details>
+        <summary>Do I have to be a multi-entity business to use Magnifi? <span class="faq-marker"></span></summary>
+        <div class="faq-body">No. A single-entity, single-division file is the default and works perfectly well for businesses that don't need a more complex structure. Divisions and groups can be added at any time as the business grows — there's no need to restructure your file from scratch.</div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <div class="final-cta-inner">
+      <span class="eyebrow">Get started</span>
+      <h2>Ready to see every level of your business in one place?</h2>
+      <p>Set up your structure, connect to Xero, and Magnifi builds the consolidated view — group to division, all connected, always current.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn btn-primary btn-lg">Start Free</a>
+      </div>
+      <p class="cta-note">No setup fee &middot; No lock-in contract &middot; Connects to Xero or Excel</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <a href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" style="height:26px;width:auto">
+          <text x="0" y="29" font-family="Georgia,serif" font-size="26" font-weight="700" fill="white" opacity="0.65">magnifi</text>
+          <circle cx="192" cy="18" r="7" fill="#6FC0B0" opacity="0.65"/>
+        </svg>
+      </a>
+      <ul class="footer-links">
+        <li><a href="/features">Features</a></li>
+        <li><a href="/for-business">For Business</a></li>
+        <li><a href="/for-advisors">For Advisors</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="https://support.magnifi.com.au" target="_blank">Help Centre</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-copy">&copy; 2025 Magnifi Pty Ltd &middot; ABN 83 106 161 951 &middot; <a href="#" style="color:rgba(255,255,255,.3)">Privacy</a> &middot; <a href="#" style="color:rgba(255,255,255,.3)">Terms</a></div>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  const spans = hamburger.querySelectorAll('span');
+  if (open) {
+    spans[0].style.transform = 'translateY(7px) rotate(45deg)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+  } else {
+    spans.forEach(s => { s.style.transform=''; s.style.opacity=''; });
+  }
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    hamburger.querySelectorAll('span').forEach(s => { s.style.transform=''; s.style.opacity=''; });
+  });
+});
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.style.boxShadow = window.scrollY > 8 ? '0 2px 16px rgba(52,65,80,.10)' : 'none';
+});
+document.querySelectorAll('details').forEach(d => {
+  d.addEventListener('toggle', () => {
+    if (d.open) document.querySelectorAll('details').forEach(o => { if (o !== d) o.removeAttribute('open'); });
+  });
+});
+</script>
+</body>
+</html>

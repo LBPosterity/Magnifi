@@ -1,27 +1,37 @@
 :root {
-    --green: #12BE7A;
-    /* vibrant primary */
-    --green-bright: #37DFA1;
-    /* glow / highlight */
-    --green-deep: #0E9A62;
+    /* typefaces - if you change these, update the Google Fonts <link> in each page's <head> to load the new fonts */
+    --font-heading: 'Fraunces', serif;
+    --font-body: 'Hanken Grotesk', sans-serif;
+
+    --green: #3EC4AB;
+    /* vibrant primary - aligned to master --brand-green */
+    --green-bright: #07B09D;
+    /* glow / highlight - aligned to master --green-contrast */
+    --green-deep: #07B09D;
+    /* aligned to master --green-contrast */
     --teal-deep: #344150;
     --navy: #344150;
     /* heading colour */
     --teal: #45576A;
-    --ink: #2C3744;
+    --ink: #364458;
+    /* aligned to master --text */
     --near-black: #1E2733;
     --navy-deep: #1E2733;
     /* dark sections/footer */
-    --slate: #5C6979;
+    --slate: #5B7395;
+    /* aligned to master --text-light */
     --paper: #FFFFFF;
-    --paper-soft: #F4F7F9;
-    --paper-tint: #EAF2EF;
-    --line: #DBE2E8;
+    --paper-soft: #F2F4F7;
+    /* aligned to master --hover */
+    --paper-tint: #E6FAEE;
+    /* aligned to master --green-tint */
+    --line: #85B0CB60;
+    /* aligned to master --border-dark */
     --mint: #6FC0B0;
     --mint-soft: #A6D7CD;
     --amber: #E8A33D;
-    --shadow: 0 24px 60px -26px rgba(35, 45, 58, .38);
-    --shadow-sm: 0 10px 26px -14px rgba(35, 45, 58, .32);
+    --shadow: 0 24px 60px -26px rgba(22, 39, 51, .38);
+    --shadow-sm: 0 10px 26px -14px rgba(22, 39, 51, .32);
     --glow: 0 0 60px -8px rgba(59, 224, 162, .65);
 }
 
@@ -36,7 +46,7 @@ html {
 }
 
 body {
-    font-family: 'Hanken Grotesk', sans-serif;
+    font-family: var(--font-body);
     color: var(--ink);
     background: var(--paper);
     line-height: 1.55;
@@ -46,7 +56,7 @@ body {
 h1,
 h2,
 h3 {
-    font-family: 'Fraunces', serif;
+    font-family: var(--font-heading);
     font-weight: 500;
     line-height: 1.04;
     letter-spacing: -.012em

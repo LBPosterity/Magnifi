@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rolling Cashflow Forecast – Magnifi | Always Current, Never Stale</title>
+<meta name="description" content="Magnifi's Rolling Cashflow forecast re-forecasts automatically each time you import actuals — so your projected bank balances always reflect what's actually happening, not last month's assumptions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#344150;--navy-deep:#1E2733;--ink:#2C3744;
+  --green:#12BE7A;--green-bright:#37DFA1;--green-deep:#0E9A62;
+  --mint:#6FC0B0;--mint-soft:#A6D7CD;--slate:#5C6979;
+  --line:#DBE2E8;--paper:#FFFFFF;--paper-soft:#F4F7F9;--paper-tint:#EAF2EF;
+  --amber:#E8A33D;--red:#C0392B;
+  --radius:10px;
+  --shadow-sm:0 1px 4px rgba(52,65,80,.08);
+  --shadow-md:0 4px 20px rgba(52,65,80,.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Hanken Grotesk',sans-serif;font-size:16px;line-height:1.6;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:'Fraunces',serif;color:var(--navy);line-height:1.2;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+.container{max-width:1140px;margin:0 auto;padding:0 32px;}
+.container-narrow{max-width:800px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;background:var(--paper);border-bottom:1px solid var(--line);height:72px;display:flex;align-items:center;transition:box-shadow .2s;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1140px;margin:0 auto;padding:0 32px;}
+.nav-links{display:flex;align-items:center;gap:26px;list-style:none;font-size:14px;font-weight:500;color:var(--navy);}
+.nav-links a:hover{color:var(--green-deep);}
+.nav-links .active{color:var(--green-deep);border-bottom:2px solid var(--green);padding-bottom:2px;}
+.nav-ctas{display:flex;align-items:center;gap:10px;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;border-radius:6px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;border:none;}
+.btn-primary{background:var(--green);color:#fff;}
+.btn-primary:hover{background:var(--green-deep);}
+.btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--navy);}
+.btn-ghost:hover{border-color:var(--navy);}
+.btn-lg{padding:14px 32px;font-size:15px;border-radius:8px;}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;padding:4px;}
+.nav-hamburger span{display:block;height:2px;background:var(--navy);border-radius:2px;transition:all .25s;}
+.nav-mobile{display:none;position:fixed;top:72px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);z-index:199;padding:16px 24px 24px;flex-direction:column;gap:0;box-shadow:0 8px 24px rgba(52,65,80,.12);}
+.nav-mobile.open{display:flex;}
+.nav-mobile a{display:block;padding:12px 0;font-size:15px;font-weight:500;color:var(--navy);border-bottom:1px solid var(--line);}
+.nav-mobile a:last-child{border-bottom:none;}
+.mob-cta{margin-top:16px;display:flex;flex-direction:column;gap:10px;}
+.mob-cta a{text-align:center;border-radius:8px;padding:13px;font-weight:600;border-bottom:none !important;}
+.mob-start{background:var(--green);color:#fff !important;}
+.mob-ghost{border:1.5px solid var(--line);color:var(--navy) !important;}
+
+/* BREADCRUMB */
+.breadcrumb{background:var(--paper-soft);border-bottom:1px solid var(--line);padding:10px 0;font-size:13px;color:var(--slate);}
+.breadcrumb a{color:var(--slate);}
+.breadcrumb a:hover{color:var(--green-deep);}
+.breadcrumb span{margin:0 6px;}
+.breadcrumb .current{color:var(--navy);font-weight:500;}
+
+/* HERO */
+.hero{background:var(--paper);padding:72px 0 64px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:600px;height:600px;background:radial-gradient(ellipse at 70% 30%,rgba(18,190,122,.10) 0%,transparent 65%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--paper-tint);border:1px solid var(--mint-soft);color:var(--green-deep);font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;margin-bottom:20px;text-transform:uppercase;letter-spacing:.05em;}
+.hero h1{font-size:clamp(30px,4.5vw,52px);font-weight:600;color:var(--navy);max-width:680px;margin-bottom:20px;}
+.hero-lead{font-size:18px;color:var(--slate);max-width:580px;margin-bottom:32px;line-height:1.65;}
+.hero-ctas{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+
+/* ON THIS PAGE */
+.otp-wrap{background:var(--paper);padding:32px 0 56px;}
+.otp-bar{border:1px solid var(--line);border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:16px;background:linear-gradient(180deg,var(--paper) 0%,var(--paper-soft) 100%);box-shadow:var(--shadow-sm);flex-wrap:wrap;}
+.otp-label{font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;display:flex;align-items:center;gap:7px;}
+.otp-label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);}
+.otp-pills{display:flex;flex-wrap:wrap;gap:7px;list-style:none;}
+.otp-pills a{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:500;color:var(--navy);background:var(--paper);border:1px solid var(--line);padding:5px 13px;border-radius:20px;transition:all .18s;}
+.otp-pills a:hover{border-color:var(--green);color:var(--green-deep);background:var(--paper-tint);transform:translateY(-1px);}
+.otp-pills .num{font-family:'Fraunces',serif;font-size:12px;font-weight:600;color:var(--green-deep);}
+
+/* SECTION HELPERS */
+.eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-deep);margin-bottom:12px;}
+.section-heading{font-size:clamp(24px,3.2vw,36px);font-weight:600;margin-bottom:16px;}
+.section-sub{font-size:17px;color:var(--slate);line-height:1.65;max-width:680px;}
+.kb-link{color:var(--green-deep);font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);background:var(--paper-soft);padding:3px 10px;border-radius:20px;margin-top:4px;}
+.kb-link:hover{border-color:var(--green-deep);}
+.kb-link::after{content:'↗';font-size:11px;}
+
+/* WHAT IS IT */
+.what-is{background:var(--paper);}
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:40px;}
+.concept-text p{color:var(--ink);line-height:1.7;margin-bottom:16px;}
+.concept-text p:last-of-type{margin-bottom:0;}
+.define-box{background:var(--paper-tint);border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:20px 22px;margin-bottom:16px;font-size:15px;color:var(--ink);line-height:1.65;}
+.define-box strong{color:var(--navy);}
+.screenshot-frame{border-radius:var(--radius);border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow-md);background:#fff;}
+
+/* HOW IT CONNECTS — funnel layout */
+.threeway-section{background:var(--paper-tint);}
+.funnel-wrap{margin-top:44px;display:flex;flex-direction:column;align-items:center;gap:0;}
+.funnel-inputs{display:grid;grid-template-columns:1fr 1fr;gap:24px;width:100%;max-width:800px;}
+.funnel-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;}
+.funnel-card-num{font-size:11px;font-weight:700;color:var(--green-deep);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.funnel-card-num::before{content:'';display:inline-block;width:18px;height:2px;background:var(--green);}
+.funnel-card h3{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:7px;}
+.funnel-card p{font-size:13px;color:var(--slate);line-height:1.6;}
+/* Arrow connector */
+.funnel-arrows{display:flex;width:100%;max-width:800px;justify-content:space-around;height:72px;position:relative;}
+.funnel-arrows svg{width:100%;height:100%;}
+.funnel-arrow-mobile{display:none;flex-direction:column;align-items:center;padding:4px 0;}
+.funnel-arrow-mobile .arrow-line{width:3px;height:40px;background:var(--green);opacity:.85;border-radius:2px;}
+.funnel-arrow-mobile .arrow-head{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:11px solid var(--green);opacity:.85;}
+/* Output card */
+.funnel-output{width:100%;max-width:800px;}
+.funnel-output-card{background:var(--navy);border-radius:var(--radius);padding:26px 28px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;}
+.funnel-output-card h3{font-size:18px;font-weight:600;color:#fff;margin-bottom:6px;}
+.funnel-output-card p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.6;}
+.funnel-output-tag{background:rgba(18,190,122,.15);border:1px solid rgba(55,223,161,.25);border-radius:8px;padding:10px 16px;text-align:center;flex-shrink:0;}
+.funnel-output-tag .tag-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green-bright);margin-bottom:4px;}
+.funnel-output-tag .tag-val{font-size:22px;font-weight:700;color:#fff;font-family:'Fraunces',serif;line-height:1;}
+.funnel-output-tag .tag-sub{font-size:10px;color:rgba(255,255,255,.4);margin-top:3px;}
+
+/* HOW IT WORKS */
+.how-it-works{background:var(--paper);}
+.chart-section-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:36px;}
+.cashflow-chart-panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md);}
+.chart-panel-header{background:var(--paper-soft);border-bottom:1px solid var(--line);padding:12px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.chart-panel-title{font-size:13px;font-weight:700;color:var(--navy);}
+.chart-panel-meta{font-size:11px;color:var(--slate);margin-left:auto;background:var(--paper-tint);border:1px solid var(--mint-soft);padding:2px 10px;border-radius:10px;font-weight:600;}
+.chart-body{padding:16px 16px 12px;}
+.feature-callout{padding:18px 20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper-soft);}
+.feature-callout+.feature-callout{margin-top:14px;}
+.callout-icon{width:32px;height:32px;border-radius:8px;background:var(--paper-tint);border:1px solid var(--mint-soft);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.callout-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.callout-title{font-size:14px;font-weight:700;color:var(--navy);}
+.callout-body{font-size:13px;color:var(--slate);line-height:1.65;}
+
+/* WHO IT'S FOR */
+.who-section{background:var(--paper-soft);border-top:1px solid var(--line);}
+.who-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px;}
+.who-card{border-radius:var(--radius);padding:28px;border:1px solid var(--line);}
+.who-card.owner{background:var(--paper);}
+.who-card.advisor{background:var(--navy-deep);}
+.who-card-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:10px;margin-bottom:14px;}
+.who-card.owner .who-card-tag{background:var(--paper-tint);color:var(--green-deep);border:1px solid var(--mint-soft);}
+.who-card.advisor .who-card-tag{background:rgba(18,190,122,.12);color:var(--green-bright);border:1px solid rgba(55,223,161,.2);}
+.who-card h3{font-size:18px;font-weight:600;margin-bottom:10px;}
+.who-card.owner h3{color:var(--navy);}
+.who-card.advisor h3{color:#fff;}
+.who-card p{font-size:14px;line-height:1.7;margin-bottom:14px;}
+.who-card.owner p{color:var(--slate);}
+.who-card.advisor p{color:rgba(255,255,255,.65);}
+.who-bullets{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.who-bullets li{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.55;}
+.who-card.owner .who-bullets li{color:var(--slate);}
+.who-card.advisor .who-bullets li{color:rgba(255,255,255,.6);}
+.who-bullets li::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.who-card.owner .who-bullets li::before{background:var(--green);}
+.who-card.advisor .who-bullets li::before{background:var(--green-bright);}
+/* Industry pills inside who cards */
+.industry-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;}
+.who-card.owner .industry-label{color:var(--slate);}
+.who-card.advisor .industry-label{color:rgba(255,255,255,.4);}
+.industry-pills{display:flex;flex-wrap:wrap;gap:6px;}
+.industry-pill{font-size:12px;font-weight:500;padding:4px 11px;border-radius:20px;}
+.who-card.owner .industry-pill{background:var(--paper-soft);border:1px solid var(--line);color:var(--navy);}
+.who-card.advisor .industry-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);}
+
+/* PROOF STRIP */
+.proof-strip{background:var(--paper-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;}
+.proof-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;}
+.proof-pill{display:inline-flex;align-items:center;gap:6px;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;color:var(--navy);}
+.proof-pill::before{content:'✓';color:var(--green-deep);font-size:11px;}
+
+/* CREDIBILITY */
+.credibility{background:var(--navy-deep);padding:64px 0;}
+.cred-inner{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
+.cred-text h2{color:#fff;font-size:clamp(22px,3vw,32px);margin-bottom:14px;}
+.cred-text p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:20px;}
+.cred-badges{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px;}
+.cred-badge{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:8px 14px;font-size:13px;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:6px;}
+.cred-badge::before{content:'✓';color:var(--green-bright);font-weight:700;}
+.cred-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:12px;padding:28px;}
+.cred-card-quote{font-size:15px;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:18px;font-style:italic;}
+.cred-card-attr{display:flex;align-items:center;gap:12px;}
+.cred-card-avatar{width:40px;height:40px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:#fff;flex-shrink:0;}
+.cred-card-name{font-size:14px;color:#fff;font-weight:600;}
+.cred-card-role{font-size:12px;color:rgba(255,255,255,.5);}
+
+/* FAQ */
+.faq-section{background:var(--paper-soft);}
+.faq-list{display:flex;flex-direction:column;max-width:760px;margin:36px auto 0;}
+details{border-bottom:1px solid var(--line);}
+details:first-child{border-top:1px solid var(--line);}
+summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;font-size:15px;font-weight:600;color:var(--navy);user-select:none;}
+summary::-webkit-details-marker{display:none;}
+.faq-marker{width:24px;height:24px;border-radius:50%;background:var(--paper-tint);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--green-deep);flex-shrink:0;transition:all .2s;}
+details[open] .faq-marker{background:var(--green);color:#fff;border-color:var(--green);}
+.faq-marker::after{content:'+';}
+details[open] .faq-marker::after{content:'–';}
+.faq-body{padding:0 0 18px;font-size:14px;color:var(--slate);line-height:1.7;}
+.faq-body a{color:var(--green-deep);text-decoration:underline;}
+
+/* FINAL CTA */
+.final-cta{background:var(--paper);position:relative;overflow:hidden;text-align:center;}
+.final-cta::before{content:'';position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse at 50% 80%,rgba(18,190,122,.09) 0%,transparent 65%);pointer-events:none;}
+.final-cta-inner{position:relative;z-index:1;}
+.final-cta h2{font-size:clamp(26px,3.8vw,40px);margin-bottom:14px;}
+.final-cta p{font-size:17px;color:var(--slate);max-width:520px;margin:0 auto 28px;line-height:1.65;}
+.cta-buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.cta-note{font-size:13px;color:var(--slate);margin-top:14px;}
+
+/* FOOTER */
+.footer{background:var(--navy-deep);padding:44px 0 28px;}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.footer-links{display:flex;flex-wrap:wrap;gap:20px;list-style:none;}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.5);}
+.footer-links a:hover{color:rgba(255,255,255,.85);}
+.footer-copy{margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:rgba(255,255,255,.3);text-align:center;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .concept-grid,.chart-section-grid,.cred-inner,.who-grid{grid-template-columns:1fr;}
+  .funnel-inputs{grid-template-columns:1fr;}
+  .funnel-output-card{grid-template-columns:1fr;}
+  .funnel-output-tag{display:none;}
+  .funnel-arrows{display:none;}
+  .funnel-arrow-mobile{display:flex;}
+}
+@media(max-width:640px){
+  .nav-links,.nav-ctas{display:none;}
+  .nav-hamburger{display:flex;}
+  .hero{padding:48px 0 40px;}
+  section{padding:52px 0;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="main-nav">
+  <div class="nav-inner">
+    <a href="/" aria-label="Magnifi home">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" style="height:28px;width:auto">
+        <text x="0" y="29" font-family="Georgia,serif" font-size="26" font-weight="700" fill="#344150">magnifi</text>
+        <circle cx="192" cy="18" r="7" fill="#6FC0B0"/>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/features" class="active">Features</a></li>
+      <li><a href="/for-business">For Business</a></li>
+      <li><a href="/for-advisors">For Advisors</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/resources">Resources</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="#" class="btn btn-ghost">See how it works</a>
+      <a href="#" class="btn btn-primary">Start Free</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile" id="mobile-menu">
+  <a href="/">Home</a>
+  <a href="/features">Features</a>
+  <a href="/for-business">For Business</a>
+  <a href="/for-advisors">For Advisors</a>
+  <a href="/pricing">Pricing</a>
+  <a href="#">Resources</a>
+  <div class="mob-cta">
+    <a href="#" class="mob-ghost">See how it works</a>
+    <a href="#" class="mob-start">Start Free</a>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="container">
+    <a href="/">Home</a><span>&rsaquo;</span>
+    <a href="/features">Features</a><span>&rsaquo;</span>
+    <span class="current">Rolling Cashflow</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">&#9632; Rolling Cashflow</div>
+    <h1>A cashflow forecast that keeps up with reality.</h1>
+    <p class="hero-lead">Most cashflow forecasts go stale the moment results come in. Magnifi's rolling cashflow re-forecasts automatically each time you import actuals — so your projected bank balances always reflect what's actually happening. And because the forecast has no fixed start date, you can view any twelve-month window, any time.</p>
+    <p style="font-size:14px;color:var(--slate);margin-bottom:32px;padding:12px 16px;border-left:3px solid var(--mint);background:var(--paper-soft);border-radius:0 6px 6px 0;max-width:620px;line-height:1.6;">Magnifi's Rolling Cashflow is a monthly bank balance forecast built from your connected P&amp;L, balance sheet projections, and compliance obligations. It projects inflows, outflows, and closing balances across a rolling twelve-month window — starting from any month you choose, not locked to a financial or calendar year.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn btn-primary btn-lg">Start Free</a>
+    </div>
+  </div>
+</section>
+
+<!-- ON THIS PAGE -->
+<div class="otp-wrap">
+  <div class="container">
+    <div class="otp-bar">
+      <div class="otp-label">On this page</div>
+      <ul class="otp-pills">
+        <li><a href="#what-is"><span class="num">01</span> What it is</a></li>
+        <li><a href="#how-it-connects"><span class="num">02</span> How it connects</a></li>
+        <li><a href="#how-it-works"><span class="num">03</span> The forecast chart</a></li>
+        <li><a href="#who"><span class="num">04</span> Who it's for</a></li>
+        <li><a href="#faq"><span class="num">05</span> FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IS IT -->
+<section class="what-is" id="what-is">
+  <div class="container">
+    <span class="eyebrow">What it is</span>
+    <h2 class="section-heading">Your bank balance, twelve months forward.</h2>
+    <div class="concept-grid">
+      <div class="concept-text">
+        <p>A cashflow forecast that never updates when results come in isn't a forecast — it's a plan you've already drifted from. Magnifi solves this by treating the forecast as a rolling model: each import of actuals anchors the opening position to what actually happened, re-forecasts compliance obligations like GST and PAYGW from the new base, and applies your payment terms so receivables and payables land in cash at the right time.</p>
+        <p>The other part of "rolling" is that there's no fixed start date. You're not locked to the beginning of your financial year or the calendar year. Set the window to start from any month — useful if you want to see the next twelve months from today, model a mid-year scenario, or look ahead from the last actual period.</p>
+        <p>The result is a cashflow view that's always grounded in the current state of the business, starting exactly where you need it to start.</p>
+        <a href="https://support.magnifi.com.au/portal/en/kb/articles/cashflow-forecast" class="kb-link" target="_blank">Cashflow Forecast — Help Centre</a>
+      </div>
+
+      <!-- Chart from product screenshot -->
+      <div class="screenshot-frame">
+        <div style="background:var(--paper-soft);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <div style="font-size:12px;font-weight:700;color:var(--navy);">Rolling Cashflow — All Bank Accounts</div>
+          <div style="margin-left:auto;font-size:11px;background:var(--paper-tint);border:1px solid var(--mint-soft);padding:2px 9px;border-radius:10px;font-weight:600;color:var(--green-deep);">Actuals to Apr 2026</div>
+        </div>
+        <div style="padding:16px 14px 12px;background:var(--paper);">
+          <svg viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+            <line x1="50" y1="22" x2="548" y2="22" stroke="#DBE2E8" stroke-width="1"/>
+            <line x1="50" y1="57" x2="548" y2="57" stroke="#DBE2E8" stroke-width="1"/>
+            <line x1="50" y1="92" x2="548" y2="92" stroke="#DBE2E8" stroke-width="1"/>
+            <line x1="50" y1="127" x2="548" y2="127" stroke="#DBE2E8" stroke-width="1"/>
+            <line x1="50" y1="162" x2="548" y2="162" stroke="#DBE2E8" stroke-width="1"/>
+            <text x="46" y="26"  text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">4M</text>
+            <text x="46" y="61"  text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">2M</text>
+            <text x="46" y="96"  text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">0</text>
+            <text x="46" y="131" text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">-2M</text>
+            <text x="46" y="166" text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">-4M</text>
+            <!-- Now line between Apr & May -->
+            <line x1="278" y1="14" x2="278" y2="182" stroke="#344150" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
+            <text x="281" y="13" font-family="Hanken Grotesk,sans-serif" font-size="8" fill="#5C6979">Now</text>
+            <!-- Last year teal dashed -->
+            <polyline points="74,44 114,73 154,88 194,109 238,101 282,100 322,97 362,101 402,93 442,136 482,86 522,44"
+              fill="none" stroke="#6FC0B0" stroke-width="2" stroke-dasharray="5,3" opacity="0.75"/>
+            <!-- This year actuals solid navy Jan-Apr -->
+            <polyline points="74,75 114,101 154,108 194,128"
+              fill="none" stroke="#344150" stroke-width="2.5"/>
+            <!-- Actuals fill -->
+            <defs>
+              <linearGradient id="aFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#344150" stop-opacity="0.10"/>
+                <stop offset="100%" stop-color="#344150" stop-opacity="0.01"/>
+              </linearGradient>
+            </defs>
+            <path d="M74,75 L114,101 L154,108 L194,128 L194,182 L74,182 Z" fill="url(#aFill)"/>
+            <!-- Forecast dashed May-Dec -->
+            <polyline points="194,128 238,115 282,130 322,137 362,140 402,154 442,173 482,136 522,44"
+              fill="none" stroke="#344150" stroke-width="2.5" stroke-dasharray="6,4"/>
+            <!-- Actual dots -->
+            <circle cx="74"  cy="75"  r="4" fill="#344150"/>
+            <circle cx="114" cy="101" r="4" fill="#344150"/>
+            <circle cx="154" cy="108" r="4" fill="#344150"/>
+            <circle cx="194" cy="128" r="4" fill="#344150"/>
+            <!-- Forecast dots -->
+            <circle cx="238" cy="115" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+            <circle cx="282" cy="130" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+            <circle cx="322" cy="137" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+            <circle cx="362" cy="140" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+            <circle cx="402" cy="154" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+            <circle cx="442" cy="173" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+            <circle cx="482" cy="136" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+            <circle cx="522" cy="44"  r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+            <!-- Month labels -->
+            <text x="74"  y="196" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">Jan</text>
+            <text x="114" y="196" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">Feb</text>
+            <text x="154" y="196" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">Mar</text>
+            <text x="194" y="196" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">Apr</text>
+            <text x="238" y="196" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">May</text>
+            <text x="282" y="196" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">Jun</text>
+            <text x="322" y="196" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">Jul</text>
+            <text x="362" y="196" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">Aug</text>
+            <text x="402" y="196" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">Sep</text>
+            <text x="442" y="196" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">Oct</text>
+            <text x="482" y="196" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">Nov</text>
+            <text x="522" y="196" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">Dec</text>
+          </svg>
+          <div style="display:flex;gap:16px;justify-content:center;margin-top:4px;">
+            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--slate);">
+              <svg width="22" height="6" style="display:block;"><line x1="0" y1="3" x2="22" y2="3" stroke="#344150" stroke-width="2"/></svg>This Year
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--slate);">
+              <svg width="22" height="6" style="display:block;"><line x1="0" y1="3" x2="22" y2="3" stroke="#344150" stroke-width="2" stroke-dasharray="5,3"/></svg>Forecast
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--slate);">
+              <svg width="22" height="6" style="display:block;"><line x1="0" y1="3" x2="22" y2="3" stroke="#6FC0B0" stroke-width="2" stroke-dasharray="4,2"/></svg>Last Year
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT CONNECTS — funnel -->
+<section class="threeway-section" id="how-it-connects">
+  <div class="container" style="display:flex;flex-direction:column;align-items:center;">
+    <div style="width:100%;text-align:left;max-width:800px;">
+      <span class="eyebrow">How it connects</span>
+      <h2 class="section-heading">Cashflow is the output of three connected models.</h2>
+      <p class="section-sub">Cashflow isn't a standalone module in Magnifi — it's calculated from the same connected model that produces your P&amp;L and balance sheet. Change anything upstream and the cashflow recalculates automatically.</p>
+    </div>
+
+    <div class="funnel-wrap">
+      <!-- Two input cards side by side -->
+      <div class="funnel-inputs">
+        <div class="funnel-card">
+          <div class="funnel-card-num">Input 01</div>
+          <h3>P&amp;L Forecast</h3>
+          <p>Your income and expense forecast drives receivables and payables — the core of what flows through to cash. Payment terms are applied automatically so cash lands in the right month.</p>
+        </div>
+        <div class="funnel-card">
+          <div class="funnel-card-num">Input 02</div>
+          <h3>Balance Sheet Projections</h3>
+          <p>Capital movements — loan drawdowns and repayments, asset purchases, tax payments, dividends — flow through balance sheet projections as Other Receipts and Payments.</p>
+        </div>
+      </div>
+
+      <!-- Elbow connectors: desktop only -->
+      <div class="funnel-arrows">
+        <svg viewBox="0 0 800 72" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:800px;height:72px;display:block;">
+          <defs>
+            <marker id="arrowhead" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <polygon points="0 0, 9 3.5, 0 7" fill="#12BE7A"/>
+            </marker>
+          </defs>
+          <line x1="200" y1="0" x2="200" y2="36" stroke="#12BE7A" stroke-width="2.5" opacity="0.85"/>
+          <circle cx="200" cy="36" r="3.5" fill="#12BE7A" opacity="0.85"/>
+          <line x1="200" y1="36" x2="400" y2="36" stroke="#12BE7A" stroke-width="2.5" opacity="0.85"/>
+          <circle cx="400" cy="36" r="3.5" fill="#12BE7A" opacity="0.85"/>
+          <line x1="400" y1="36" x2="400" y2="65" stroke="#12BE7A" stroke-width="2.5" opacity="0.85" marker-end="url(#arrowhead)"/>
+          <line x1="600" y1="0" x2="600" y2="36" stroke="#12BE7A" stroke-width="2.5" opacity="0.85"/>
+          <circle cx="600" cy="36" r="3.5" fill="#12BE7A" opacity="0.85"/>
+          <line x1="600" y1="36" x2="404" y2="36" stroke="#12BE7A" stroke-width="2.5" opacity="0.85"/>
+        </svg>
+      </div>
+
+      <!-- Simple vertical arrow: mobile only -->
+      <div class="funnel-arrow-mobile">
+        <div class="arrow-line"></div>
+        <div class="arrow-head"></div>
+      </div>
+
+      <!-- Output card full width -->
+      <div class="funnel-output">
+        <div class="funnel-output-card">
+          <div>
+            <h3>Rolling Cashflow Forecast</h3>
+            <p>Projected monthly bank balances across a rolling twelve-month window — starting from any month, re-forecasting automatically each time actuals come in. Always grounded. Always current.</p>
+          </div>
+          <div class="funnel-output-tag">
+            <div class="tag-label">Output</div>
+            <div class="tag-val">12mo</div>
+            <div class="tag-sub">rolling window</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE FORECAST CHART -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+    <span class="eyebrow">The forecast chart</span>
+    <h2 class="section-heading">Actuals anchor it. The forecast shows you what's coming.</h2>
+    <p class="section-sub" style="margin-bottom:36px;">The chart plots your closing bank balance month by month. Solid months are actuals. Dashed months are forecast. Toggle last year on as a reference line — same seasonality, different trajectory.</p>
+
+    <div class="chart-section-grid">
+      <!-- Chart panel -->
+      <div>
+        <div class="cashflow-chart-panel">
+          <div class="chart-panel-header">
+            <div class="chart-panel-title">Cashflow Forecast</div>
+            <div class="chart-panel-meta">Actuals to Apr 2026</div>
+          </div>
+          <div style="background:var(--paper);border-bottom:1px solid var(--line);padding:8px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <div style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;border:1px solid var(--navy);background:var(--navy);color:#fff;">All Bank Accounts</div>
+            <div style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;border:1px solid var(--line);color:var(--slate);">Operating Account</div>
+            <div style="margin-left:auto;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--green-deep);">
+              <div style="width:28px;height:16px;background:var(--green);border-radius:8px;position:relative;flex-shrink:0;"><div style="position:absolute;right:3px;top:50%;transform:translateY(-50%);width:10px;height:10px;background:#fff;border-radius:50%;"></div></div>
+              Last Year
+            </div>
+          </div>
+          <div class="chart-body">
+            <svg viewBox="0 0 400 185" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+              <line x1="30" y1="20"  x2="388" y2="20"  stroke="#DBE2E8" stroke-width="1"/>
+              <line x1="30" y1="55"  x2="388" y2="55"  stroke="#DBE2E8" stroke-width="1"/>
+              <line x1="30" y1="90"  x2="388" y2="90"  stroke="#DBE2E8" stroke-width="1"/>
+              <line x1="30" y1="125" x2="388" y2="125" stroke="#DBE2E8" stroke-width="1"/>
+              <text x="26" y="24"  text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">+3M</text>
+              <text x="26" y="59"  text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">+1M</text>
+              <text x="26" y="94"  text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">0</text>
+              <text x="26" y="129" text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">-1M</text>
+              <!-- Now line -->
+              <line x1="192" y1="12" x2="192" y2="158" stroke="#344150" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
+              <text x="178" y="11" font-family="Hanken Grotesk,sans-serif" font-size="7.5" fill="#5C6979">Actuals</text>
+              <text x="196" y="11" font-family="Hanken Grotesk,sans-serif" font-size="7.5" fill="#5C6979">Forecast →</text>
+              <!-- Last year teal -->
+              <polyline points="53,36 82,52 112,60 142,68 172,63 202,62 232,60 262,63 292,82 322,108 352,68 382,37"
+                fill="none" stroke="#6FC0B0" stroke-width="1.8" stroke-dasharray="5,3" opacity="0.75"/>
+              <!-- Actuals solid -->
+              <polyline points="53,62 82,76 112,80 142,92"
+                fill="none" stroke="#344150" stroke-width="2.5"/>
+              <defs>
+                <linearGradient id="fill2" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#344150" stop-opacity="0.10"/>
+                  <stop offset="100%" stop-color="#344150" stop-opacity="0.01"/>
+                </linearGradient>
+              </defs>
+              <path d="M53,62 L82,76 L112,80 L142,92 L142,158 L53,158 Z" fill="url(#fill2)"/>
+              <!-- Forecast dashed -->
+              <polyline points="142,92 172,83 202,94 232,99 262,103 292,115 322,130 352,99 382,37"
+                fill="none" stroke="#344150" stroke-width="2.5" stroke-dasharray="6,4"/>
+              <!-- Annotation on tight month -->
+              <line x1="322" y1="130" x2="322" y2="148" stroke="#C0392B" stroke-width="1" stroke-dasharray="2,2"/>
+              <rect x="298" y="147" width="68" height="16" rx="4" fill="rgba(192,57,43,.10)"/>
+              <text x="332" y="158" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="8" fill="#C0392B" font-weight="600">Tight month ahead</text>
+              <!-- Actual dots -->
+              <circle cx="53"  cy="62" r="4" fill="#344150"/>
+              <circle cx="82"  cy="76" r="4" fill="#344150"/>
+              <circle cx="112" cy="80" r="4" fill="#344150"/>
+              <circle cx="142" cy="92" r="4" fill="#344150"/>
+              <!-- Forecast dots -->
+              <circle cx="172" cy="83"  r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+              <circle cx="202" cy="94"  r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+              <circle cx="232" cy="99"  r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+              <circle cx="262" cy="103" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+              <circle cx="292" cy="115" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+              <circle cx="322" cy="130" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+              <circle cx="352" cy="99"  r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+              <circle cx="382" cy="37"  r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
+              <!-- Month labels -->
+              <text x="53"  y="170" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="8.5" fill="#5C6979">Jan</text>
+              <text x="82"  y="170" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="8.5" fill="#5C6979">Feb</text>
+              <text x="112" y="170" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="8.5" fill="#5C6979">Mar</text>
+              <text x="142" y="170" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="8.5" fill="#5C6979">Apr</text>
+              <text x="172" y="170" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="8.5" fill="#5C6979">May</text>
+              <text x="202" y="170" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="8.5" fill="#5C6979">Jun</text>
+              <text x="232" y="170" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="8.5" fill="#5C6979">Jul</text>
+              <text x="262" y="170" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="8.5" fill="#5C6979">Aug</text>
+              <text x="292" y="170" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="8.5" fill="#5C6979">Sep</text>
+              <text x="322" y="170" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="8.5" fill="#5C6979">Oct</text>
+              <text x="352" y="170" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="8.5" fill="#5C6979">Nov</text>
+              <text x="382" y="170" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="8.5" fill="#5C6979">Dec</text>
+            </svg>
+            <div style="display:flex;gap:14px;justify-content:center;margin-top:6px;">
+              <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--slate);"><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="#344150" stroke-width="2"/></svg>Actuals</div>
+              <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--slate);"><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="#344150" stroke-width="2" stroke-dasharray="5,3"/></svg>Forecast</div>
+              <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--slate);"><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="#6FC0B0" stroke-width="2" stroke-dasharray="4,2"/></svg>Last Year</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature callouts -->
+      <div style="display:flex;flex-direction:column;gap:14px;">
+
+        <div class="feature-callout">
+          <div class="callout-head">
+            <div class="callout-icon">↻</div>
+            <div class="callout-title">Re-forecasts on every import</div>
+          </div>
+          <p class="callout-body">Each time actuals come in, the opening balance updates to reflect what really happened. Compliance obligations — GST, PAYGW, Superannuation — recalculate from the new base. The remaining months always forecast forward from where you actually are.</p>
+        </div>
+
+        <div class="feature-callout">
+          <div class="callout-head">
+            <div class="callout-icon">⏱</div>
+            <div class="callout-title">Payment terms applied automatically</div>
+          </div>
+          <p class="callout-body">Revenue recognised in one month doesn't necessarily land as cash that month. Magnifi applies your debtor and creditor terms so actuals flow into the cashflow at the right time — not when the invoice was raised.</p>
+        </div>
+
+        <div class="feature-callout">
+          <div class="callout-head">
+            <div class="callout-icon">↔</div>
+            <div class="callout-title">Start from any month</div>
+          </div>
+          <p class="callout-body">No fixed start date. View any rolling twelve-month window — from today, from your last actual month, or from any point you choose. Not locked to the financial year or calendar year.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="who-section" id="who">
+  <div class="container">
+    <span class="eyebrow">Who it's for</span>
+    <h2 class="section-heading">Two ways to use a cashflow that stays current.</h2>
+    <div class="who-grid">
+
+      <!-- OWNER -->
+      <div class="who-card owner">
+        <div class="who-card-tag">Business Owner</div>
+        <h3>Stop guessing whether next month is fine.</h3>
+        <p>Cash surprises are the most stressful part of running a service business. A tax bill lands the same month payroll is due. A slow period bleeds into the operating account. The rolling forecast tells you months in advance — so you have time to act, not just react.</p>
+        <ul class="who-bullets">
+          <li>See your projected bank balance for every month ahead</li>
+          <li>Spot tight months before they arrive, not after</li>
+          <li>Understand whether a cash dip is seasonal or structural</li>
+          <li>Model decisions in the Playground before committing</li>
+        </ul>
+      </div>
+
+      <!-- ADVISOR -->
+      <div class="who-card advisor">
+        <div class="who-card-tag">Accountant / Advisor</div>
+        <h3>A P&amp;L review is half the story. The cashflow is where it gets real.</h3>
+        <p>Most month-end client conversations stop at the P&amp;L. Profit is up, expenses look fine — tick. But profit doesn't pay wages on Friday. Most advisors don't talk about cashflow because building a current forecast is too much work. Magnifi makes it automatic.</p>
+        <p>Every time actuals are imported, the cashflow re-forecasts forward. When you sit down with a client, you're not walking through a projection built on last quarter's numbers — you're looking at the current picture, with the months ahead already mapped out. Have the conversation about a tight October in August, when there's still time to do something about it.</p>
+      </div>
+
+    </div>
+
+    <!-- Industries shared across both panels -->
+    <div style="margin-top:28px;padding:20px 24px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);">
+      <div class="industry-label" style="color:var(--slate);margin-bottom:10px;">Built for service businesses including</div>
+      <div class="industry-pills">
+        <span class="industry-pill" style="background:var(--paper-soft);border:1px solid var(--line);color:var(--navy);">Professional Services</span>
+        <span class="industry-pill" style="background:var(--paper-soft);border:1px solid var(--line);color:var(--navy);">Consulting</span>
+        <span class="industry-pill" style="background:var(--paper-soft);border:1px solid var(--line);color:var(--navy);">Engineering</span>
+        <span class="industry-pill" style="background:var(--paper-soft);border:1px solid var(--line);color:var(--navy);">Architecture</span>
+        <span class="industry-pill" style="background:var(--paper-soft);border:1px solid var(--line);color:var(--navy);">Health &amp; Beauty</span>
+        <span class="industry-pill" style="background:var(--paper-soft);border:1px solid var(--line);color:var(--navy);">Trade Services</span>
+        <span class="industry-pill" style="background:var(--paper-soft);border:1px solid var(--line);color:var(--navy);">Recruitment</span>
+        <span class="industry-pill" style="background:var(--paper-soft);border:1px solid var(--line);color:var(--navy);">Marketing Agencies</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<div class="proof-strip">
+  <div class="proof-inner">
+    <div class="proof-pill">Xero accredited app</div>
+    <div class="proof-pill">Built &amp; refined since 2017</div>
+    <div class="proof-pill">Used by listed entities</div>
+    <div class="proof-pill">AWS infrastructure</div>
+    <div class="proof-pill">Chartered Accountant designed</div>
+    <div class="proof-pill">No setup fees</div>
+  </div>
+</div>
+
+<!-- CREDIBILITY -->
+<section class="credibility">
+  <div class="container">
+    <div class="cred-inner">
+      <div class="cred-text">
+        <span class="eyebrow" style="color:var(--green-bright);">Built by an accountant</span>
+        <h2>Designed by someone who's rebuilt this forecast one too many times.</h2>
+        <p>Magnifi was built by a Chartered Accountant who spent two decades in public practice and CFO roles — running the same month-end conversations, building the same cashflow models from scratch every time results came in.</p>
+        <p>The rolling cashflow exists because a forecast that requires a manual rebuild when actuals change isn't practical. It's designed to work the way an experienced advisor thinks about cash: always current, always forward-looking, always tied back to the balance sheet.</p>
+        <div class="cred-badges">
+          <div class="cred-badge">Xero accredited app</div>
+          <div class="cred-badge">Built &amp; refined since 2017</div>
+          <div class="cred-badge">Used by listed entities</div>
+          <div class="cred-badge">AWS infrastructure</div>
+        </div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-quote">"The cashflow forecast changed how I talk to clients. It's not a theoretical projection anymore — it's always showing the current picture. When a client asks 'will we have enough in October?', I can answer that before the meeting, not during it."</div>
+        <div class="cred-card-attr">
+          <div class="cred-card-avatar">CA</div>
+          <div>
+            <div class="cred-card-name">Director, Public Practice</div>
+            <div class="cred-card-role">Chartered accounting firm, Newcastle NSW</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="container-narrow">
+    <span class="eyebrow">FAQ</span>
+    <h2 class="section-heading" style="text-align:center;">Common questions</h2>
+    <div class="faq-list">
+
+      <details>
+        <summary>What does "rolling" actually mean? <span class="faq-marker"></span></summary>
+        <div class="faq-body">Two things. First, the forecast re-forecasts forward each time you import actuals — the opening balance updates to what actually happened, compliance obligations recalculate from the new base, and the remaining months forecast forward from there. Second, there's no fixed start date. You're not locked to the beginning of your financial year or calendar year. You can set the start month to anything — useful if you want to see the next twelve months from today, or look ahead from your last actual period.</div>
+      </details>
+
+      <details>
+        <summary>How does receivables timing work? <span class="faq-marker"></span></summary>
+        <div class="faq-body">When you map your chart of accounts, you specify whether income or expense accounts flow through a receivables or payables account and set the payment terms. Magnifi then applies those terms when actuals come in — so if September income was $100,000 on 60-day terms, that $100,000 appears as cash collected in November, not September. This runs automatically every time you import.</div>
+      </details>
+
+      <details>
+        <summary>Are GST, PAYGW, and Super included automatically? <span class="faq-marker"></span></summary>
+        <div class="faq-body">Yes. GST, PAYGW, Payroll Tax, and Superannuation all appear in the cashflow under Taxes &amp; Levies and run to the compliance terms set for each account. When actuals are imported, these re-forecast from the new base — so a stronger-than-expected income month flows through to a higher GST liability in the relevant settlement month.</div>
+      </details>
+
+      <details>
+        <summary>Can I share the cashflow forecast with a client or board? <span class="faq-marker"></span></summary>
+        <div class="faq-body">Yes. The cashflow chart is included in the live dashboard link you can share from any entity or group. The recipient sees the full dashboard — including the cashflow forecast — as at your most recent import. No login is required on their end, and you can revoke access at any time.</div>
+      </details>
+
+      <details>
+        <summary>Do I have to be a service business to use Magnifi? <span class="faq-marker"></span></summary>
+        <div class="faq-body">No. Magnifi is purpose-built for service businesses — professional services, consulting, trades, health and beauty, and similar people-driven operations — and the capacity planning features are designed specifically for this context. That said, any business that runs a connected P&amp;L, balance sheet, and cashflow can use Magnifi's forecasting and reporting tools effectively.</div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <div class="final-cta-inner">
+      <span class="eyebrow">Get started</span>
+      <h2>A cashflow that updates itself.</h2>
+      <p>Connect your data, import your actuals, and Magnifi builds a rolling cashflow forecast that re-forecasts automatically — no manual rebuild, always current.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn btn-primary btn-lg">Start Free</a>
+      </div>
+      <p class="cta-note">No setup fee &middot; No lock-in contract &middot; Connects to Xero or Excel</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <a href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" style="height:26px;width:auto">
+          <text x="0" y="29" font-family="Georgia,serif" font-size="26" font-weight="700" fill="white" opacity="0.65">magnifi</text>
+          <circle cx="192" cy="18" r="7" fill="#6FC0B0" opacity="0.65"/>
+        </svg>
+      </a>
+      <ul class="footer-links">
+        <li><a href="/features">Features</a></li>
+        <li><a href="/for-business">For Business</a></li>
+        <li><a href="/for-advisors">For Advisors</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="https://support.magnifi.com.au" target="_blank">Help Centre</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-copy">&copy; 2025 Magnifi Pty Ltd &middot; ABN 83 106 161 951 &middot; <a href="#" style="color:rgba(255,255,255,.3)">Privacy</a> &middot; <a href="#" style="color:rgba(255,255,255,.3)">Terms</a></div>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  const spans = hamburger.querySelectorAll('span');
+  if (open) {
+    spans[0].style.transform = 'translateY(7px) rotate(45deg)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+  } else {
+    spans.forEach(s => { s.style.transform=''; s.style.opacity=''; });
+  }
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    hamburger.querySelectorAll('span').forEach(s => { s.style.transform=''; s.style.opacity=''; });
+  });
+});
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.style.boxShadow = window.scrollY > 8 ? '0 2px 16px rgba(52,65,80,.10)' : 'none';
+});
+document.querySelectorAll('details').forEach(d => {
+  d.addEventListener('toggle', () => {
+    if (d.open) document.querySelectorAll('details').forEach(o => { if (o !== d) o.removeAttribute('open'); });
+  });
+});
+</script>
+</body>
+</html>
