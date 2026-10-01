@@ -22,7 +22,26 @@ document.addEventListener('click',function(e){
     var m=document.getElementById('res-menu'),b=document.getElementById('res-btn');
     if(m)m.classList.remove('open');if(b)b.classList.remove('open');
   }
+  // Mobile menu: close when a link inside it is followed, or when the backdrop (the dialog itself, outside its content) is clicked
+  var mnav=document.getElementById('m-nav');
+  if(mnav&&mnav.open&&(e.target===mnav||e.target.closest('#m-nav a'))) closeMobileNav();
 });
+
+// Mobile menu (below 1000px) - a native <dialog>, so Esc and focus trapping come for free
+function openMobileNav(){
+  var d=document.getElementById('m-nav');
+  if(!d||d.open) return;
+  d.showModal();
+  document.getElementById('m-nav-btn').setAttribute('aria-expanded','true');
+}
+function closeMobileNav(){
+  var d=document.getElementById('m-nav');
+  if(d&&d.open) d.close();
+  var b=document.getElementById('m-nav-btn');
+  if(b) b.setAttribute('aria-expanded','false');
+}
+// Close the mobile menu if the window is widened past the breakpoint
+window.matchMedia('(min-width:62.5rem)').addEventListener('change',function(e){ if(e.matches) closeMobileNav(); });
 
 // FAQ accordion: close other open <details> when one opens
 document.querySelectorAll('details').forEach(function(d){
@@ -51,10 +70,16 @@ function loadPartial(id,file,onLoad){
 
 function injectLayout(){
   loadPartial('site-nav','nav.html',function(mount){
-    // Highlight the current page's nav link, set via data-page on #site-nav
+    // Highlight the current page's link in both the desktop and mobile menus, set via data-page on #site-nav
     var page=mount.getAttribute('data-page');
-    var active=page&&document.querySelector('.nav-link-btn[data-nav="'+page+'"]');
-    if(active) active.classList.add('current');
+    if(page) document.querySelectorAll('[data-nav="'+page+'"]').forEach(function(a){ a.classList.add('current'); });
+    // Arriving via a link like magnifi-homepage.html#pricing: the browser scrolled before the nav was inserted and the web font loaded
+    // (both shift the content), so re-align to the target once they're done
+    var target=location.hash&&document.getElementById(location.hash.slice(1));
+    if(target) document.fonts.ready.then(function(){ target.scrollIntoView({behavior:'instant'}); });
+    // Keep the burger's aria-expanded in sync however the dialog closes (Esc, link, backdrop, close button)
+    var mnav=document.getElementById('m-nav');
+    if(mnav) mnav.addEventListener('close',function(){ document.getElementById('m-nav-btn').setAttribute('aria-expanded','false'); });
   });
   loadPartial('site-footer','footer.html');
 }
