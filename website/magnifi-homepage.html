@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Magnifi homepage mockup v2 — brighter palette, animated see-saw, people→4-way hero,
-     dark feature moment. [SCREENSHOT] frames mark where current-UI images / your real
-     brand assets drop in. -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Magnifi — Forecasting that starts with your people</title>
+<meta name="description" content="Magnifi is financial forecasting for service businesses. Import your team and Magnifi builds your profit, cashflow, balance sheet and capacity — one connected forecast that updates the moment anything changes.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Magnifi">
+<meta property="og:title" content="Magnifi — Forecasting that starts with your people">
+<meta property="og:description" content="Financial forecasting for service businesses: profit, cashflow, balance sheet and capacity in one connected forecast, built from your team.">
+<link rel="icon" type="image/png" href="assets/favicon_magnifi_com_au_32x32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css">
@@ -14,78 +17,77 @@
 </head>
 <body>
 
-<!-- NAV -->
+<!-- HEADER -->
 <div id="site-nav" data-page="home"></div>
-
 
 <!-- HERO -->
 <section class="hero">
-  <div class="wrap hero-grid">
+  <div class="wrap split">
     <div>
-      <div class="eyebrow reveal d1">Financial forecasting for service businesses</div>
-      <h1 class="reveal d2">Forecasting that starts with your <em>people</em>.</h1>
-      <p class="lead reveal d3">Import your team and Magnifi builds your profit, cashflow, balance sheet and capacity — one connected forecast that updates the moment anything changes.</p>
-      <div class="hero-actions reveal d4">
-        <a class="btn btn-primary" href="#">Start Free</a>
-        <a class="btn btn-ghost" href="#">See how it works</a>
+      <div class="eyebrow reveal delay-1">Financial forecasting for service businesses</div>
+      <h1 class="reveal delay-2">Forecasting that starts with your <em>people</em>.</h1>
+      <p class="lead reveal delay-3">Import your team and Magnifi builds your profit, cashflow, balance sheet and capacity — one connected forecast that updates the moment anything changes.</p>
+      <div class="actions reveal delay-4">
+        <a class="btn btn--primary" href="#">Start Free</a>
+        <a class="btn btn--ghost" href="#">See how it works</a>
       </div>
-      <div class="hero-note reveal d4">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#14C07C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="hero-note reveal delay-4">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Connect Xero (or import via Excel) and see your numbers in minutes.
       </div>
     </div>
 
     <!-- orbital: your team at the centre drives the four connected views -->
-    <div class="orbit-wrap reveal d5">
+    <div class="orbit-wrap reveal delay-5">
       <svg class="orbit" viewBox="0 0 460 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Your team at the centre drives capacity, cashflow, balance sheet and profit, all interconnected">
         <!-- interconnect ring -->
-        <circle class="ring" cx="230" cy="215" r="143" fill="none" stroke="#9ED2C8" stroke-width="2" stroke-dasharray="2 10" stroke-linecap="round"/>
+        <circle class="orbit-ring stroke-mint-soft" cx="230" cy="215" r="143" fill="none" stroke-width="2" stroke-dasharray="2 10" stroke-linecap="round"/>
         <!-- spokes -->
-        <g stroke="#14C07C" stroke-width="2.4" opacity=".55">
+        <g class="orbit-spokes stroke-green-vivid" stroke-width="2.4">
           <line x1="230" y1="215" x2="230" y2="72"/>
           <line x1="230" y1="215" x2="378" y2="215"/>
           <line x1="230" y1="215" x2="230" y2="358"/>
           <line x1="230" y1="215" x2="82" y2="215"/>
         </g>
         <!-- flowing dots: team -> each view -->
-        <g fill="#14C07C">
+        <g class="fill-green-vivid">
           <circle r="4.5"><animateMotion dur="2.6s" repeatCount="indefinite" path="M230,215 L230,72"/></circle>
           <circle r="4.5"><animateMotion dur="2.6s" begin="0.65s" repeatCount="indefinite" path="M230,215 L378,215"/></circle>
           <circle r="4.5"><animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite" path="M230,215 L230,358"/></circle>
           <circle r="4.5"><animateMotion dur="2.6s" begin="1.95s" repeatCount="indefinite" path="M230,215 L82,215"/></circle>
         </g>
         <!-- outer nodes -->
-        <g style="font-family:var(--font-body)" font-weight="700" font-size="13" text-anchor="middle">
+        <g font-size="13" text-anchor="middle">
           <!-- Capacity (top, highlighted) -->
-          <g class="node-cap">
-            <circle cx="230" cy="72" r="47" fill="#fff" stroke="#14C07C" stroke-width="2.4"/>
-            <text x="230" y="68" fill="#2C3949">Capacity</text>
-            <text x="230" y="85" fill="#14C07C" font-size="10" letter-spacing="0.6">CAN WE DELIVER?</text>
+          <g class="orbit-node--highlight">
+            <circle class="fill-white stroke-green-vivid" cx="230" cy="72" r="47" stroke-width="2.4"/>
+            <text class="fill-text-dark" x="230" y="68">Capacity</text>
+            <text class="fill-green-vivid" x="230" y="85" font-size="10" letter-spacing="0.6">CAN WE DELIVER?</text>
           </g>
           <!-- Cashflow (right) -->
-          <circle cx="378" cy="215" r="47" fill="#fff" stroke="#DCE3E9" stroke-width="2"/>
-          <text x="378" y="220" fill="#2C3949">Cashflow</text>
+          <circle class="fill-white stroke-line" cx="378" cy="215" r="47" stroke-width="2"/>
+          <text class="fill-text-dark" x="378" y="220">Cashflow</text>
           <!-- Balance sheet (bottom) -->
-          <circle cx="230" cy="358" r="47" fill="#fff" stroke="#DCE3E9" stroke-width="2"/>
-          <text x="230" y="354" fill="#2C3949">Balance</text>
-          <text x="230" y="371" fill="#2C3949">Sheet</text>
+          <circle class="fill-white stroke-line" cx="230" cy="358" r="47" stroke-width="2"/>
+          <text class="fill-text-dark" x="230" y="354">Balance</text>
+          <text class="fill-text-dark" x="230" y="371">Sheet</text>
           <!-- Profit (left) -->
-          <circle cx="82" cy="215" r="47" fill="#fff" stroke="#DCE3E9" stroke-width="2"/>
-          <text x="82" y="220" fill="#2C3949">Profit</text>
+          <circle class="fill-white stroke-line" cx="82" cy="215" r="47" stroke-width="2"/>
+          <text class="fill-text-dark" x="82" y="220">Profit</text>
         </g>
         <!-- centre: your team -->
-        <g class="core">
-          <circle cx="230" cy="215" r="62" fill="url(#g)"/>
-          <g fill="#fff" transform="translate(230,196)">
+        <g class="orbit-core">
+          <circle cx="230" cy="215" r="62" fill="url(#orbit-core-fill)"/>
+          <g class="fill-white" transform="translate(230,196)">
             <circle cx="-18" cy="0" r="6.5"/><path d="M-30 19c0-6.6 5.4-12 12-12s12 5.4 12 12z"/>
             <circle cx="0" cy="-3" r="7"/><path d="M-13 17c0-7.2 5.8-13 13-13s13 5.8 13 13z"/>
             <circle cx="18" cy="0" r="6.5"/><path d="M6 19c0-6.6 5.4-12 12-12s12 5.4 12 12z"/>
           </g>
-          <text x="230" y="245" fill="#fff" text-anchor="middle" style="font-family:var(--font-body)" font-weight="800" font-size="14" letter-spacing="0.56">YOUR TEAM</text>
+          <text class="fill-white" x="230" y="245" text-anchor="middle" font-weight="800" font-size="14" letter-spacing="0.56">YOUR TEAM</text>
         </g>
         <defs>
-          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#3BE0A2"/><stop offset="1" stop-color="#0FA065"/>
+          <linearGradient id="orbit-core-fill" x1="0" y1="0" x2="1" y2="1">
+            <stop class="stop-green-light" offset="0"/><stop class="stop-green-vivid" offset="1"/>
           </linearGradient>
         </defs>
       </svg>
@@ -93,205 +95,212 @@
   </div>
 </section>
 
-<!-- STRIP -->
-<div class="strip">
-  <div class="wrap strip-inner">
-    <p>Built for Australian service businesses</p>
-    <div class="verticals"><span>Accounting</span><span>Engineering</span><span>Consultants</span><span>Marketing</span><span>Legal</span><span>Medical</span><span>Health &amp; Beauty</span><span>IT</span><span>Trades</span></div>
+<!-- INDUSTRIES STRIP -->
+<section class="section--tint section--compact text-center">
+  <div class="wrap">
+    <div class="eyebrow">Built for Australian service businesses</div>
+    <div class="chips chips--center"><span class="chip chip--lg">Accounting</span><span class="chip chip--lg">Engineering</span><span class="chip chip--lg">Consultants</span><span class="chip chip--lg">Marketing</span><span class="chip chip--lg">Legal</span><span class="chip chip--lg">Medical</span><span class="chip chip--lg">Health &amp; Beauty</span><span class="chip chip--lg">IT</span><span class="chip chip--lg">Trades</span></div>
   </div>
-</div>
+</section>
 
 <!-- HOW IT WORKS -->
-<section style="background:var(--bg)">
+<section>
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Starts with your people</div>
       <h2>Your team is the engine. So that's where the forecast begins.</h2>
       <p>Service businesses run on people — your biggest cost and the source of your revenue. Magnifi is built around that, instead of bolting people onto a generic forecast.</p>
     </div>
-    <div class="steps">
-      <div class="step"><span class="num">01</span><h3>Import your team</h3><p>Bring employees in from Xero — or via Excel — with rates, hours, allowances and on-costs.</p></div>
-      <div class="step"><span class="num">02</span><h3>Build labour &amp; capacity</h3><p>The same data drives your labour forecast and your capacity plan at once.</p></div>
-      <div class="step"><span class="num">03</span><h3>See all four views</h3><p>Profit, cashflow, balance sheet and capacity — connected and updating together.</p></div>
-      <div class="step"><span class="num">04</span><h3>Change anything, instantly</h3><p>Add a hire or adjust a rate and the whole picture re-forecasts in real time.</p></div>
+    <div class="grid grid--4">
+      <div class="step"><span class="step-index">01</span><h3>Import your team</h3><p>Bring employees in from Xero — or via Excel — with rates, hours, allowances and on-costs.</p></div>
+      <div class="step"><span class="step-index">02</span><h3>Build labour &amp; capacity</h3><p>The same data drives your labour forecast and your capacity plan at once.</p></div>
+      <div class="step"><span class="step-index">03</span><h3>See all four views</h3><p>Profit, cashflow, balance sheet and capacity — connected and updating together.</p></div>
+      <div class="step"><span class="step-index">04</span><h3>Change anything, instantly</h3><p>Add a hire or adjust a rate and the whole picture re-forecasts in real time.</p></div>
     </div>
   </div>
 </section>
 
-<!-- SEE-SAW LIGHTBULB -->
-<section class="balance" style="background:var(--bg-tint)">
-  <div class="wrap balance-grid">
+<!-- BALANCE (SEE-SAW) -->
+<section class="section--tint">
+  <div class="wrap split">
     <div>
-      <div class="eyebrow">The insight most businesses never see</div>
-      <h2>Profit lives in the balance between your team and the work.</h2>
-      <p class="section-head" style="margin-top:16px">When capacity and income are in balance, profit is maximised. When you're small, gut feel keeps you on top of the numbers — but as you grow, it slips. More people, more moving parts, more ways for profit to quietly leak away. Magnifi makes the balance visible, so you can choose where you sit.</p>
-      <div class="miss">
+      <div class="section-head section-head--lg">
+        <div class="eyebrow">The insight most businesses never see</div>
+        <h2>Profit lives in the balance between your team and the work.</h2>
+        <p>When capacity and income are in balance, profit is maximised. When you're small, gut feel keeps you on top of the numbers — but as you grow, it slips. More people, more moving parts, more ways for profit to quietly leak away. Magnifi makes the balance visible, so you can choose where you sit.</p>
+      </div>
+      <div class="balance-notes">
         <div><strong>Too much capacity</strong> Idle time and wasted cost, eating into profit.</div>
         <div><strong>Too little capacity</strong> Burnt-out staff and customers you can't serve.</div>
       </div>
     </div>
-    <div class="seesaw-card">
+    <div class="card card--raised">
       <div class="seesaw">
-        <div class="beam">
-          <div class="load load-l">
-            <svg width="74" height="40" viewBox="0 0 74 40" fill="none">
-              <g fill="#14C07C"><circle cx="14" cy="11" r="7"/><path d="M2 38c0-7 5-12 12-12s12 5 12 12z"/>
+        <div class="seesaw-beam">
+          <div class="seesaw-load seesaw-load--left">
+            <svg width="74" height="40" viewBox="0 0 74 40" fill="none" aria-hidden="true">
+              <g fill="currentColor"><circle cx="14" cy="11" r="7"/><path d="M2 38c0-7 5-12 12-12s12 5 12 12z"/>
               <circle cx="34" cy="9" r="7"/><path d="M22 38c0-7 5-12 12-12s12 5 12 12z"/>
               <circle cx="54" cy="11" r="7"/><path d="M42 38c0-7 5-12 12-12s12 5 12 12z"/></g>
             </svg>
-            <span class="label">Your team's capacity</span>
+            <span class="seesaw-label">Your team's capacity</span>
           </div>
-          <div class="load load-r">
-            <svg width="68" height="40" viewBox="0 0 68 40" fill="none">
-              <g fill="none" stroke="#2C3949" stroke-width="2.4"><rect x="6" y="20" width="24" height="16" rx="2"/><rect x="32" y="12" width="22" height="24" rx="2"/><rect x="22" y="6" width="20" height="12" rx="2"/></g>
+          <div class="seesaw-load seesaw-load--right">
+            <svg width="68" height="40" viewBox="0 0 68 40" fill="none" aria-hidden="true">
+              <g fill="none" stroke="currentColor" stroke-width="2.4"><rect x="6" y="20" width="24" height="16" rx="2"/><rect x="32" y="12" width="22" height="24" rx="2"/><rect x="22" y="6" width="20" height="12" rx="2"/></g>
             </svg>
-            <span class="label">Income</span>
+            <span class="seesaw-label">Income</span>
           </div>
         </div>
-        <div class="fulcrum"></div>
-        <div class="ground"></div>
+        <div class="seesaw-fulcrum"></div>
+        <div class="seesaw-ground"></div>
       </div>
-      <div class="balance-eq">In balance → <b>profit maximised</b></div>
+      <div class="seesaw-caption">In balance → <b>profit maximised</b></div>
     </div>
   </div>
 </section>
 
-<!-- DARK: OVERVIEW DASHBOARD -->
-<section class="dark4">
-  <div class="wrap" style="text-align:center">
-    <div class="eyebrow">The overview dashboard</div>
-    <h2 style="max-width:20ch;margin:0 auto">Know exactly where you stand — without digging for it.</h2>
-    <p style="max-width:56ch;margin:16px auto 0">Your key numbers on one screen, with the biggest movers surfaced for you. No wading through a full profit-and-loss — just what you need to know, with the detail one click away.</p>
+<!-- OVERVIEW DASHBOARD -->
+<section class="section--dark">
+  <div class="wrap">
+    <div class="section-head section-head--center">
+      <div class="eyebrow">The overview dashboard</div>
+      <h2>Know exactly where you stand — without digging for it.</h2>
+      <p>Your key numbers on one screen, with the biggest movers surfaced for you. No wading through a full profit-and-loss — just what you need to know, with the detail one click away.</p>
+    </div>
 
-    <div class="ovw">
-      <div class="ovw-top">
-        <span class="ovw-org">⚙ Your Business</span>
-        <span class="ovw-period">PERIOD · LAST ACTUAL · APR 2026</span>
+    <div class="dashboard-mock">
+      <div class="dashboard-mock-top">
+        <span class="chip chip--tint">⚙ Your Business</span>
+        <span class="eyebrow eyebrow--muted">PERIOD · LAST ACTUAL · APR 2026</span>
       </div>
-      <div class="ovw-grid">
-        <div class="kcard"><div class="kl">Income</div><div class="kv">$277K <span class="kd down">▼ 5%</span></div><div class="kab">Actual $277.4K · Budget $292.1K</div></div>
-        <div class="kcard"><div class="kl">Operating Profit</div><div class="kv">$17.4K <span class="kd up">▲ 28%</span></div><div class="kab">Actual $17.4K · Budget $13.5K</div></div>
-        <div class="kcard"><div class="kl">Direct Margin</div><div class="kv">33.6% <span class="kd up">▲ 3%</span></div><div class="kab">Actual 33.6% · Budget 30.9%</div></div>
-        <div class="kcard"><div class="kl">Cash (forecast)</div><div class="kv">$213K <span class="kd up">▲ 15%</span></div><div class="kab">Closing position · Apr 2026</div></div>
-        <div class="kcard"><div class="kl">Working Capital</div><div class="kv">$29.7K <span class="kd up">▲ 15%</span></div><div class="kab">Current assets less liabilities</div></div>
-        <div class="kcard"><div class="kl">Capacity v Income</div><div class="kv">+$131K <span class="kd up">Surplus</span></div><div class="kab">Annual · capacity vs projected income</div></div>
+      <div class="grid grid--3 grid--tight">
+        <div class="kpi"><div class="kpi-label">Income</div><div class="kpi-value">$277K <span class="kpi-change trend-down">▼ 5%</span></div><div class="kpi-note">Actual $277.4K · Budget $292.1K</div></div>
+        <div class="kpi"><div class="kpi-label">Operating Profit</div><div class="kpi-value">$17.4K <span class="kpi-change trend-up">▲ 28%</span></div><div class="kpi-note">Actual $17.4K · Budget $13.5K</div></div>
+        <div class="kpi"><div class="kpi-label">Direct Margin</div><div class="kpi-value">33.6% <span class="kpi-change trend-up">▲ 3%</span></div><div class="kpi-note">Actual 33.6% · Budget 30.9%</div></div>
+        <div class="kpi"><div class="kpi-label">Cash (forecast)</div><div class="kpi-value">$213K <span class="kpi-change trend-up">▲ 15%</span></div><div class="kpi-note">Closing position · Apr 2026</div></div>
+        <div class="kpi"><div class="kpi-label">Working Capital</div><div class="kpi-value">$29.7K <span class="kpi-change trend-up">▲ 15%</span></div><div class="kpi-note">Current assets less liabilities</div></div>
+        <div class="kpi"><div class="kpi-label">Capacity v Income</div><div class="kpi-value">+$131K <span class="kpi-change trend-up">Surplus</span></div><div class="kpi-note">Annual · capacity vs projected income</div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- FEATURES -->
-<section style="background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+<section class="section--soft">
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">What you get</div>
       <h2>Depth where it matters — clarity where it counts.</h2>
     </div>
-    <div class="feat-grid">
-      <div class="feat hero-feat">
-        <div class="feat-eyebrow">Capacity planning · our point of difference</div>
-        <h3>Know whether you can actually <em>deliver</em>.</h3>
+    <div class="grid grid--2">
+      <div class="card card--feature card--full">
+        <div class="eyebrow">Capacity planning · our point of difference</div>
+        <h3 class="card-title card-title--lg">Know whether you can actually <em>deliver</em>.</h3>
         <p>Build a capacity plan in minutes and compare it against projected income — so you know instantly whether you're over capacity, short of it, or right on target. Nothing else connects your people to your forecast like this.</p>
-        <div class="shot">[SCREENSHOT] Annual Capacity — capacity $ vs projected income, surplus/shortfall</div>
-        <a class="more" href="#">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="shot-placeholder">[SCREENSHOT] Annual Capacity — capacity $ vs projected income, surplus/shortfall</div>
+        <a class="link-more" href="#">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
-      <div class="feat">
-        <div class="feat-eyebrow">Profit to Cash</div>
-        <h3>Finally answer "where did the money go?"</h3>
+      <div class="card card--hover">
+        <div class="eyebrow">Profit to Cash</div>
+        <h3 class="card-title card-title--lg">Finally answer "where did the money go?"</h3>
         <p>The bridge from profit to cash, laid out so anyone can follow it — the explanation that's always been hard to give.</p>
-        <div class="shot">[SCREENSHOT] Profit to Cash bridge</div>
-        <a class="more" href="#">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="shot-placeholder">[SCREENSHOT] Profit to Cash bridge</div>
+        <a class="link-more" href="#">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
-      <div class="feat">
-        <div class="feat-eyebrow">Multi-level reporting</div>
-        <h3>Know <em>where</em> the problem is.</h3>
+      <div class="card card--hover">
+        <div class="eyebrow">Multi-level reporting</div>
+        <h3 class="card-title card-title--lg">Know <em>where</em> the problem is.</h3>
         <p>Consolidate the whole group, then drill into any entity, division or segment — so when something's off, you can see exactly which part of the business is driving it.</p>
-        <div class="shot">[SCREENSHOT] Consolidations / division view (your XYZ Group org-chart asset)</div>
-        <a class="more" href="#">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="shot-placeholder">[SCREENSHOT] Consolidations / division view (your XYZ Group org-chart asset)</div>
+        <a class="link-more" href="#">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
-      <div class="feat">
-        <div class="feat-eyebrow">Interactive dashboards</div>
-        <h3>Share insight — no login required.</h3>
+      <div class="card card--hover">
+        <div class="eyebrow">Interactive dashboards</div>
+        <h3 class="card-title card-title--lg">Share insight — no login required.</h3>
         <p>Send a live dashboard link to your execs or board. They interact with the charts themselves. Clarity for everyone, friction for no one.</p>
-        <div class="shot">[SCREENSHOT] Overview dashboard with Share</div>
-        <a class="more" href="#">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="shot-placeholder">[SCREENSHOT] Overview dashboard with Share</div>
+        <a class="link-more" href="#">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
-      <div class="feat">
-        <div class="feat-eyebrow">What-if &amp; Playground</div>
-        <h3>Model decisions before you make them.</h3>
+      <div class="card card--hover">
+        <div class="eyebrow">What-if &amp; Playground</div>
+        <h3 class="card-title card-title--lg">Model decisions before you make them.</h3>
         <p>Test a rate rise, a new hire or a productivity gain at a glance — or use Playground, a sandbox copy, for detailed scenarios without touching the live file.</p>
-        <div class="shot">[SCREENSHOT] What-if sliders / Capacity Optimiser</div>
-        <a class="more" href="#">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="shot-placeholder">[SCREENSHOT] What-if sliders / Capacity Optimiser</div>
+        <a class="link-more" href="#">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
-      <div class="feat">
-        <div class="feat-eyebrow">Rolling cashflow</div>
-        <h3>Re-forecast as the actuals land.</h3>
+      <div class="card card--hover">
+        <div class="eyebrow">Rolling cashflow</div>
+        <h3 class="card-title card-title--lg">Re-forecast as the actuals land.</h3>
         <p>Import your latest results from Xero and Magnifi automatically re-forecasts your cashflow — your projection always reflects where you really are.</p>
-        <div class="shot">[SCREENSHOT] Rolling cashflow — actuals vs forecast</div>
-        <a class="more" href="#">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="shot-placeholder">[SCREENSHOT] Rolling cashflow — actuals vs forecast</div>
+        <a class="link-more" href="#">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
-      <div class="feat">
-        <div class="feat-eyebrow">AI Commentary <span class="tag-soon">Coming soon</span></div>
-        <h3>Your numbers, explained.</h3>
+      <div class="card card--hover">
+        <div class="eyebrow">AI Commentary <span class="tag tag--soon">Coming soon</span></div>
+        <h3 class="card-title card-title--lg">Your numbers, explained.</h3>
         <p>AI commentary across your dashboards tells you what's driving the result and what to look at next — insight, not just data.</p>
-        <div class="shot">[SCREENSHOT] AI commentary panel — to come</div>
+        <div class="shot-placeholder">[SCREENSHOT] AI commentary panel — to come</div>
       </div>
     </div>
   </div>
 </section>
 
-
 <!-- CREDIBILITY -->
-<section class="cred" style="background:var(--bg)"><div class="wrap cred-inner">
-  <div>
-    <div class="eyebrow">Built on real experience</div>
-    <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem)">Built by an accountant who's done your job.</h2>
-    <p style="margin-top:14px">Magnifi isn't a generic forecasting tool with people bolted on. It's been built and refined since 2017, it's been used by everything from small businesses to listed entities, and it's an accredited Xero app — shaped throughout by deep experience in practice and finance. Its sweet spot is businesses in the 10–200 employee range — where a gut feel for the numbers no longer cuts it and real clarity and control start to matter.</p>
-    <div class="badges">
-      <span class="badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Xero accredited</span>
-      <span class="badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Built &amp; refined since 2017</span>
-      <span class="badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Small business to listed entities</span>
+<section>
+  <div class="wrap split split--wide-left">
+    <div class="section-head section-head--sm">
+      <div class="eyebrow">Built on real experience</div>
+      <h2>Built by an accountant who's done your job.</h2>
+      <p>Magnifi isn't a generic forecasting tool with people bolted on. It's been built and refined since 2017, it's been used by everything from small businesses to listed entities, and it's an accredited Xero app — shaped throughout by deep experience in practice and finance. Its sweet spot is businesses in the 10–200 employee range — where a gut feel for the numbers no longer cuts it and real clarity and control start to matter.</p>
+      <div class="chips">
+        <span class="chip chip--lg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Xero accredited</span>
+        <span class="chip chip--lg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Built &amp; refined since 2017</span>
+        <span class="chip chip--lg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Small business to listed entities</span>
+      </div>
+    </div>
+    <div class="card card--navy card--lg">
+      <div class="card-quote">"Designed by a chartered accountant — 20 years in public practice, and 8 years as a CFO consultant."</div>
+      <div class="card-quote-by">Built by someone who's lived the problem Magnifi solves.</div>
     </div>
   </div>
-  <div class="cred-card">
-    <div class="big">"Designed by a chartered accountant — 20 years in public practice, and 8 years as a CFO consultant."</div>
-    <div class="sub">Built by someone who's lived the problem Magnifi solves.</div>
-  </div>
-</div></section>
+</section>
 
 <!-- CATEGORY BAND -->
-<section class="band">
+<section class="section--navy">
   <div class="wrap">
-    <h2>Built for your business to run — <span class="underline">not just your accountant to report.</span></h2>
-    <p>Some tools are made for advisors to generate a monthly report and hand it over. Magnifi is built for you to own your numbers, with the depth to actually run on — and your advisor alongside you for support. Businesses don't just receive a Magnifi report. They live in it.</p>
+    <div class="section-head section-head--center">
+      <h2>Built for your business to run — <em>not just your accountant to report.</em></h2>
+      <p>Some tools are made for advisors to generate a monthly report and hand it over. Magnifi is built for you to own your numbers, with the depth to actually run on — and your advisor alongside you for support. Businesses don't just receive a Magnifi report. They live in it.</p>
+    </div>
   </div>
 </section>
 
 <!-- PRICING -->
-<section id="pricing" style="background:var(--bg-tint)">
+<section class="section--tint" id="pricing">
   <div class="wrap">
     <div class="section-head"><div class="eyebrow">Pricing</div><h2>Simple, transparent, no surprises.</h2></div>
-    <div class="price-grid">
-      <div class="price-card feature">
-        <div class="feat-eyebrow">For your business</div>
+    <div class="grid grid--2">
+      <div class="card card--lg card--featured">
+        <div class="eyebrow">For your business</div>
         <div class="price-amt">$85<small> /mo · first entity</small></div>
         <div class="price-sub">+ $35/mo for each additional entity in your group</div>
-        <a class="btn btn-primary" href="#">Start Free</a>
-        <ul>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#14C07C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Xero connection or Excel import</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#14C07C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited entities &amp; divisions</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#14C07C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>No long contracts, no setup fees</li>
+        <a class="btn btn--primary" href="#">Start Free</a>
+        <ul class="check-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Xero connection or Excel import</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited entities &amp; divisions</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>No long contracts, no setup fees</li>
         </ul>
       </div>
-      <div class="price-card">
-        <div class="feat-eyebrow">For advisors</div>
+      <div class="card card--lg">
+        <div class="eyebrow">For advisors</div>
         <div class="price-amt">Free<small> to set up</small></div>
         <div class="price-sub">Build client files at no cost — only pay when you're ready to share</div>
-        <a class="btn btn-ghost" href="#">See how it works for advisors →</a>
-        <ul>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#14C07C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Free advisor account, always</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#14C07C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Use it on your own firm first</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#14C07C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Absorb the cost or pass it to the client</li>
+        <a class="btn btn--ghost" href="#">See how it works for advisors →</a>
+        <ul class="check-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Free advisor account, always</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Use it on your own firm first</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Absorb the cost or pass it to the client</li>
         </ul>
       </div>
     </div>
@@ -299,34 +308,35 @@
 </section>
 
 <!-- TESTIMONIAL -->
-<section class="quote">
+<section class="section--soft testimonial">
   <div class="wrap">
     <blockquote>"It really is the most valuable management tool we've used. I wish we'd had Magnifi years ago."</blockquote>
-    <div class="by">Lisa Relic — <span>Director, Coco Skin Laser Health</span></div>
+    <div class="testimonial-by">Lisa Relic — <span>Director, Coco Skin Laser Health</span></div>
   </div>
 </section>
 
-<!-- FINAL -->
-
 <!-- FAQ -->
-<section><div class="wrap">
-  <div class="section-head center"><div class="eyebrow">FAQ</div><h2>Questions, answered.</h2></div>
-  <div class="faq">
-    <details><summary>Do I have to be a service business?</summary><div class="ans">No. Magnifi is built around service businesses, where capacity planning really shines. But any business with employees gets the full four-way forecast, employee-driven labour costs, multi-layer reporting and dashboards.</div></details>
-    <details><summary>Do I need to be on Xero?</summary><div class="ans">Xero is the smoothest path — we're an accredited Xero app, so your data flows straight in. Not on Xero? You can import via Excel instead.</div></details>
-    <details><summary>How quickly can I get started?</summary><div class="ans">Most businesses are looking at a real forecast within minutes — connect Xero, bring in your team, and the guided setup walks you through the rest.</div></details>
-    <details><summary>Can I forecast multiple entities?</summary><div class="ans">Yes. Add unlimited entities and divisions, and report at any level — group, entity or division — or combine divisions for segment reporting.</div></details>
-    <details><summary>Is Magnifi new?</summary><div class="ans">Not at all. We've been building and refining since 2017, and Magnifi has been used by everything from small businesses to listed entities.</div></details>
+<section>
+  <div class="wrap">
+    <div class="section-head section-head--center"><div class="eyebrow">FAQ</div><h2>Questions, answered.</h2></div>
+    <div class="faq">
+      <details><summary>Do I have to be a service business?</summary><div class="faq-answer">No. Magnifi is built around service businesses, where capacity planning really shines. But any business with employees gets the full four-way forecast, employee-driven labour costs, multi-layer reporting and dashboards.</div></details>
+      <details><summary>Do I need to be on Xero?</summary><div class="faq-answer">Xero is the smoothest path — we're an accredited Xero app, so your data flows straight in. Not on Xero? You can import via Excel instead.</div></details>
+      <details><summary>How quickly can I get started?</summary><div class="faq-answer">Most businesses are looking at a real forecast within minutes — connect Xero, bring in your team, and the guided setup walks you through the rest.</div></details>
+      <details><summary>Can I forecast multiple entities?</summary><div class="faq-answer">Yes. Add unlimited entities and divisions, and report at any level — group, entity or division — or combine divisions for segment reporting.</div></details>
+      <details><summary>Is Magnifi new?</summary><div class="faq-answer">Not at all. We've been building and refining since 2017, and Magnifi has been used by everything from small businesses to listed entities.</div></details>
+    </div>
   </div>
-</div></section>
+</section>
 
-<section class="final">
+<!-- FINAL CALL TO ACTION -->
+<section class="cta-section">
   <div class="wrap">
     <h2>Plan with clarity and certainty.</h2>
     <p>Connect Xero, import your team, and see your complete financial picture in minutes.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#">Start Free</a>
-      <a class="btn btn-ghost" href="#">See how it works</a>
+    <div class="actions">
+      <a class="btn btn--primary" href="#">Start Free</a>
+      <a class="btn btn--ghost" href="#">See how it works</a>
     </div>
   </div>
 </section>
@@ -334,6 +344,6 @@
 <!-- FOOTER -->
 <div id="site-footer"></div>
 
-<script src="scripts.js?v=10"></script>
+<script src="scripts.js?v=11"></script>
 </body>
 </html>

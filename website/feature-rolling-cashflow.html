@@ -1,454 +1,480 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rolling Cashflow Forecast – Magnifi | Always Current, Never Stale</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rolling Cashflow Forecast — Always current, never stale | Magnifi</title>
 <meta name="description" content="Magnifi's Rolling Cashflow forecast re-forecasts automatically each time you import actuals — so your projected bank balances always reflect what's actually happening, not last month's assumptions.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Magnifi">
+<meta property="og:title" content="Rolling Cashflow Forecast — Always current, never stale | Magnifi">
+<meta property="og:description" content="A cashflow forecast that re-forecasts automatically each time actuals come in, across any rolling twelve-month window.">
+<link rel="icon" type="image/png" href="assets/favicon_magnifi_com_au_32x32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="component-styles.css">
 </head>
 <body>
+
+<!-- HEADER -->
 <div id="site-nav" data-page="features"></div>
 
 <!-- BREADCRUMB -->
-<div class="breadcrumb">
+<nav class="breadcrumb" aria-label="Breadcrumb">
   <div class="wrap">
-    <a href="/">Home</a><span>&rsaquo;</span>
-    <a href="/features">Features</a><span>&rsaquo;</span>
-    <span class="current">Rolling Cashflow</span>
+    <a href="/">Home</a><span class="breadcrumb-sep">&rsaquo;</span>
+    <a href="/features">Features</a><span class="breadcrumb-sep">&rsaquo;</span>
+    <span class="breadcrumb-current">Rolling Cashflow</span>
   </div>
-</div>
+</nav>
 
 <!-- HERO -->
-<section class="hero"><div class="wrap">
-  <div class="hero-badge reveal d1">&#9632; Rolling Cashflow</div>
-  <h1 class="reveal d2">A cashflow forecast that keeps up with reality.</h1>
-  <p class="lead reveal d3">Most cashflow forecasts go stale the moment results come in. Magnifi's rolling cashflow re-forecasts automatically each time you import actuals — so your projected bank balances always reflect what's actually happening. And because the forecast has no fixed start date, you can view any twelve-month window, any time.</p>
-  <p class="hero-declarative reveal d3">Magnifi's Rolling Cashflow is a monthly bank balance forecast built from your connected P&amp;L, balance sheet projections, and compliance obligations. It projects inflows, outflows, and closing balances across a rolling twelve-month window — starting from any month you choose, not locked to a financial or calendar year.</p>
-  <div class="hero-actions reveal d4">
-    <a href="#" class="btn btn-primary">Start Free</a>
+<section class="hero">
+  <div class="wrap">
+    <div class="tag tag--lg reveal delay-1">&#9632; Rolling Cashflow</div>
+    <h1 class="reveal delay-2">A cashflow forecast that keeps up with reality.</h1>
+    <p class="lead reveal delay-3">Most cashflow forecasts go stale the moment results come in. Magnifi's rolling cashflow re-forecasts automatically each time you import actuals — so your projected bank balances always reflect what's actually happening. And because the forecast has no fixed start date, you can view any twelve-month window, any time.</p>
+    <p class="hero-summary reveal delay-3">Magnifi's Rolling Cashflow is a monthly bank balance forecast built from your connected P&amp;L, balance sheet projections, and compliance obligations. It projects inflows, outflows, and closing balances across a rolling twelve-month window — starting from any month you choose, not locked to a financial or calendar year.</p>
+    <div class="actions reveal delay-4">
+      <a href="#" class="btn btn--primary">Start Free</a>
+    </div>
   </div>
-</div></section>
+</section>
 
 <!-- ON THIS PAGE -->
-<div class="otp-wrap"><div class="wrap">
-  <div class="otp-bar">
-    <div class="otp-label">On this page</div>
-    <ul class="otp-pills">
-      <li><a href="#what-is"><span class="num">01</span> What it is</a></li>
-      <li><a href="#how-it-connects"><span class="num">02</span> How it connects</a></li>
-      <li><a href="#how-it-works"><span class="num">03</span> The forecast chart</a></li>
-      <li><a href="#who"><span class="num">04</span> Who it's for</a></li>
-      <li><a href="#faq"><span class="num">05</span> FAQ</a></li>
-    </ul>
-  </div>
-</div></div>
-
-<!-- WHAT IS IT -->
-<section id="what-is"><div class="wrap">
-  <div class="section-head"><div class="eyebrow">What it is</div><h2>Your bank balance, twelve months forward.</h2></div>
-  <div class="concept-grid">
-    <div class="concept-text">
-      <p>A cashflow forecast that never updates when results come in isn't a forecast — it's a plan you've already drifted from. Magnifi solves this by treating the forecast as a rolling model: each import of actuals anchors the opening position to what actually happened, re-forecasts compliance obligations like GST and PAYGW from the new base, and applies your payment terms so receivables and payables land in cash at the right time.</p>
-      <p>The other part of "rolling" is that there's no fixed start date. You're not locked to the beginning of your financial year or the calendar year. Set the window to start from any month — useful if you want to see the next twelve months from today, model a mid-year scenario, or look ahead from the last actual period.</p>
-      <p>The result is a cashflow view that's always grounded in the current state of the business, starting exactly where you need it to start.</p>
-      <a href="https://support.magnifi.com.au/portal/en/kb/articles/cashflow-forecast" class="kb-link" target="_blank">Cashflow Forecast — Help Centre</a>
+<nav class="page-nav" aria-label="On this page">
+  <div class="wrap">
+    <div class="page-nav-bar">
+      <div class="eyebrow eyebrow--muted">On this page</div>
+      <ul class="page-nav-links">
+        <li><a class="chip" href="#what-is"><span class="page-nav-num">01</span> What it is</a></li>
+        <li><a class="chip" href="#how-it-connects"><span class="page-nav-num">02</span> How it connects</a></li>
+        <li><a class="chip" href="#how-it-works"><span class="page-nav-num">03</span> The forecast chart</a></li>
+        <li><a class="chip" href="#who"><span class="page-nav-num">04</span> Who it's for</a></li>
+        <li><a class="chip" href="#faq"><span class="page-nav-num">05</span> FAQ</a></li>
+      </ul>
     </div>
+  </div>
+</nav>
 
-    <!-- Chart from product screenshot -->
-    <div class="screenshot-frame">
-      <div style="background:var(--bg-soft);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-        <div style="font-size:12px;font-weight:700;color:var(--text-dark);">Rolling Cashflow — All Bank Accounts</div>
-        <div style="margin-left:auto;font-size:11px;background:var(--bg-tint);border:1px solid var(--mint-soft);padding:2px 9px;border-radius:10px;font-weight:600;color:var(--green-deep);">Actuals to Apr 2026</div>
+<!-- WHAT IT IS -->
+<section id="what-is">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow">What it is</div><h2>Your bank balance, twelve months forward.</h2></div>
+    <div class="split split--top">
+      <div class="prose">
+        <p>A cashflow forecast that never updates when results come in isn't a forecast — it's a plan you've already drifted from. Magnifi solves this by treating the forecast as a rolling model: each import of actuals anchors the opening position to what actually happened, re-forecasts compliance obligations like GST and PAYGW from the new base, and applies your payment terms so receivables and payables land in cash at the right time.</p>
+        <p>The other part of "rolling" is that there's no fixed start date. You're not locked to the beginning of your financial year or the calendar year. Set the window to start from any month — useful if you want to see the next twelve months from today, model a mid-year scenario, or look ahead from the last actual period.</p>
+        <p>The result is a cashflow view that's always grounded in the current state of the business, starting exactly where you need it to start.</p>
+        <a href="https://support.magnifi.com.au/portal/en/kb/articles/cashflow-forecast" class="chip chip--link" target="_blank">Cashflow Forecast — Help Centre</a>
       </div>
-      <div style="padding:16px 14px 12px;background:var(--bg);">
-        <svg viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
-          <line x1="50" y1="22" x2="548" y2="22" stroke="#DBE2E8" stroke-width="1"/>
-          <line x1="50" y1="57" x2="548" y2="57" stroke="#DBE2E8" stroke-width="1"/>
-          <line x1="50" y1="92" x2="548" y2="92" stroke="#DBE2E8" stroke-width="1"/>
-          <line x1="50" y1="127" x2="548" y2="127" stroke="#DBE2E8" stroke-width="1"/>
-          <line x1="50" y1="162" x2="548" y2="162" stroke="#DBE2E8" stroke-width="1"/>
-          <text x="46" y="26"  text-anchor="end" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">4M</text>
-          <text x="46" y="61"  text-anchor="end" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">2M</text>
-          <text x="46" y="96"  text-anchor="end" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">0</text>
-          <text x="46" y="131" text-anchor="end" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">-2M</text>
-          <text x="46" y="166" text-anchor="end" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">-4M</text>
-          <!-- Now line between Apr & May -->
-          <line x1="278" y1="14" x2="278" y2="182" stroke="#344150" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
-          <text x="281" y="13" style="font-family:var(--font-body)" font-size="8" fill="#5C6979">Now</text>
-          <!-- Last year teal dashed -->
-          <polyline points="74,44 114,73 154,88 194,109 238,101 282,100 322,97 362,101 402,93 442,136 482,86 522,44"
-            fill="none" stroke="#6FC0B0" stroke-width="2" stroke-dasharray="5,3" opacity="0.75"/>
-          <!-- This year actuals solid navy Jan-Apr -->
-          <polyline points="74,75 114,101 154,108 194,128"
-            fill="none" stroke="#344150" stroke-width="2.5"/>
-          <!-- Actuals fill -->
-          <defs>
-            <linearGradient id="aFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#344150" stop-opacity="0.10"/>
-              <stop offset="100%" stop-color="#344150" stop-opacity="0.01"/>
-            </linearGradient>
-          </defs>
-          <path d="M74,75 L114,101 L154,108 L194,128 L194,182 L74,182 Z" fill="url(#aFill)"/>
-          <!-- Forecast dashed May-Dec -->
-          <polyline points="194,128 238,115 282,130 322,137 362,140 402,154 442,173 482,136 522,44"
-            fill="none" stroke="#344150" stroke-width="2.5" stroke-dasharray="6,4"/>
-          <!-- Actual dots -->
-          <circle cx="74"  cy="75"  r="4" fill="#344150"/>
-          <circle cx="114" cy="101" r="4" fill="#344150"/>
-          <circle cx="154" cy="108" r="4" fill="#344150"/>
-          <circle cx="194" cy="128" r="4" fill="#344150"/>
-          <!-- Forecast dots -->
-          <circle cx="238" cy="115" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-          <circle cx="282" cy="130" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-          <circle cx="322" cy="137" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-          <circle cx="362" cy="140" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-          <circle cx="402" cy="154" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-          <circle cx="442" cy="173" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-          <circle cx="482" cy="136" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-          <circle cx="522" cy="44"  r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-          <!-- Month labels -->
-          <text x="74"  y="196" text-anchor="middle" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">Jan</text>
-          <text x="114" y="196" text-anchor="middle" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">Feb</text>
-          <text x="154" y="196" text-anchor="middle" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">Mar</text>
-          <text x="194" y="196" text-anchor="middle" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">Apr</text>
-          <text x="238" y="196" text-anchor="middle" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">May</text>
-          <text x="282" y="196" text-anchor="middle" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">Jun</text>
-          <text x="322" y="196" text-anchor="middle" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">Jul</text>
-          <text x="362" y="196" text-anchor="middle" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">Aug</text>
-          <text x="402" y="196" text-anchor="middle" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">Sep</text>
-          <text x="442" y="196" text-anchor="middle" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">Oct</text>
-          <text x="482" y="196" text-anchor="middle" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">Nov</text>
-          <text x="522" y="196" text-anchor="middle" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">Dec</text>
-        </svg>
-        <div style="display:flex;gap:16px;justify-content:center;margin-top:4px;">
-          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--slate);">
-            <svg width="22" height="6" style="display:block;"><line x1="0" y1="3" x2="22" y2="3" stroke="#344150" stroke-width="2"/></svg>This Year
-          </div>
-          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--slate);">
-            <svg width="22" height="6" style="display:block;"><line x1="0" y1="3" x2="22" y2="3" stroke="#344150" stroke-width="2" stroke-dasharray="5,3"/></svg>Forecast
-          </div>
-          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--slate);">
-            <svg width="22" height="6" style="display:block;"><line x1="0" y1="3" x2="22" y2="3" stroke="#6FC0B0" stroke-width="2" stroke-dasharray="4,2"/></svg>Last Year
+
+      <!-- chart from product screenshot -->
+      <div class="chart-panel">
+        <div class="chart-panel-header">
+          <div class="chart-panel-title">Rolling Cashflow — All Bank Accounts</div>
+          <span class="chip chip--tint push-right">Actuals to Apr 2026</span>
+        </div>
+        <div class="chart-panel-body">
+          <svg class="chart-svg" viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g class="stroke-line" stroke-width="1">
+              <line x1="50" y1="22" x2="548" y2="22"/>
+              <line x1="50" y1="57" x2="548" y2="57"/>
+              <line x1="50" y1="92" x2="548" y2="92"/>
+              <line x1="50" y1="127" x2="548" y2="127"/>
+              <line x1="50" y1="162" x2="548" y2="162"/>
+            </g>
+            <g class="fill-slate" font-size="9" text-anchor="end">
+              <text x="46" y="26">4M</text>
+              <text x="46" y="61">2M</text>
+              <text x="46" y="96">0</text>
+              <text x="46" y="131">-2M</text>
+              <text x="46" y="166">-4M</text>
+            </g>
+            <!-- now line between Apr & May -->
+            <line class="stroke-text-dark" x1="278" y1="14" x2="278" y2="182" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
+            <text class="fill-slate" x="281" y="13" font-size="8">Now</text>
+            <!-- last year (dashed mint) -->
+            <polyline class="stroke-mint" points="74,44 114,73 154,88 194,109 238,101 282,100 322,97 362,101 402,93 442,136 482,86 522,44"
+              fill="none" stroke-width="2" stroke-dasharray="5,3" opacity="0.75"/>
+            <!-- this year actuals (solid) Jan-Apr -->
+            <polyline class="stroke-text-dark" points="74,75 114,101 154,108 194,128" fill="none" stroke-width="2.5"/>
+            <!-- actuals fill -->
+            <defs>
+              <linearGradient id="what-is-fill" x1="0" y1="0" x2="0" y2="1">
+                <stop class="stop-text-dark" offset="0%" stop-opacity="0.10"/>
+                <stop class="stop-text-dark" offset="100%" stop-opacity="0.01"/>
+              </linearGradient>
+            </defs>
+            <path d="M74,75 L114,101 L154,108 L194,128 L194,182 L74,182 Z" fill="url(#what-is-fill)"/>
+            <!-- forecast (dashed) May-Dec -->
+            <polyline class="stroke-text-dark" points="194,128 238,115 282,130 322,137 362,140 402,154 442,173 482,136 522,44"
+              fill="none" stroke-width="2.5" stroke-dasharray="6,4"/>
+            <!-- actual dots -->
+            <g class="fill-text-dark">
+              <circle cx="74" cy="75" r="4"/>
+              <circle cx="114" cy="101" r="4"/>
+              <circle cx="154" cy="108" r="4"/>
+              <circle cx="194" cy="128" r="4"/>
+            </g>
+            <!-- forecast dots -->
+            <g class="fill-white stroke-text-dark" stroke-width="2">
+              <circle cx="238" cy="115" r="3.5"/>
+              <circle cx="282" cy="130" r="3.5"/>
+              <circle cx="322" cy="137" r="3.5"/>
+              <circle cx="362" cy="140" r="3.5"/>
+              <circle cx="402" cy="154" r="3.5"/>
+              <circle cx="442" cy="173" r="3.5"/>
+              <circle cx="482" cy="136" r="3.5"/>
+              <circle cx="522" cy="44" r="3.5"/>
+            </g>
+            <!-- month labels -->
+            <g class="fill-slate" font-size="9" text-anchor="middle">
+              <text x="74" y="196">Jan</text>
+              <text x="114" y="196">Feb</text>
+              <text x="154" y="196">Mar</text>
+              <text x="194" y="196">Apr</text>
+              <text x="238" y="196">May</text>
+              <text x="282" y="196">Jun</text>
+              <text x="322" y="196">Jul</text>
+              <text x="362" y="196">Aug</text>
+              <text x="402" y="196">Sep</text>
+              <text x="442" y="196">Oct</text>
+              <text x="482" y="196">Nov</text>
+              <text x="522" y="196">Dec</text>
+            </g>
+          </svg>
+          <div class="legend legend--center">
+            <div class="legend-item"><svg class="legend-line" width="22" height="6" aria-hidden="true"><line class="stroke-text-dark" x1="0" y1="3" x2="22" y2="3" stroke-width="2"/></svg>This Year</div>
+            <div class="legend-item"><svg class="legend-line" width="22" height="6" aria-hidden="true"><line class="stroke-text-dark" x1="0" y1="3" x2="22" y2="3" stroke-width="2" stroke-dasharray="5,3"/></svg>Forecast</div>
+            <div class="legend-item"><svg class="legend-line" width="22" height="6" aria-hidden="true"><line class="stroke-mint" x1="0" y1="3" x2="22" y2="3" stroke-width="2" stroke-dasharray="4,2"/></svg>Last Year</div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div></section>
+</section>
 
-<!-- HOW IT CONNECTS — funnel -->
-<section class="threeway-section" id="how-it-connects" style="background:var(--bg-tint)"><div class="wrap" style="display:flex;flex-direction:column;align-items:center;">
-  <div style="width:100%;text-align:left;max-width:800px;">
-    <div class="eyebrow">How it connects</div>
-    <h2 class="section-heading">Cashflow is the output of three connected models.</h2>
-    <p class="section-sub">Cashflow isn't a standalone module in Magnifi — it's calculated from the same connected model that produces your P&amp;L and balance sheet. Change anything upstream and the cashflow recalculates automatically.</p>
-  </div>
+<!-- HOW IT CONNECTS -->
+<section class="section--tint" id="how-it-connects">
+  <div class="wrap">
+    <div class="section-head section-head--wide mx-auto">
+      <div class="eyebrow">How it connects</div>
+      <h2>Cashflow is the output of three connected models.</h2>
+      <p>Cashflow isn't a standalone module in Magnifi — it's calculated from the same connected model that produces your P&amp;L and balance sheet. Change anything upstream and the cashflow recalculates automatically.</p>
+    </div>
 
-  <div class="funnel-wrap">
-    <!-- Two input cards side by side -->
-    <div class="funnel-inputs">
-      <div class="funnel-card">
-        <div class="funnel-card-num">Input 01</div>
-        <h3>P&amp;L Forecast</h3>
-        <p>Your income and expense forecast drives receivables and payables — the core of what flows through to cash. Payment terms are applied automatically so cash lands in the right month.</p>
+    <div class="funnel">
+      <!-- two input cards side by side -->
+      <div class="grid grid--2 funnel-inputs">
+        <div class="card card--sm">
+          <div class="eyebrow eyebrow--ruled">Input 01</div>
+          <h3 class="card-title card-title--sm">P&amp;L Forecast</h3>
+          <p>Your income and expense forecast drives receivables and payables — the core of what flows through to cash. Payment terms are applied automatically so cash lands in the right month.</p>
+        </div>
+        <div class="card card--sm">
+          <div class="eyebrow eyebrow--ruled">Input 02</div>
+          <h3 class="card-title card-title--sm">Balance Sheet Projections</h3>
+          <p>Capital movements — loan drawdowns and repayments, asset purchases, tax payments, dividends — flow through balance sheet projections as Other Receipts and Payments.</p>
+        </div>
       </div>
-      <div class="funnel-card">
-        <div class="funnel-card-num">Input 02</div>
-        <h3>Balance Sheet Projections</h3>
-        <p>Capital movements — loan drawdowns and repayments, asset purchases, tax payments, dividends — flow through balance sheet projections as Other Receipts and Payments.</p>
+
+      <!-- elbow connectors: desktop only -->
+      <div class="funnel-arrows">
+        <svg viewBox="0 0 800 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <marker id="funnel-arrowhead" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <polygon class="fill-green-vivid" points="0 0, 9 3.5, 0 7"/>
+            </marker>
+          </defs>
+          <g class="stroke-green-vivid" stroke-width="2.5" opacity="0.85">
+            <line x1="200" y1="0" x2="200" y2="36"/>
+            <line x1="200" y1="36" x2="400" y2="36"/>
+            <line x1="400" y1="36" x2="400" y2="65" marker-end="url(#funnel-arrowhead)"/>
+            <line x1="600" y1="0" x2="600" y2="36"/>
+            <line x1="600" y1="36" x2="404" y2="36"/>
+          </g>
+          <g class="fill-green-vivid" opacity="0.85">
+            <circle cx="200" cy="36" r="3.5"/>
+            <circle cx="400" cy="36" r="3.5"/>
+            <circle cx="600" cy="36" r="3.5"/>
+          </g>
+        </svg>
       </div>
-    </div>
 
-    <!-- Elbow connectors: desktop only -->
-    <div class="funnel-arrows">
-      <svg viewBox="0 0 800 72" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:800px;height:72px;display:block;">
-        <defs>
-          <marker id="arrowhead" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
-            <polygon points="0 0, 9 3.5, 0 7" fill="#12BE7A"/>
-          </marker>
-        </defs>
-        <line x1="200" y1="0" x2="200" y2="36" stroke="#12BE7A" stroke-width="2.5" opacity="0.85"/>
-        <circle cx="200" cy="36" r="3.5" fill="#12BE7A" opacity="0.85"/>
-        <line x1="200" y1="36" x2="400" y2="36" stroke="#12BE7A" stroke-width="2.5" opacity="0.85"/>
-        <circle cx="400" cy="36" r="3.5" fill="#12BE7A" opacity="0.85"/>
-        <line x1="400" y1="36" x2="400" y2="65" stroke="#12BE7A" stroke-width="2.5" opacity="0.85" marker-end="url(#arrowhead)"/>
-        <line x1="600" y1="0" x2="600" y2="36" stroke="#12BE7A" stroke-width="2.5" opacity="0.85"/>
-        <circle cx="600" cy="36" r="3.5" fill="#12BE7A" opacity="0.85"/>
-        <line x1="600" y1="36" x2="404" y2="36" stroke="#12BE7A" stroke-width="2.5" opacity="0.85"/>
-      </svg>
-    </div>
+      <!-- simple vertical arrow: mobile only -->
+      <div class="funnel-arrow-mobile">
+        <div class="funnel-arrow-line"></div>
+        <div class="funnel-arrow-head"></div>
+      </div>
 
-    <!-- Simple vertical arrow: mobile only -->
-    <div class="funnel-arrow-mobile">
-      <div class="arrow-line"></div>
-      <div class="arrow-head"></div>
-    </div>
-
-    <!-- Output card full width -->
-    <div class="funnel-output">
-      <div class="funnel-output-card">
+      <!-- output card full width -->
+      <div class="card card--navy funnel-output">
         <div>
-          <h3>Rolling Cashflow Forecast</h3>
+          <h3 class="card-title">Rolling Cashflow Forecast</h3>
           <p>Projected monthly bank balances across a rolling twelve-month window — starting from any month, re-forecasting automatically each time actuals come in. Always grounded. Always current.</p>
         </div>
         <div class="funnel-output-tag">
-          <div class="tag-label">Output</div>
-          <div class="tag-val">12mo</div>
-          <div class="tag-sub">rolling window</div>
+          <div class="eyebrow">Output</div>
+          <div class="funnel-output-value">12mo</div>
+          <div class="funnel-output-sub">rolling window</div>
         </div>
       </div>
     </div>
   </div>
-</div></section>
+</section>
 
 <!-- THE FORECAST CHART -->
-<section id="how-it-works"><div class="wrap">
-  <div class="section-head"><div class="eyebrow">The forecast chart</div><h2>Actuals anchor it. The forecast shows you what's coming.</h2><p>The chart plots your closing bank balance month by month. Solid months are actuals. Dashed months are forecast. Toggle last year on as a reference line — same seasonality, different trajectory.</p></div>
+<section id="how-it-works">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow">The forecast chart</div><h2>Actuals anchor it. The forecast shows you what's coming.</h2><p>The chart plots your closing bank balance month by month. Solid months are actuals. Dashed months are forecast. Toggle last year on as a reference line — same seasonality, different trajectory.</p></div>
 
-  <div class="chart-section-grid">
-    <!-- Chart panel -->
-    <div>
-      <div class="cashflow-chart-panel">
+    <div class="split split--top">
+      <!-- chart panel -->
+      <div class="chart-panel">
         <div class="chart-panel-header">
           <div class="chart-panel-title">Cashflow Forecast</div>
-          <div class="chart-panel-meta">Actuals to Apr 2026</div>
+          <span class="chip chip--tint push-right">Actuals to Apr 2026</span>
         </div>
-        <div style="background:var(--bg);border-bottom:1px solid var(--line);padding:8px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-          <div style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;border:1px solid var(--text-dark);background:var(--text-dark);color:#fff;">All Bank Accounts</div>
-          <div style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;border:1px solid var(--line);color:var(--slate);">Operating Account</div>
-          <div style="margin-left:auto;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--green-deep);">
-            <div style="width:28px;height:16px;background:var(--green);border-radius:8px;position:relative;flex-shrink:0;"><div style="position:absolute;right:3px;top:50%;transform:translateY(-50%);width:10px;height:10px;background:#fff;border-radius:50%;"></div></div>
-            Last Year
-          </div>
+        <div class="chart-panel-toolbar">
+          <span class="chip chip--active">All Bank Accounts</span>
+          <span class="chip">Operating Account</span>
+          <span class="toggle push-right">Last Year</span>
         </div>
-        <div class="chart-body">
-          <svg viewBox="0 0 400 185" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
-            <line x1="30" y1="20"  x2="388" y2="20"  stroke="#DBE2E8" stroke-width="1"/>
-            <line x1="30" y1="55"  x2="388" y2="55"  stroke="#DBE2E8" stroke-width="1"/>
-            <line x1="30" y1="90"  x2="388" y2="90"  stroke="#DBE2E8" stroke-width="1"/>
-            <line x1="30" y1="125" x2="388" y2="125" stroke="#DBE2E8" stroke-width="1"/>
-            <text x="26" y="24"  text-anchor="end" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">+3M</text>
-            <text x="26" y="59"  text-anchor="end" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">+1M</text>
-            <text x="26" y="94"  text-anchor="end" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">0</text>
-            <text x="26" y="129" text-anchor="end" style="font-family:var(--font-body)" font-size="9" fill="#5C6979">-1M</text>
-            <!-- Now line -->
-            <line x1="192" y1="12" x2="192" y2="158" stroke="#344150" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
-            <text x="178" y="11" style="font-family:var(--font-body)" font-size="7.5" fill="#5C6979">Actuals</text>
-            <text x="196" y="11" style="font-family:var(--font-body)" font-size="7.5" fill="#5C6979">Forecast →</text>
-            <!-- Last year teal -->
-            <polyline points="53,36 82,52 112,60 142,68 172,63 202,62 232,60 262,63 292,82 322,108 352,68 382,37"
-              fill="none" stroke="#6FC0B0" stroke-width="1.8" stroke-dasharray="5,3" opacity="0.75"/>
-            <!-- Actuals solid -->
-            <polyline points="53,62 82,76 112,80 142,92"
-              fill="none" stroke="#344150" stroke-width="2.5"/>
+        <div class="chart-panel-body">
+          <svg class="chart-svg" viewBox="0 0 400 185" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g class="stroke-line" stroke-width="1">
+              <line x1="30" y1="20" x2="388" y2="20"/>
+              <line x1="30" y1="55" x2="388" y2="55"/>
+              <line x1="30" y1="90" x2="388" y2="90"/>
+              <line x1="30" y1="125" x2="388" y2="125"/>
+            </g>
+            <g class="fill-slate" font-size="9" text-anchor="end">
+              <text x="26" y="24">+3M</text>
+              <text x="26" y="59">+1M</text>
+              <text x="26" y="94">0</text>
+              <text x="26" y="129">-1M</text>
+            </g>
+            <!-- now line -->
+            <line class="stroke-text-dark" x1="192" y1="12" x2="192" y2="158" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
+            <text class="fill-slate" x="178" y="11" font-size="7.5">Actuals</text>
+            <text class="fill-slate" x="196" y="11" font-size="7.5">Forecast →</text>
+            <!-- last year (dashed mint) -->
+            <polyline class="stroke-mint" points="53,36 82,52 112,60 142,68 172,63 202,62 232,60 262,63 292,82 322,108 352,68 382,37"
+              fill="none" stroke-width="1.8" stroke-dasharray="5,3" opacity="0.75"/>
+            <!-- actuals (solid) -->
+            <polyline class="stroke-text-dark" points="53,62 82,76 112,80 142,92" fill="none" stroke-width="2.5"/>
             <defs>
-              <linearGradient id="fill2" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#344150" stop-opacity="0.10"/>
-                <stop offset="100%" stop-color="#344150" stop-opacity="0.01"/>
+              <linearGradient id="forecast-fill" x1="0" y1="0" x2="0" y2="1">
+                <stop class="stop-text-dark" offset="0%" stop-opacity="0.10"/>
+                <stop class="stop-text-dark" offset="100%" stop-opacity="0.01"/>
               </linearGradient>
             </defs>
-            <path d="M53,62 L82,76 L112,80 L142,92 L142,158 L53,158 Z" fill="url(#fill2)"/>
-            <!-- Forecast dashed -->
-            <polyline points="142,92 172,83 202,94 232,99 262,103 292,115 322,130 352,99 382,37"
-              fill="none" stroke="#344150" stroke-width="2.5" stroke-dasharray="6,4"/>
-            <!-- Annotation on tight month -->
-            <line x1="322" y1="130" x2="322" y2="148" stroke="#C0392B" stroke-width="1" stroke-dasharray="2,2"/>
-            <rect x="298" y="147" width="68" height="16" rx="4" fill="rgba(192,57,43,.10)"/>
-            <text x="332" y="158" text-anchor="middle" style="font-family:var(--font-body)" font-size="8" fill="#C0392B" font-weight="600">Tight month ahead</text>
-            <!-- Actual dots -->
-            <circle cx="53"  cy="62" r="4" fill="#344150"/>
-            <circle cx="82"  cy="76" r="4" fill="#344150"/>
-            <circle cx="112" cy="80" r="4" fill="#344150"/>
-            <circle cx="142" cy="92" r="4" fill="#344150"/>
-            <!-- Forecast dots -->
-            <circle cx="172" cy="83"  r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-            <circle cx="202" cy="94"  r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-            <circle cx="232" cy="99"  r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-            <circle cx="262" cy="103" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-            <circle cx="292" cy="115" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-            <circle cx="322" cy="130" r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-            <circle cx="352" cy="99"  r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-            <circle cx="382" cy="37"  r="3.5" fill="white" stroke="#344150" stroke-width="2"/>
-            <!-- Month labels -->
-            <text x="53"  y="170" text-anchor="middle" style="font-family:var(--font-body)" font-size="8.5" fill="#5C6979">Jan</text>
-            <text x="82"  y="170" text-anchor="middle" style="font-family:var(--font-body)" font-size="8.5" fill="#5C6979">Feb</text>
-            <text x="112" y="170" text-anchor="middle" style="font-family:var(--font-body)" font-size="8.5" fill="#5C6979">Mar</text>
-            <text x="142" y="170" text-anchor="middle" style="font-family:var(--font-body)" font-size="8.5" fill="#5C6979">Apr</text>
-            <text x="172" y="170" text-anchor="middle" style="font-family:var(--font-body)" font-size="8.5" fill="#5C6979">May</text>
-            <text x="202" y="170" text-anchor="middle" style="font-family:var(--font-body)" font-size="8.5" fill="#5C6979">Jun</text>
-            <text x="232" y="170" text-anchor="middle" style="font-family:var(--font-body)" font-size="8.5" fill="#5C6979">Jul</text>
-            <text x="262" y="170" text-anchor="middle" style="font-family:var(--font-body)" font-size="8.5" fill="#5C6979">Aug</text>
-            <text x="292" y="170" text-anchor="middle" style="font-family:var(--font-body)" font-size="8.5" fill="#5C6979">Sep</text>
-            <text x="322" y="170" text-anchor="middle" style="font-family:var(--font-body)" font-size="8.5" fill="#5C6979">Oct</text>
-            <text x="352" y="170" text-anchor="middle" style="font-family:var(--font-body)" font-size="8.5" fill="#5C6979">Nov</text>
-            <text x="382" y="170" text-anchor="middle" style="font-family:var(--font-body)" font-size="8.5" fill="#5C6979">Dec</text>
+            <path d="M53,62 L82,76 L112,80 L142,92 L142,158 L53,158 Z" fill="url(#forecast-fill)"/>
+            <!-- forecast (dashed) -->
+            <polyline class="stroke-text-dark" points="142,92 172,83 202,94 232,99 262,103 292,115 322,130 352,99 382,37"
+              fill="none" stroke-width="2.5" stroke-dasharray="6,4"/>
+            <!-- annotation on tight month -->
+            <line class="stroke-red" x1="322" y1="130" x2="322" y2="148" stroke-width="1" stroke-dasharray="2,2"/>
+            <rect class="fill-red" x="298" y="147" width="68" height="16" rx="4" fill-opacity=".10"/>
+            <text class="fill-red" x="332" y="158" text-anchor="middle" font-size="8" font-weight="600">Tight month ahead</text>
+            <!-- actual dots -->
+            <g class="fill-text-dark">
+              <circle cx="53" cy="62" r="4"/>
+              <circle cx="82" cy="76" r="4"/>
+              <circle cx="112" cy="80" r="4"/>
+              <circle cx="142" cy="92" r="4"/>
+            </g>
+            <!-- forecast dots -->
+            <g class="fill-white stroke-text-dark" stroke-width="2">
+              <circle cx="172" cy="83" r="3.5"/>
+              <circle cx="202" cy="94" r="3.5"/>
+              <circle cx="232" cy="99" r="3.5"/>
+              <circle cx="262" cy="103" r="3.5"/>
+              <circle cx="292" cy="115" r="3.5"/>
+              <circle cx="322" cy="130" r="3.5"/>
+              <circle cx="352" cy="99" r="3.5"/>
+              <circle cx="382" cy="37" r="3.5"/>
+            </g>
+            <!-- month labels -->
+            <g class="fill-slate" font-size="8.5" text-anchor="middle">
+              <text x="53" y="170">Jan</text>
+              <text x="82" y="170">Feb</text>
+              <text x="112" y="170">Mar</text>
+              <text x="142" y="170">Apr</text>
+              <text x="172" y="170">May</text>
+              <text x="202" y="170">Jun</text>
+              <text x="232" y="170">Jul</text>
+              <text x="262" y="170">Aug</text>
+              <text x="292" y="170">Sep</text>
+              <text x="322" y="170">Oct</text>
+              <text x="352" y="170">Nov</text>
+              <text x="382" y="170">Dec</text>
+            </g>
           </svg>
-          <div style="display:flex;gap:14px;justify-content:center;margin-top:6px;">
-            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--slate);"><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="#344150" stroke-width="2"/></svg>Actuals</div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--slate);"><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="#344150" stroke-width="2" stroke-dasharray="5,3"/></svg>Forecast</div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--slate);"><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="#6FC0B0" stroke-width="2" stroke-dasharray="4,2"/></svg>Last Year</div>
+          <div class="legend legend--center">
+            <div class="legend-item"><svg class="legend-line" width="22" height="6" aria-hidden="true"><line class="stroke-text-dark" x1="0" y1="3" x2="22" y2="3" stroke-width="2"/></svg>Actuals</div>
+            <div class="legend-item"><svg class="legend-line" width="22" height="6" aria-hidden="true"><line class="stroke-text-dark" x1="0" y1="3" x2="22" y2="3" stroke-width="2" stroke-dasharray="5,3"/></svg>Forecast</div>
+            <div class="legend-item"><svg class="legend-line" width="22" height="6" aria-hidden="true"><line class="stroke-mint" x1="0" y1="3" x2="22" y2="3" stroke-width="2" stroke-dasharray="4,2"/></svg>Last Year</div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Feature callouts -->
-    <div style="display:flex;flex-direction:column;gap:14px;">
+      <!-- feature callouts -->
+      <div class="stack">
 
-      <div class="feature-callout">
-        <div class="callout-head">
-          <div class="callout-icon">↻</div>
-          <div class="callout-title">Re-forecasts on every import</div>
+        <div class="card card--soft card--sm">
+          <div class="icon-heading"><span class="icon-tile icon-tile--sm">↻</span>Re-forecasts on every import</div>
+          <p>Each time actuals come in, the opening balance updates to reflect what really happened. Compliance obligations — GST, PAYGW, Superannuation — recalculate from the new base. The remaining months always forecast forward from where you actually are.</p>
         </div>
-        <p class="callout-body">Each time actuals come in, the opening balance updates to reflect what really happened. Compliance obligations — GST, PAYGW, Superannuation — recalculate from the new base. The remaining months always forecast forward from where you actually are.</p>
-      </div>
 
-      <div class="feature-callout">
-        <div class="callout-head">
-          <div class="callout-icon">⏱</div>
-          <div class="callout-title">Payment terms applied automatically</div>
+        <div class="card card--soft card--sm">
+          <div class="icon-heading"><span class="icon-tile icon-tile--sm">⏱</span>Payment terms applied automatically</div>
+          <p>Revenue recognised in one month doesn't necessarily land as cash that month. Magnifi applies your debtor and creditor terms so actuals flow into the cashflow at the right time — not when the invoice was raised.</p>
         </div>
-        <p class="callout-body">Revenue recognised in one month doesn't necessarily land as cash that month. Magnifi applies your debtor and creditor terms so actuals flow into the cashflow at the right time — not when the invoice was raised.</p>
-      </div>
 
-      <div class="feature-callout">
-        <div class="callout-head">
-          <div class="callout-icon">↔</div>
-          <div class="callout-title">Start from any month</div>
+        <div class="card card--soft card--sm">
+          <div class="icon-heading"><span class="icon-tile icon-tile--sm">↔</span>Start from any month</div>
+          <p>No fixed start date. View any rolling twelve-month window — from today, from your last actual month, or from any point you choose. Not locked to the financial year or calendar year.</p>
         </div>
-        <p class="callout-body">No fixed start date. View any rolling twelve-month window — from today, from your last actual month, or from any point you choose. Not locked to the financial year or calendar year.</p>
-      </div>
 
+      </div>
     </div>
   </div>
-</div></section>
+</section>
 
 <!-- WHO IT'S FOR -->
-<section id="who" style="background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
-  <div class="section-head"><div class="eyebrow">Who it's for</div><h2>Two ways to use a cashflow that stays current.</h2></div>
-  <div class="who-grid">
+<section class="section--soft" id="who">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow">Who it's for</div><h2>Two ways to use a cashflow that stays current.</h2></div>
+    <div class="grid grid--2">
 
-    <!-- OWNER -->
-    <div class="who-card owner">
-      <div class="who-card-tag">Business Owner</div>
-      <h3>Stop guessing whether next month is fine.</h3>
-      <p>Cash surprises are the most stressful part of running a service business. A tax bill lands the same month payroll is due. A slow period bleeds into the operating account. The rolling forecast tells you months in advance — so you have time to act, not just react.</p>
-      <ul class="who-bullets">
-        <li>See your projected bank balance for every month ahead</li>
-        <li>Spot tight months before they arrive, not after</li>
-        <li>Understand whether a cash dip is seasonal or structural</li>
-        <li>Model decisions in the Playground before committing</li>
-      </ul>
+      <!-- owner -->
+      <div class="card">
+        <span class="tag mb-4">Business Owner</span>
+        <h3 class="card-title">Stop guessing whether next month is fine.</h3>
+        <p>Cash surprises are the most stressful part of running a service business. A tax bill lands the same month payroll is due. A slow period bleeds into the operating account. The rolling forecast tells you months in advance — so you have time to act, not just react.</p>
+        <ul class="dot-list">
+          <li>See your projected bank balance for every month ahead</li>
+          <li>Spot tight months before they arrive, not after</li>
+          <li>Understand whether a cash dip is seasonal or structural</li>
+          <li>Model decisions in the Playground before committing</li>
+        </ul>
+      </div>
+
+      <!-- advisor -->
+      <div class="card card--dark">
+        <span class="tag mb-4">Accountant / Advisor</span>
+        <h3 class="card-title">A P&amp;L review is half the story. The cashflow is where it gets real.</h3>
+        <p>Most month-end client conversations stop at the P&amp;L. Profit is up, expenses look fine — tick. But profit doesn't pay wages on Friday. Most advisors don't talk about cashflow because building a current forecast is too much work. Magnifi makes it automatic.</p>
+        <p>Every time actuals are imported, the cashflow re-forecasts forward. When you sit down with a client, you're not walking through a projection built on last quarter's numbers — you're looking at the current picture, with the months ahead already mapped out. Have the conversation about a tight October in August, when there's still time to do something about it.</p>
+      </div>
+
     </div>
 
-    <!-- ADVISOR -->
-    <div class="who-card advisor">
-      <div class="who-card-tag">Accountant / Advisor</div>
-      <h3>A P&amp;L review is half the story. The cashflow is where it gets real.</h3>
-      <p>Most month-end client conversations stop at the P&amp;L. Profit is up, expenses look fine — tick. But profit doesn't pay wages on Friday. Most advisors don't talk about cashflow because building a current forecast is too much work. Magnifi makes it automatic.</p>
-      <p>Every time actuals are imported, the cashflow re-forecasts forward. When you sit down with a client, you're not walking through a projection built on last quarter's numbers — you're looking at the current picture, with the months ahead already mapped out. Have the conversation about a tight October in August, when there's still time to do something about it.</p>
+    <!-- industries shared across both panels -->
+    <div class="eyebrow mt-8">Built for service businesses including</div>
+    <div class="chips mt-0">
+      <span class="chip">Professional Services</span>
+      <span class="chip">Consulting</span>
+      <span class="chip">Engineering</span>
+      <span class="chip">Architecture</span>
+      <span class="chip">Health &amp; Beauty</span>
+      <span class="chip">Trade Services</span>
+      <span class="chip">Recruitment</span>
+      <span class="chip">Marketing Agencies</span>
     </div>
-
   </div>
-
-  <!-- Industries shared across both panels -->
-  <div class="eyebrow" style="margin-top:28px">Built for service businesses including</div>
-  <div class="verticals">
-    <span>Professional Services</span>
-    <span>Consulting</span>
-    <span>Engineering</span>
-    <span>Architecture</span>
-    <span>Health &amp; Beauty</span>
-    <span>Trade Services</span>
-    <span>Recruitment</span>
-    <span>Marketing Agencies</span>
-  </div>
-</div></section>
+</section>
 
 <!-- PROOF STRIP -->
-<div class="strip"><div class="wrap strip-inner">
-  <div class="badges" style="justify-content:center">
-    <span class="badge">Xero accredited app</span>
-    <span class="badge">Built &amp; refined since 2017</span>
-    <span class="badge">Used by listed entities</span>
-    <span class="badge">AWS infrastructure</span>
-    <span class="badge">Chartered Accountant designed</span>
-    <span class="badge">No setup fees</span>
-  </div>
-</div></div>
-
-<!-- CREDIBILITY -->
-<section class="cred"><div class="wrap cred-inner">
-  <div>
-    <div class="eyebrow">Built by an accountant</div>
-    <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem)">Designed by someone who's rebuilt this forecast one too many times.</h2>
-    <p style="margin-top:14px">Magnifi was built by a Chartered Accountant who spent two decades in public practice and CFO roles — running the same month-end conversations, building the same cashflow models from scratch every time results came in.</p>
-    <p style="margin-top:14px">The rolling cashflow exists because a forecast that requires a manual rebuild when actuals change isn't practical. It's designed to work the way an experienced advisor thinks about cash: always current, always forward-looking, always tied back to the balance sheet.</p>
-    <div class="badges">
-      <span class="badge">Xero accredited app</span>
-      <span class="badge">Built &amp; refined since 2017</span>
-      <span class="badge">Used by listed entities</span>
-      <span class="badge">AWS infrastructure</span>
+<section class="section--tint section--compact">
+  <div class="wrap">
+    <div class="chips chips--center mt-0">
+      <span class="chip chip--lg">Xero accredited app</span>
+      <span class="chip chip--lg">Built &amp; refined since 2017</span>
+      <span class="chip chip--lg">Used by listed entities</span>
+      <span class="chip chip--lg">AWS infrastructure</span>
+      <span class="chip chip--lg">Chartered Accountant designed</span>
+      <span class="chip chip--lg">No setup fees</span>
     </div>
   </div>
-  <div class="cred-card">
-    <div class="big">"The cashflow forecast changed how I talk to clients. It's not a theoretical projection anymore — it's always showing the current picture. When a client asks 'will we have enough in October?', I can answer that before the meeting, not during it."</div>
-    <div class="sub">Director, Public Practice &middot; Chartered accounting firm, Newcastle NSW</div>
+</section>
+
+<!-- CREDIBILITY -->
+<section class="section--soft">
+  <div class="wrap split split--wide-left">
+    <div class="section-head section-head--sm">
+      <div class="eyebrow">Built by an accountant</div>
+      <h2>Designed by someone who's rebuilt this forecast one too many times.</h2>
+      <p>Magnifi was built by a Chartered Accountant who spent two decades in public practice and CFO roles — running the same month-end conversations, building the same cashflow models from scratch every time results came in.</p>
+      <p>The rolling cashflow exists because a forecast that requires a manual rebuild when actuals change isn't practical. It's designed to work the way an experienced advisor thinks about cash: always current, always forward-looking, always tied back to the balance sheet.</p>
+      <div class="chips">
+        <span class="chip chip--lg">Xero accredited app</span>
+        <span class="chip chip--lg">Built &amp; refined since 2017</span>
+        <span class="chip chip--lg">Used by listed entities</span>
+        <span class="chip chip--lg">AWS infrastructure</span>
+      </div>
+    </div>
+    <div class="card card--navy card--lg">
+      <div class="card-quote">"The cashflow forecast changed how I talk to clients. It's not a theoretical projection anymore — it's always showing the current picture. When a client asks 'will we have enough in October?', I can answer that before the meeting, not during it."</div>
+      <div class="card-quote-by">Director, Public Practice &middot; Chartered accounting firm, Newcastle NSW</div>
+    </div>
   </div>
-</div></section>
+</section>
 
 <!-- FAQ -->
-<section id="faq"><div class="wrap">
-  <div class="section-head center"><div class="eyebrow">FAQ</div><h2>Common questions</h2></div>
-  <div class="faq">
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head section-head--center"><div class="eyebrow">FAQ</div><h2>Common questions</h2></div>
+    <div class="faq">
 
-    <details>
-      <summary>What does "rolling" actually mean?</summary>
-      <div class="ans">Two things. First, the forecast re-forecasts forward each time you import actuals — the opening balance updates to what actually happened, compliance obligations recalculate from the new base, and the remaining months forecast forward from there. Second, there's no fixed start date. You're not locked to the beginning of your financial year or calendar year. You can set the start month to anything — useful if you want to see the next twelve months from today, or look ahead from your last actual period.</div>
-    </details>
+      <details>
+        <summary>What does "rolling" actually mean?</summary>
+        <div class="faq-answer">Two things. First, the forecast re-forecasts forward each time you import actuals — the opening balance updates to what actually happened, compliance obligations recalculate from the new base, and the remaining months forecast forward from there. Second, there's no fixed start date. You're not locked to the beginning of your financial year or calendar year. You can set the start month to anything — useful if you want to see the next twelve months from today, or look ahead from your last actual period.</div>
+      </details>
 
-    <details>
-      <summary>How does receivables timing work?</summary>
-      <div class="ans">When you map your chart of accounts, you specify whether income or expense accounts flow through a receivables or payables account and set the payment terms. Magnifi then applies those terms when actuals come in — so if September income was $100,000 on 60-day terms, that $100,000 appears as cash collected in November, not September. This runs automatically every time you import.</div>
-    </details>
+      <details>
+        <summary>How does receivables timing work?</summary>
+        <div class="faq-answer">When you map your chart of accounts, you specify whether income or expense accounts flow through a receivables or payables account and set the payment terms. Magnifi then applies those terms when actuals come in — so if September income was $100,000 on 60-day terms, that $100,000 appears as cash collected in November, not September. This runs automatically every time you import.</div>
+      </details>
 
-    <details>
-      <summary>Are GST, PAYGW, and Super included automatically?</summary>
-      <div class="ans">Yes. GST, PAYGW, Payroll Tax, and Superannuation all appear in the cashflow under Taxes &amp; Levies and run to the compliance terms set for each account. When actuals are imported, these re-forecast from the new base — so a stronger-than-expected income month flows through to a higher GST liability in the relevant settlement month.</div>
-    </details>
+      <details>
+        <summary>Are GST, PAYGW, and Super included automatically?</summary>
+        <div class="faq-answer">Yes. GST, PAYGW, Payroll Tax, and Superannuation all appear in the cashflow under Taxes &amp; Levies and run to the compliance terms set for each account. When actuals are imported, these re-forecast from the new base — so a stronger-than-expected income month flows through to a higher GST liability in the relevant settlement month.</div>
+      </details>
 
-    <details>
-      <summary>Can I share the cashflow forecast with a client or board?</summary>
-      <div class="ans">Yes. The cashflow chart is included in the live dashboard link you can share from any entity or group. The recipient sees the full dashboard — including the cashflow forecast — as at your most recent import. No login is required on their end, and you can revoke access at any time.</div>
-    </details>
+      <details>
+        <summary>Can I share the cashflow forecast with a client or board?</summary>
+        <div class="faq-answer">Yes. The cashflow chart is included in the live dashboard link you can share from any entity or group. The recipient sees the full dashboard — including the cashflow forecast — as at your most recent import. No login is required on their end, and you can revoke access at any time.</div>
+      </details>
 
-    <details>
-      <summary>Do I have to be a service business to use Magnifi?</summary>
-      <div class="ans">No. Magnifi is purpose-built for service businesses — professional services, consulting, trades, health and beauty, and similar people-driven operations — and the capacity planning features are designed specifically for this context. That said, any business that runs a connected P&amp;L, balance sheet, and cashflow can use Magnifi's forecasting and reporting tools effectively.</div>
-    </details>
+      <details>
+        <summary>Do I have to be a service business to use Magnifi?</summary>
+        <div class="faq-answer">No. Magnifi is purpose-built for service businesses — professional services, consulting, trades, health and beauty, and similar people-driven operations — and the capacity planning features are designed specifically for this context. That said, any business that runs a connected P&amp;L, balance sheet, and cashflow can use Magnifi's forecasting and reporting tools effectively.</div>
+      </details>
 
+    </div>
   </div>
-</div></section>
+</section>
 
-<!-- FINAL CTA -->
-<section class="final"><div class="wrap">
-  <div class="eyebrow">Get started</div>
-  <h2>A cashflow that updates itself.</h2>
-  <p>Connect your data, import your actuals, and Magnifi builds a rolling cashflow forecast that re-forecasts automatically — no manual rebuild, always current.</p>
-  <div class="hero-actions">
-    <a href="#" class="btn btn-primary">Start Free</a>
+<!-- FINAL CALL TO ACTION -->
+<section class="cta-section">
+  <div class="wrap">
+    <div class="eyebrow">Get started</div>
+    <h2>A cashflow that updates itself.</h2>
+    <p>Connect your data, import your actuals, and Magnifi builds a rolling cashflow forecast that re-forecasts automatically — no manual rebuild, always current.</p>
+    <div class="actions">
+      <a href="#" class="btn btn--primary">Start Free</a>
+    </div>
+    <p class="cta-note">No setup fee &middot; No lock-in contract &middot; Connects to Xero or Excel</p>
   </div>
-  <p class="cta-note">No setup fee &middot; No lock-in contract &middot; Connects to Xero or Excel</p>
-</div></section>
+</section>
 
 <!-- FOOTER -->
 <div id="site-footer"></div>
 
-<script src="scripts.js?v=10"></script>
+<script src="scripts.js?v=11"></script>
 </body>
 </html>
-

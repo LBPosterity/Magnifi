@@ -1,51 +1,182 @@
 /* site font (must stay the first line of this file - @import is ignored after any other rule) */
 @import url('https://fonts.googleapis.com/css2?family=Clarity+City:ital,wght@0,100..900;1,100..900&display=swap');
 
+/* =====================================================================
+   styles.css - design tokens, base styles, layout and shared components.
+   component-styles.css holds the header, footer and page-section components.
+   Every colour, font size, spacing, radius and shadow must come from a token below.
+   ===================================================================== */
+
 :root {
-    /* typefaces - loaded by the @import above; add any new font to that @import */
+    /* ---------- typefaces (loaded by the @import above; add any new font to it) ---------- */
     --font-heading: "Clarity City", sans-serif;
     --font-body: "Clarity City", sans-serif;
 
-    /* side margin for page content (.wrap) - reduced on small screens below */
-    --gutter: 1.75rem;
-
-    --green: #3EC4AB;
-    /* vibrant primary - aligned to master --brand-green */
-    --green-bright: #07B09D;
-    /* glow / highlight - aligned to master --green-contrast */
-    --green-deep: #07B09D;
-    /* aligned to master --green-contrast */
-    --text-dark: #344150;
-    /* heading colour */
-    --text-light: #364458;
-    /* aligned to master --text */
-    --near-black: #1E2733;
-    --navy-deep: #1E2733;
-    /* dark sections/footer */
-    --slate: #5B7395;
-    /* aligned to master --text-light */
-    --bg: #FFFFFF;
-    --bg-soft: #F2F4F7;
-    /* aligned to master --hover */
-    --bg-tint: #E6FAEE;
-    /* aligned to master --green-tint */
-    --line: #85B0CB60;
-    /* aligned to master --border-dark */
+    /* ---------- colours ---------- */
+    /* brand greens */
+    --green: #3EC4AB;          /* primary brand - buttons, accents. aligned to master --brand-green */
+    --green-dark: #07B09D;     /* green text & links on light backgrounds. aligned to master --green-contrast */
+    --green-vivid: #12BE7A;    /* icons, ticks, chart lines */
+    --green-light: #37DFA1;    /* green text & icons on dark backgrounds */
+    --green-wash: color-mix(in srgb, var(--green-vivid) 12%, transparent);  /* soft green fill behind green text */
+    --green-glow: color-mix(in srgb, var(--green-light) 22%, transparent);  /* radial glow in hero / dark sections */
     --mint: #6FC0B0;
     --mint-soft: #A6D7CD;
-    --amber: #E8A33D;
+
+    /* text */
+    --text-dark: #344150;      /* headings, strong text; also the navy used for navy surfaces */
+    --text-light: #364458;     /* body text. aligned to master --text */
+    --slate: #5B7395;          /* secondary / supporting text. aligned to master --text-light */
+    --text-muted: #9AA8B4;     /* chart labels, de-emphasised marks */
+
+    /* surfaces & lines */
+    --bg: #FFFFFF;             /* white - page and card background; also white text/icons on dark surfaces */
+    --bg-soft: #F2F4F7;        /* light grey section / panel. aligned to master --hover */
+    --bg-tint: #E6FAEE;        /* pale green section / panel. aligned to master --green-tint */
+    --bg-dark: #1E2733;        /* dark sections, footer, dark cards */
+    --line: #85B0CB60;         /* borders & dividers. aligned to master --border-dark */
+
+    /* on dark surfaces */
+    --text-on-dark: rgba(255, 255, 255, .8);
+    --text-on-dark-muted: rgba(255, 255, 255, .6);
+    --line-on-dark: rgba(255, 255, 255, .12);
+    --surface-on-dark: rgba(255, 255, 255, .05);
+
+    /* status */
+    --red: #C2553F;            /* negative movement, warnings */
+    --red-tint: #FFF3EF;
+    --amber: #E8A33D;          /* "coming soon", placeholders */
+    --amber-tint: #FDF3E4;
+
+    /* ---------- typography ---------- */
+    --text-2xs: .68rem;
+    --text-xs: .75rem;
+    --text-sm: .82rem;
+    --text-md: .9rem;
+    --text-base: 1rem;
+    --text-lg: 1.18rem;
+    --text-xl: 1.3rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.75rem;
+    --text-4xl: 3rem;
+    /* headings scale with the screen */
+    --text-h1: clamp(2.55rem, 5.2vw, 4.1rem);
+    --text-h2-lg: clamp(2.2rem, 4.2vw, 3.3rem);
+    --text-h2: clamp(2rem, 3.7vw, 3rem);
+    --text-h2-sm: clamp(1.9rem, 3.4vw, 2.7rem);
+    --text-h2-xs: clamp(1.5rem, 3vw, 2.2rem);
+
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+    --weight-extrabold: 800;
+
+    --leading-none: 1;
+    --leading-tight: 1.04;
+    --leading-snug: 1.35;
+    --leading-normal: 1.6;
+    --leading-relaxed: 1.7;
+
+    --tracking-wide: .05rem;
+    --tracking-wider: .08rem;
+    --tracking-widest: .11rem;
+
+    /* ---------- spacing (margin, padding, gap) - each step is 0.25rem (4px): --space-N = N × .25rem ---------- */
+    --space-0-5: .125rem;
+    --space-1: .25rem;
+    --space-1-5: .375rem;
+    --space-2: .5rem;
+    --space-2-5: .625rem;
+    --space-3: .75rem;
+    --space-3-5: .875rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-7: 1.75rem;
+    --space-8: 2rem;
+    --space-9: 2.25rem;
+    --space-10: 2.5rem;
+    --space-11: 2.75rem;
+    --space-12: 3rem;
+    --space-13: 3.25rem;
+    --space-14: 3.5rem;
+    --space-15: 3.75rem;
+    --space-16: 4rem;
+    --space-17: 4.25rem;
+    --space-18: 4.5rem;
+    --space-19: 4.75rem;
+    --space-20: 5rem;
+    --space-21: 5.25rem;
+    --space-22: 5.5rem;
+    --space-23: 5.75rem;
+    --space-24: 6rem;
+    --space-25: 6.25rem;
+    --space-26: 6.5rem;
+    --space-27: 6.75rem;
+    --space-28: 7rem;
+    --space-29: 7.25rem;
+    --space-30: 7.5rem;
+
+    /* ---------- layout ---------- */
+    --wrap: 73.75rem;          /* max content width */
+    --gutter: var(--space-7);  /* side margin for page content - reduced on small screens below */
+    --section-pad: var(--space-24);
+    --section-pad-compact: var(--space-12);
+    --header-height: 4.5rem;
+
+    /* ---------- shape ---------- */
+    --radius-xs: .375rem;
+    --radius-sm: .5rem;
+    --radius-md: .625rem;
+    --radius-lg: .875rem;
+    --radius-xl: 1.25rem;
+    --radius-pill: 100rem;
+    --radius-round: 50%;
+
+    --border-width: .0625rem;
+    --border-width-thick: .125rem;
+    --border-width-accent: .25rem;
+    --border: var(--border-width) solid var(--line);
+
     /* layered shadows: tight contact shadow + mid shadow for form + soft ambient shadow for depth */
-    --shadow-sm: 0 .0625rem .125rem rgba(22, 39, 51, 0.08),
-                 0 .125rem .25rem rgba(22, 39, 51, 0.08),
-                 0 .5rem 1.125rem -.375rem rgba(22, 39, 51, 0.16);
-    --shadow: 0 .0625rem .125rem rgba(22, 39, 51, 0.08),
-              0 .25rem .5rem rgba(22, 39, 51, 0.08),
-              0 1.5rem 3rem -1rem rgba(22, 39, 51, 0.26);
-    --shadow-lg: 0 .125rem .25rem rgba(22, 39, 51, 0.08),
-                 0 .5rem 1rem rgba(22, 39, 51, 0.08),
-                 0 2.5rem 5rem -1.5rem rgba(22, 39, 51, 0.32);
-    --glow: 0 0 3.75rem -.5rem rgba(59, 224, 162, .65);
+    --shadow-sm: 0 .0625rem .125rem color-mix(in srgb, var(--bg-dark) 8%, transparent),
+                 0 .125rem .25rem color-mix(in srgb, var(--bg-dark) 8%, transparent),
+                 0 .5rem 1.125rem -.375rem color-mix(in srgb, var(--bg-dark) 16%, transparent);
+    --shadow: 0 .0625rem .125rem color-mix(in srgb, var(--bg-dark) 8%, transparent),
+              0 .25rem .5rem color-mix(in srgb, var(--bg-dark) 8%, transparent),
+              0 1.5rem 3rem -1rem color-mix(in srgb, var(--bg-dark) 26%, transparent);
+    --shadow-lg: 0 .125rem .25rem color-mix(in srgb, var(--bg-dark) 8%, transparent),
+                 0 .5rem 1rem color-mix(in srgb, var(--bg-dark) 8%, transparent),
+                 0 2.5rem 5rem -1.5rem color-mix(in srgb, var(--bg-dark) 32%, transparent);
+    --shadow-primary: 0 .75rem 1.625rem -.625rem color-mix(in srgb, var(--green-vivid) 60%, transparent);
+    --glow: 0 0 3.75rem -.5rem color-mix(in srgb, var(--green-light) 65%, transparent);
+
+    /* ---------- motion & stacking ---------- */
+    --transition: .18s ease;
+    --z-header: 100;
+    --z-menu: 200;
 }
+
+/* breakpoints (CSS can't use variables in media queries, so only ever use these five, as max-width):
+   35rem (phone) · 47.5rem (small tablet) · 56.25rem (tablet - grids and two-column layouts stack)
+   62.4375rem (header switches to the burger menu) · 74.9375rem (header tightens) */
+@media(max-width:35rem) {
+    :root {
+        --gutter: var(--space-5);
+        --section-pad: var(--space-10);
+    }
+}
+
+@media(max-width:56.25rem) {
+    :root {
+        --section-pad: var(--space-14);
+    }
+}
+
+/* =====================================================================
+   BASE
+   ===================================================================== */
 
 * {
     box-sizing: border-box;
@@ -55,15 +186,16 @@
 
 html {
     scroll-behavior: smooth;
-    /* keep #anchor targets (e.g. #pricing) clear of the 72px sticky header */
-    scroll-padding-top: 4.5rem
+    /* keep #anchor targets (e.g. #pricing) clear of the sticky header */
+    scroll-padding-top: var(--header-height)
 }
 
 body {
     font-family: var(--font-body);
+    font-size: var(--text-base);
     color: var(--text-light);
     background: var(--bg);
-    line-height: 1.6;
+    line-height: var(--leading-normal);
     -webkit-font-smoothing: antialiased
 }
 
@@ -74,30 +206,33 @@ h4,
 h5,
 h6 {
     font-family: var(--font-heading);
-    font-weight: 500;
-    line-height: 1.04;
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-tight);
+    color: var(--text-dark)
 }
 
-.wrap {
-    max-width: 73.75rem;
-    margin: 0 auto;
-    /* side padding only - use padding-block (not the padding shorthand) on classes combined with .wrap so this isn't overridden */
-    padding-inline: var(--gutter)
+h1 {
+    font-size: var(--text-h1)
 }
 
-@media(max-width:35rem) {
-    :root {
-        --gutter: 1.25rem
-    }
+h2 {
+    font-size: var(--text-h2)
 }
 
-.eyebrow {
-    font-size: .74rem;
-    font-weight: 700;
-    letter-spacing: .111rem;
-    text-transform: uppercase;
-    color: var(--green-deep);
-    margin-bottom: 1.125rem
+h3 {
+    font-size: var(--text-lg)
+}
+
+h4 {
+    font-size: var(--text-base)
+}
+
+/* <em> inside a heading = green highlight, never italics */
+h1 em,
+h2 em,
+h3 em {
+    font-style: normal;
+    color: var(--green-dark)
 }
 
 a {
@@ -105,59 +240,842 @@ a {
     text-decoration: none
 }
 
+img {
+    max-width: 100%
+}
+
+/* =====================================================================
+   LAYOUT
+   ===================================================================== */
+
+.wrap {
+    max-width: var(--wrap);
+    margin: 0 auto;
+    /* side padding only - use padding-block (never the padding shorthand) on anything combined with .wrap */
+    padding-inline: var(--gutter)
+}
+
+section {
+    padding-block: var(--section-pad)
+}
+
+/* section backgrounds - one per section, default is white */
+.section--soft {
+    background: var(--bg-soft);
+    border-block: var(--border)
+}
+
+.section--tint {
+    background: var(--bg-tint);
+    border-block: var(--border)
+}
+
+.section--dark,
+.section--navy {
+    background: radial-gradient(90% 120% at 80% 0%, var(--green-glow), transparent 55%), var(--bg-dark);
+    color: var(--bg)
+}
+
+.section--navy {
+    background: radial-gradient(80% 140% at 50% 0%, var(--green-glow), transparent 55%), var(--text-dark)
+}
+
+/* shorter padding for strips and bands */
+.section--compact {
+    padding-block: var(--section-pad-compact)
+}
+
+/* two columns side by side, stacking below 56.25rem */
+.split {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-12);
+    align-items: center
+}
+
+.split--top {
+    align-items: start
+}
+
+.split > .section-head {
+    margin-bottom: 0
+}
+
+.split--wide-left {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr)
+}
+
+@media(max-width:56.25rem) {
+
+    .split,
+    .split--wide-left {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-8)
+    }
+}
+
+/* equal-width card grids */
+.grid {
+    display: grid;
+    gap: var(--space-6)
+}
+
+.grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+}
+
+.grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+}
+
+.grid--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr))
+}
+
+.grid--5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr))
+}
+
+/* smaller gap, for grids inside a card or mock-up */
+.grid--tight {
+    gap: var(--space-2-5)
+}
+
+@media(max-width:56.25rem) {
+
+    .grid--2,
+    .grid--5 {
+        grid-template-columns: minmax(0, 1fr)
+    }
+
+    .grid--3,
+    .grid--4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+
+    /* an odd last card in a 3-column grid spans the full row instead of leaving a gap */
+    .grid--3> :last-child:nth-child(odd) {
+        grid-column: 1 / -1
+    }
+}
+
+@media(max-width:35rem) {
+
+    .grid--3,
+    .grid--4 {
+        grid-template-columns: minmax(0, 1fr)
+    }
+}
+
+/* vertical stack of blocks */
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3-5)
+}
+
+/* =====================================================================
+   TEXT
+   ===================================================================== */
+
+/* section intro: eyebrow + h2 + optional p. Leaves a gap before whatever follows it */
+.section-head {
+    max-width: 41.25rem;
+    margin-bottom: var(--space-12)
+}
+
+.section-head:last-child {
+    margin-bottom: 0
+}
+
+.section-head p {
+    color: var(--slate);
+    font-size: var(--text-lg);
+    margin-top: var(--space-4)
+}
+
+.section-head p + p {
+    margin-top: var(--space-3)
+}
+
+:is(.section--dark, .section--navy) .section-head p {
+    color: var(--text-on-dark)
+}
+
+.section-head--center {
+    margin-inline: auto;
+    text-align: center
+}
+
+.section-head--wide {
+    max-width: 50rem
+}
+
+.section-head--sm h2 {
+    font-size: var(--text-h2-sm)
+}
+
+.section-head--sm p {
+    font-size: var(--text-base)
+}
+
+.section-head--lg h2 {
+    font-size: var(--text-h2-lg)
+}
+
+.section-head--xs h2 {
+    font-size: var(--text-h2-xs)
+}
+
+/* body copy: spaced paragraphs */
+.prose p {
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-4)
+}
+
+.prose p:last-of-type {
+    margin-bottom: var(--space-4)
+}
+
+.prose > .card {
+    margin-bottom: var(--space-4)
+}
+
+.prose > :last-child {
+    margin-bottom: 0
+}
+
+/* small uppercase label above a heading */
+.eyebrow {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--green-dark);
+    margin-bottom: var(--space-4)
+}
+
+.eyebrow--muted {
+    color: var(--slate)
+}
+
+/* short line before the label */
+.eyebrow--ruled {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1-5);
+    letter-spacing: var(--tracking-wider)
+}
+
+.eyebrow--ruled::before {
+    content: '';
+    width: 1.125rem;
+    height: var(--border-width-thick);
+    background: var(--green)
+}
+
+/* larger intro paragraph under a page heading */
+.lead {
+    font-size: var(--text-lg);
+    color: var(--slate);
+    margin: var(--space-6) 0 var(--space-8);
+    max-width: 36ch
+}
+
+.trend-up {
+    color: var(--green-dark)
+}
+
+.trend-down {
+    color: var(--red)
+}
+
+/* "Learn more →" link */
+.link-more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1-5);
+    margin-top: var(--space-4);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-md);
+    color: var(--green-dark);
+    transition: gap var(--transition), color var(--transition)
+}
+
+.link-more:hover {
+    gap: var(--space-2-5)
+}
+
+/* =====================================================================
+   BUTTONS
+   ===================================================================== */
+
 .btn {
     display: inline-flex;
     align-items: center;
-    gap: .49rem;
-    font-weight: 700;
-    font-size: .98rem;
-    padding: .8624rem 1.568rem;
-    border-radius: .625rem;
-    transition: transform .18s ease, box-shadow .18s ease, background .18s;
+    gap: var(--space-2);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-base);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    border: .09375rem solid transparent;
     cursor: pointer;
-    border: .09375rem solid transparent
+    white-space: nowrap;
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition)
 }
 
-.btn-primary {
+.btn--primary {
     background: var(--green);
-    color: #fff;
-    box-shadow: 0 .75rem 1.625rem -.625rem rgba(20, 192, 124, .6)
+    color: var(--bg);
+    box-shadow: var(--shadow-primary)
 }
 
-.btn-primary:hover {
+.btn--primary:hover {
     transform: translateY(-.125rem);
-    background: var(--green-deep);
-    box-shadow: 0 1.125rem 2.125rem -.75rem rgba(20, 192, 124, .7)
+    background: var(--green-dark)
 }
 
-.btn-ghost {
+.btn--ghost {
     background: transparent;
     color: var(--text-dark);
     border-color: var(--line)
 }
 
-.btn-ghost:hover {
+.btn--ghost:hover {
     border-color: var(--green);
     background: var(--bg-soft)
 }
 
-.btn-onDark {
+/* full width, centred label */
+.btn--block {
+    width: 100%;
+    justify-content: center
+}
+
+/* row of buttons */
+.actions {
+    display: flex;
+    gap: var(--space-3-5);
+    flex-wrap: wrap;
+    align-items: center
+}
+
+/* =====================================================================
+   CARDS
+   ===================================================================== */
+
+.card {
+    background: var(--bg);
+    border: var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-7);
+    position: relative
+}
+
+.card--sm {
+    padding: var(--space-5)
+}
+
+.card--lg {
+    padding: var(--space-10)
+}
+
+/* lifts on hover - use on cards that link somewhere */
+.card--hover {
+    transition: transform var(--transition), box-shadow var(--transition)
+}
+
+.card--hover:hover {
+    transform: translateY(-.25rem);
+    box-shadow: var(--shadow)
+}
+
+/* floating card with a shadow (hero visuals, mock-ups) */
+.card--raised {
+    box-shadow: var(--shadow)
+}
+
+/* highlighted option (e.g. recommended plan) */
+.card--featured {
+    border: var(--border-width-thick) solid var(--green);
+    box-shadow: var(--shadow)
+}
+
+/* green bar down the left edge */
+.card--accent {
+    border-left: var(--border-width-accent) solid var(--green)
+}
+
+.card--soft {
+    background: var(--bg-soft)
+}
+
+.card--tint {
+    background: var(--bg-tint)
+}
+
+/* solid dark / navy card on a light section */
+.card--dark {
+    background: var(--bg-dark);
+    border-color: var(--bg-dark);
+    color: var(--bg)
+}
+
+.card--navy {
+    background: var(--text-dark);
+    border-color: var(--text-dark);
+    color: var(--bg)
+}
+
+/* hero card with navy gradient + green glow (e.g. the lead feature) */
+.card--feature {
+    background:
+        radial-gradient(70% 120% at 85% 10%, var(--green-glow), transparent 55%),
+        linear-gradient(120deg, var(--text-dark), var(--bg-dark));
+    border: none;
+    color: var(--bg)
+}
+
+/* translucent card sitting on a dark section */
+.card--on-dark {
+    background: var(--surface-on-dark);
+    border-color: var(--line-on-dark)
+}
+
+/* spans every column of its grid */
+.card--full {
+    grid-column: 1 / -1
+}
+
+/* content laid out in a row: icon on the left, text on the right */
+.card--row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4)
+}
+
+.card--row .icon-tile {
+    margin-bottom: 0
+}
+
+.card--row > .dot {
+    margin-top: .5rem
+}
+
+/* a single centred card, e.g. one pricing plan */
+.card--narrow {
+    max-width: 30rem;
+    margin-inline: auto
+}
+
+.card-title {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2)
+}
+
+.card-title--lg {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3)
+}
+
+.card-title--sm {
+    font-size: var(--text-base)
+}
+
+/* small note at the bottom of a card, above a divider */
+.card-footnote {
+    font-size: var(--text-xs);
+    color: var(--green-dark);
+    font-weight: var(--weight-semibold);
+    margin-top: var(--space-2-5);
+    padding-top: var(--space-2-5);
+    border-top: var(--border)
+}
+
+.card p {
+    color: var(--slate);
+    font-size: var(--text-base)
+}
+
+.card--sm p {
+    font-size: var(--text-md);
+    line-height: var(--leading-normal)
+}
+
+.card p + p {
+    margin-top: var(--space-3)
+}
+
+/* title row with something on the right (e.g. a chip) */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    margin-bottom: var(--space-3)
+}
+
+.card-header .eyebrow {
+    margin: 0
+}
+
+.card-header b {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-semibold);
+    color: var(--text-dark);
+    font-size: var(--text-base)
+}
+
+/* small square icon at the top of a card */
+.icon-tile {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-tint);
+    color: var(--green-vivid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-4)
+}
+
+.icon-tile--sm {
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-base);
+    margin-bottom: 0
+}
+
+.icon-tile--white {
+    background: var(--bg);
+    border: var(--border);
+    color: var(--mint)
+}
+
+.icon-tile--red {
+    background: var(--red-tint)
+}
+
+.icon-tile--amber {
+    background: var(--amber-tint);
+    color: var(--amber)
+}
+
+/* =====================================================================
+   CHIPS & TAGS
+   ===================================================================== */
+
+/* row of chips / badges */
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2-5);
+    margin-top: var(--space-6)
+}
+
+.chips--center {
+    justify-content: center
+}
+
+/* small rounded label - industries, badges, status, links to help articles */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--text-dark);
+    background: var(--bg);
+    border: var(--border);
+    padding: var(--space-1-5) var(--space-3-5);
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+    transition: border-color var(--transition), color var(--transition), background var(--transition)
+}
+
+.chip--lg {
+    font-size: var(--text-md);
+    padding: var(--space-2) var(--space-4);
+    box-shadow: var(--shadow-sm)
+}
+
+.chip--green {
+    background: var(--green-wash);
+    border-color: transparent;
+    color: var(--green-dark);
+    font-weight: var(--weight-bold)
+}
+
+.chip--tint {
+    background: var(--bg-tint);
+    border-color: var(--mint-soft);
+    color: var(--green-dark)
+}
+
+.chip--muted {
+    background: var(--bg-soft);
+    border-color: transparent;
+    color: var(--slate)
+}
+
+/* selected state, e.g. an active filter */
+.chip--active {
+    background: var(--text-dark);
+    border-color: var(--text-dark);
+    color: var(--bg)
+}
+
+/* link to a help article - adds ↗ */
+.chip--link {
+    color: var(--green-dark);
+    background: var(--bg-soft);
+    margin-top: var(--space-1);
+    /* long help-article titles wrap on small screens */
+    white-space: normal
+}
+
+.chip--link::after {
+    content: '↗';
+    font-size: var(--text-2xs)
+}
+
+.chip--link:hover,
+a.chip:hover {
+    border-color: var(--green-dark)
+}
+
+/* tiny uppercase status tag */
+.tag {
+    display: inline-block;
+    font-size: var(--text-2xs);
+    font-weight: var(--weight-extrabold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    padding: var(--space-1) var(--space-2-5);
+    border-radius: var(--radius-pill);
+    vertical-align: middle;
+    background: var(--green-wash);
+    color: var(--green-dark)
+}
+
+.tag--soon {
+    background: var(--amber);
+    color: var(--bg);
+    margin-left: var(--space-2-5)
+}
+
+.tag--muted {
+    background: var(--bg-soft);
+    color: var(--slate)
+}
+
+.tag--tint {
+    background: var(--bg-tint);
+    color: var(--text-dark)
+}
+
+/* larger outlined tag, e.g. at the top of a feature-page hero */
+.tag--lg {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1-5);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    padding: var(--space-1-5) var(--space-3);
+    background: var(--bg-tint);
+    border: var(--border-width) solid var(--mint-soft);
+    margin-bottom: var(--space-5)
+}
+
+:is(.section--dark, .section--navy, .card--dark, .card--navy, .card--feature) .tag {
+    color: var(--green-light)
+}
+
+/* =====================================================================
+   LISTS
+   ===================================================================== */
+
+/* list with a tick icon on each item: <ul class="check-list"><li><svg ...currentColor...>Text</li> */
+.check-list,
+.dot-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+    text-align: left
+}
+
+.check-list li,
+.dot-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: var(--text-base);
+    color: var(--text-light)
+}
+
+.check-list svg {
+    flex: none;
+    margin-top: .1875rem;
+    color: var(--green-vivid)
+}
+
+:is(.section--dark, .section--navy, .card--dark, .card--navy, .card--on-dark) .check-list svg {
+    color: var(--green-light)
+}
+
+/* list with a small green dot on each item */
+.dot-list {
+    gap: var(--space-2-5)
+}
+
+.dot-list li {
+    gap: var(--space-2-5);
+    font-size: var(--text-md);
+    color: var(--slate)
+}
+
+.dot-list li::before,
+.dot {
+    content: '';
+    width: .375rem;
+    height: .375rem;
+    border-radius: var(--radius-round);
     background: var(--green);
-    color: #fff
+    flex: none
 }
 
-.btn-onDark:hover {
-    transform: translateY(-.125rem);
-    background: var(--green-bright)
+.dot-list li::before {
+    margin-top: .5rem
 }
 
-.btn-ghostDark {
-    background: transparent;
-    color: #fff;
-    border-color: rgba(255, 255, 255, .3)
+/* =====================================================================
+   DARK SURFACES - text colours inside dark / navy sections and dark cards.
+   (Kept after the card and list rules so they win.)
+   ===================================================================== */
+
+:is(.section--dark, .section--navy, .card--dark, .card--navy, .card--feature, .card--on-dark) :is(h1, h2, h3, h4) {
+    color: var(--bg)
 }
 
-.btn-ghostDark:hover {
-    border-color: var(--green-bright);
-    color: var(--green-bright)
+:is(.section--dark, .section--navy, .card--dark, .card--navy, .card--feature, .card--on-dark) :is(p, li) {
+    color: var(--text-on-dark)
 }
+
+:is(.section--dark, .section--navy, .card--dark, .card--navy, .card--feature) :is(.eyebrow, h1 em, h2 em, h3 em, .link-more) {
+    color: var(--green-light)
+}
+
+/* white cards / mock-ups placed inside a dark section keep normal text colours */
+:is(.section--dark, .section--navy) :is(.card:not(.card--dark, .card--navy, .card--feature, .card--on-dark), .dashboard-mock) :is(p, li, .eyebrow--muted) {
+    color: var(--slate)
+}
+
+:is(.section--dark, .section--navy) :is(.card:not(.card--dark, .card--navy, .card--feature, .card--on-dark), .dashboard-mock) .eyebrow:not(.eyebrow--muted) {
+    color: var(--green-dark)
+}
+
+/* =====================================================================
+   MOTION
+   ===================================================================== */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(1.125rem);
+    animation: rise .7s cubic-bezier(.2, .7, .3, 1) forwards
+}
+
+@keyframes rise {
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+
+.delay-1 {
+    animation-delay: .05s
+}
+
+.delay-2 {
+    animation-delay: .15s
+}
+
+.delay-3 {
+    animation-delay: .25s
+}
+
+.delay-4 {
+    animation-delay: .35s
+}
+
+.delay-5 {
+    animation-delay: .45s
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .reveal {
+        animation: none;
+        opacity: 1;
+        transform: none
+    }
+}
+
+/* =====================================================================
+   UTILITIES - spacing between blocks and alignment only.
+   Never add utilities for colours or font sizes; use a component instead.
+   ===================================================================== */
+
+.text-center {
+    text-align: center
+}
+
+.mx-auto {
+    margin-inline: auto
+}
+
+.mt-0 {
+    margin-top: 0
+}
+
+.mt-4 {
+    margin-top: var(--space-4)
+}
+
+.mt-6 {
+    margin-top: var(--space-6)
+}
+
+.mt-8 {
+    margin-top: var(--space-8)
+}
+
+.mb-4 {
+    margin-bottom: var(--space-4)
+}
+
+.mb-8 {
+    margin-bottom: var(--space-8)
+}
+
+/* SVG colours - use these classes (or stroke/fill="currentColor") instead of hex values in SVG markup */
+.fill-green-vivid { fill: var(--green-vivid) }
+.fill-text-dark { fill: var(--text-dark) }
+.fill-slate { fill: var(--slate) }
+.fill-muted { fill: var(--text-muted) }
+.fill-white { fill: var(--bg) }
+.fill-red { fill: var(--red) }
+.stroke-green-vivid { stroke: var(--green-vivid) }
+.stroke-text-dark { stroke: var(--text-dark) }
+.stroke-muted { stroke: var(--text-muted) }
+.stroke-line { stroke: var(--line) }
+.stroke-mint { stroke: var(--mint) }
+.stroke-mint-soft { stroke: var(--mint-soft) }
+.stroke-red { stroke: var(--red) }
+.stop-green-light { stop-color: var(--green-light) }
+.stop-green-vivid { stop-color: var(--green-vivid) }
+.stop-text-dark { stop-color: var(--text-dark) }

@@ -1,106 +1,107 @@
-<div class="nav-sticky">
-<header class="nav">
-  <div class="wrap nav-inner">
-    <a class="nav-logo" href="magnifi-homepage.html" aria-label="Magnifi home">
-      <img class="logo-img" style="width:92px;height:auto" data-logo alt="Magnifi">
+<div class="site-header">
+<header class="header">
+  <div class="wrap header-inner">
+    <a class="header-logo" href="magnifi-homepage.html" aria-label="Magnifi home">
+      <img class="logo-img" src="assets/logo.jpg" alt="Magnifi">
     </a>
-    <nav class="nav-main" aria-label="Main">
-      <div class="nav-link-item"><a class="nav-link-btn" data-nav="home" href="magnifi-homepage.html">Home</a></div>
-      <div class="nav-link-item">
-        <button class="nav-link-btn" data-nav="features" id="feat-btn" onclick="toggleNav('feat')">Features
-          <svg class="nav-chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <nav class="header-nav" aria-label="Main">
+      <div class="header-nav-item"><a class="header-nav-link" data-nav="home" href="magnifi-homepage.html">Home</a></div>
+      <div class="header-nav-item">
+        <button class="header-nav-link" data-nav="features" id="features-btn" type="button" aria-expanded="false" aria-controls="features-menu" onclick="toggleNav('features')">Features
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
-      <div class="nav-link-item"><a class="nav-link-btn" data-nav="business" href="magnifi-for-business.html">For Business</a></div>
-      <div class="nav-link-item"><a class="nav-link-btn" data-nav="advisors" href="magnifi-for-advisors.html">For Advisors</a></div>
-      <div class="nav-link-item"><a class="nav-link-btn" data-nav="pricing" href="magnifi-homepage.html#pricing">Pricing</a></div>
-      <div class="nav-link-item res-item-wrap">
-        <button class="nav-link-btn" id="res-btn" onclick="toggleNav('res')">Resources
-          <svg class="nav-chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="header-nav-item"><a class="header-nav-link" data-nav="business" href="magnifi-for-business.html">For Business</a></div>
+      <div class="header-nav-item"><a class="header-nav-link" data-nav="advisors" href="magnifi-for-advisors.html">For Advisors</a></div>
+      <div class="header-nav-item"><a class="header-nav-link" data-nav="pricing" href="magnifi-homepage.html#pricing">Pricing</a></div>
+      <div class="header-nav-item header-nav-item--dropdown">
+        <button class="header-nav-link" id="resources-btn" type="button" aria-expanded="false" aria-controls="resources-menu" onclick="toggleNav('resources')">Resources
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div class="res-dropdown" id="res-menu">
-          <a class="res-link" href="#"><svg class="res-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Blog</a>
-          <a class="res-link" href="https://support.magnifi.com.au"><svg class="res-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Help Centre</a>
-          <a class="res-link" href="#"><svg class="res-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.27 9.81 19.79 19.79 0 011.21 3.18 2 2 0 013.2 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>Contact Us</a>
+        <div class="nav-dropdown" id="resources-menu">
+          <a class="nav-dropdown-link" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Blog</a>
+          <a class="nav-dropdown-link" href="https://support.magnifi.com.au"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Help Centre</a>
+          <a class="nav-dropdown-link" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.27 9.81 19.79 19.79 0 011.21 3.18 2 2 0 013.2 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>Contact Us</a>
         </div>
       </div>
     </nav>
-    <div class="nav-cta">
-      <a class="btn btn-ghost" href="#">See how it works</a>
-      <a class="btn btn-primary" href="#">Start Free</a>
-      <button class="nav-burger" id="m-nav-btn" type="button" aria-label="Open menu" aria-controls="m-nav" aria-expanded="false" onclick="openMobileNav()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    <div class="header-actions">
+      <a class="btn btn--ghost" href="#">See how it works</a>
+      <a class="btn btn--primary" href="#">Start Free</a>
+      <button class="icon-btn" id="mobile-nav-btn" type="button" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false" onclick="openMobileNav()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
   </div>
-  <!-- Features mega menu -->
-  <div class="mega-menu" id="feat-menu">
+
+  <!-- FEATURES MEGA MENU -->
+  <div class="mega-menu" id="features-menu">
     <div class="mega-inner">
-      <a class="mega-cap" href="feature-capacity-planning.html">
-        <div class="mega-cap-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>The differentiator</div>
-        <div class="mega-cap-name">Capacity Planning</div>
-        <div class="mega-cap-desc">Forecast your team's income-earning potential and see the surplus or shortfall before it hits your bottom line.</div>
-        <span class="mega-cap-link">Learn more →</span>
+      <a class="mega-feature" href="feature-capacity-planning.html">
+        <div class="eyebrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>The differentiator</div>
+        <div class="mega-feature-name">Capacity Planning</div>
+        <div class="mega-feature-desc">Forecast your team's income-earning potential and see the surplus or shortfall before it hits your bottom line.</div>
+        <span class="mega-feature-link">Learn more →</span>
       </a>
       <div>
         <div class="mega-grid">
-          <a class="mega-item" href="#"><div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12BE7A" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div><div class="mega-item-name">4-Way Forecasting</div><div class="mega-item-desc">P&amp;L, cashflow, balance sheet and capacity — all connected.</div></a>
-          <a class="mega-item" href="#"><div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12BE7A" stroke-width="2" stroke-linecap="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div><div class="mega-item-name">Profit to Cash</div><div class="mega-item-desc">Bridge the gap between profit and your bank balance.</div></a>
-          <a class="mega-item" href="feature-rolling-cashflow.html"><div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12BE7A" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="mega-item-name">Rolling Cashflow</div><div class="mega-item-desc">Re-forecasts automatically as Xero actuals come in.</div></a>
-          <a class="mega-item" href="#"><div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12BE7A" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div class="mega-item-name">Dashboards</div><div class="mega-item-desc">Key numbers on one screen. Share live — no login needed.</div></a>
-          <a class="mega-item" href="#"><div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12BE7A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div><div class="mega-item-name">What-if &amp; Playground</div><div class="mega-item-desc">Model any change without touching your live forecast.</div></a>
-          <a class="mega-item" href="feature-multi-level-reporting.html"><div class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12BE7A" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="mega-item-name">Multi-level Reporting</div><div class="mega-item-desc">Consolidations, divisions and segments in one place.</div></a>
-          <a class="mega-item" href="#" style="opacity:.72"><div class="mega-icon" style="background:#FDF3E4"><svg viewBox="0 0 24 24" fill="none" stroke="#E8A33D" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div class="mega-item-name">AI Commentary <span class="tag-soon">Coming soon</span></div><div class="mega-item-desc">Narrative insights generated from your numbers automatically.</div></a>
+          <a class="mega-item" href="#"><div class="icon-tile icon-tile--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div><div class="mega-item-name">4-Way Forecasting</div><div class="mega-item-desc">P&amp;L, cashflow, balance sheet and capacity — all connected.</div></a>
+          <a class="mega-item" href="#"><div class="icon-tile icon-tile--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div><div class="mega-item-name">Profit to Cash</div><div class="mega-item-desc">Bridge the gap between profit and your bank balance.</div></a>
+          <a class="mega-item" href="feature-rolling-cashflow.html"><div class="icon-tile icon-tile--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="mega-item-name">Rolling Cashflow</div><div class="mega-item-desc">Re-forecasts automatically as Xero actuals come in.</div></a>
+          <a class="mega-item" href="#"><div class="icon-tile icon-tile--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div class="mega-item-name">Dashboards</div><div class="mega-item-desc">Key numbers on one screen. Share live — no login needed.</div></a>
+          <a class="mega-item" href="#"><div class="icon-tile icon-tile--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div><div class="mega-item-name">What-if &amp; Playground</div><div class="mega-item-desc">Model any change without touching your live forecast.</div></a>
+          <a class="mega-item" href="feature-multi-level-reporting.html"><div class="icon-tile icon-tile--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="mega-item-name">Multi-level Reporting</div><div class="mega-item-desc">Consolidations, divisions and segments in one place.</div></a>
+          <a class="mega-item mega-item--soon" href="#"><div class="icon-tile icon-tile--sm icon-tile--amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div class="mega-item-name">AI Commentary <span class="tag tag--soon">Coming soon</span></div><div class="mega-item-desc">Narrative insights generated from your numbers automatically.</div></a>
         </div>
-        <div class="mega-footer"><a href="#">Explore all features →</a></div>
+        <div class="mega-footer"><a class="link-more" href="#">Explore all features →</a></div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- Mobile menu (below 1000px): opened by the burger button, closes on Esc / backdrop click / link click -->
-<dialog class="m-nav" id="m-nav" aria-label="Menu">
-  <div class="m-nav-head">
-    <a class="nav-logo" href="magnifi-homepage.html" aria-label="Magnifi home"><img class="logo-img" style="width:92px;height:auto" data-logo alt="Magnifi"></a>
-    <button class="nav-burger" type="button" aria-label="Close menu" autofocus onclick="closeMobileNav()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+<!-- MOBILE MENU (below 1000px): opened by the burger button, closes on Esc / backdrop click / link click -->
+<dialog class="mobile-nav" id="mobile-nav" aria-label="Menu">
+  <div class="mobile-nav-head">
+    <a class="header-logo" href="magnifi-homepage.html" aria-label="Magnifi home"><img class="logo-img" src="assets/logo.jpg" alt="Magnifi"></a>
+    <button class="icon-btn" type="button" aria-label="Close menu" autofocus onclick="closeMobileNav()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
   </div>
-  <nav class="m-nav-body" aria-label="Main">
-    <a class="m-nav-link" data-nav="home" href="magnifi-homepage.html">Home</a>
-    <details class="m-nav-group">
-      <summary class="m-nav-link" data-nav="features">Features
-        <svg class="nav-chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <nav class="mobile-nav-body" aria-label="Main">
+    <a class="mobile-nav-link" data-nav="home" href="magnifi-homepage.html">Home</a>
+    <details class="mobile-nav-group">
+      <summary class="mobile-nav-link" data-nav="features">Features
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </summary>
-      <div class="m-nav-sub">
-        <a href="feature-capacity-planning.html">Capacity Planning <span class="m-nav-tag">Key feature</span></a>
+      <div class="mobile-nav-sub">
+        <a href="feature-capacity-planning.html">Capacity Planning <span class="tag">Key feature</span></a>
         <a href="#">4-Way Forecasting</a>
         <a href="#">Profit to Cash</a>
         <a href="feature-rolling-cashflow.html">Rolling Cashflow</a>
         <a href="#">Dashboards</a>
         <a href="#">What-if &amp; Playground</a>
         <a href="feature-multi-level-reporting.html">Multi-level Reporting</a>
-        <a href="#">AI Commentary <span class="tag-soon">Coming soon</span></a>
-        <a class="m-nav-all" href="#">Explore all features →</a>
+        <a href="#">AI Commentary <span class="tag tag--soon">Coming soon</span></a>
+        <a class="link-more" href="#">Explore all features →</a>
       </div>
     </details>
-    <a class="m-nav-link" data-nav="business" href="magnifi-for-business.html">For Business</a>
-    <a class="m-nav-link" data-nav="advisors" href="magnifi-for-advisors.html">For Advisors</a>
-    <a class="m-nav-link" data-nav="pricing" href="magnifi-homepage.html#pricing">Pricing</a>
-    <details class="m-nav-group">
-      <summary class="m-nav-link">Resources
-        <svg class="nav-chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <a class="mobile-nav-link" data-nav="business" href="magnifi-for-business.html">For Business</a>
+    <a class="mobile-nav-link" data-nav="advisors" href="magnifi-for-advisors.html">For Advisors</a>
+    <a class="mobile-nav-link" data-nav="pricing" href="magnifi-homepage.html#pricing">Pricing</a>
+    <details class="mobile-nav-group">
+      <summary class="mobile-nav-link">Resources
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </summary>
-      <div class="m-nav-sub">
+      <div class="mobile-nav-sub">
         <a href="#">Blog</a>
         <a href="https://support.magnifi.com.au">Help Centre</a>
         <a href="#">Contact Us</a>
       </div>
     </details>
   </nav>
-  <div class="m-nav-foot">
-    <a class="btn btn-primary" href="#">Start Free</a>
-    <a class="btn btn-ghost" href="#">See how it works</a>
+  <div class="mobile-nav-foot">
+    <a class="btn btn--primary btn--block" href="#">Start Free</a>
+    <a class="btn btn--ghost btn--block" href="#">See how it works</a>
   </div>
 </dialog>
 </div>
