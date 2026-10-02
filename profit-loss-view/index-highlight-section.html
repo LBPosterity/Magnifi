@@ -1,0 +1,642 @@
+<html lang="en">
+
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Magnifi -
+        Performance: Actual v Budget</title>
+    <meta name="description" content="Magnifi Biz Services">
+    <meta name="keywords"
+        content="Magnifi,Biz Services,Plan,Costing,Forecast,Planning,Projection,Budget,Actual,Xero,Zoho,Business development,Business planning,Australia,Accounting,Software,Business growth,Financial,Financial planning,What if,Cashflow,3 Way,Dashboard">
+    <meta content="text/html" charset="UTF-8" http-equiv="text/html">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="jquery-ui.min.css?v=1.99">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="table-profit-loss-styles.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+
+    <link rel="stylesheet" href="stylesheet/dashboard.css">
+    <script src="stylesheet/jquery.min.js?v=1.99"></script>
+    <script src="stylesheet/jquery-ui.min.js?v=1.99"></script>
+    <script src="stylesheet/accounting.js?v=1.99"></script>
+    <script src="stylesheet/cpt.js?v=1.99"></script>
+
+    <style>
+
+        @import url('../styles.css');
+
+        table.highlightActive
+        {
+            overflow: hidden;
+        }
+
+        .highlightActive tr
+        {
+            opacity: 0.6; /* example style for highlighted rows */
+            position: relative; /* ensure the pseudo-element is positioned relative to the row */
+
+            
+        }
+
+        .highlightActive .rowHighlight 
+        {
+            opacity: 1; /* ensure highlighted rows are fully opaque */
+            outline-color: var(--brand-green); 
+            outline-offset: -1px; 
+
+            &::before
+            {
+                content: "";
+                z-index: 999;
+                position: absolute;
+                width: 102%;
+                height: 14rem;
+                left: -1%; 
+                bottom: 100%;
+                background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.8) 100%);           
+            }
+
+            
+            &::after
+            {
+                content: "";
+                z-index: 999;
+                position: absolute;
+                width: 102%;
+                height: 14rem;
+                left: -1%; 
+                top: 100%;
+                background: linear-gradient(0deg, transparent 0%, rgba(255, 255, 255, 0.8) 100%);           
+            }
+
+        }
+
+    </style>
+</head>
+
+<body style="max-width: 1400px; margin-inline: auto;">
+    <input type="hidden" name="DontShowLoader" id="DontShowLoader" value="">
+    <div id="loader-wrapper" style="display:none">
+        <div class="loader"></div>
+    </div>
+    <table width="100%" border="0" style="height: 100%; padding: 0px; margin: 0px; border-spacing: 0px;">
+        <tr>
+            <td colspan="10" height="20">
+
+          
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" width="1400px" style="padding-top:5px; padding-left:5px">
+                <div id="pageContent">
+                    <form name="filterForm" id="filterForm" action="Performance" style="margin: 0px; padding: 0px">
+                        <input type="hidden" name="Column2" id="Column2" value="Budget"><input type="hidden" name="Tab"
+                            id="Tab">
+
+               
+
+
+                
+
+
+                            <!-- Start Table --------------------------------------------------------------------->
+
+
+                        <table border="0" id="actualBudgetForm" class="centreTable highlightActive">
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td colspan="4" align="center" class="colHeader colActual"><b>Apr 2025</b></td>
+                                    <td colspan="4" align="center" class="colHeader colYtd"><b>YTD:</b> Jul 2024 - Apr 2025</td>
+                                </tr>
+                                <tr>
+                                    <td class="small" id="header0" align="left" width="300">
+                                    </td>
+                                    <th id="header1" align="right" width="150" class="new-header-th-150">
+                                        Actual
+                                    </th>
+                                    <th id="header2" align="right" width="150" class="new-header-th-150">
+                                        <select name="Column2" id="Column2Display" onchange="setColumn2();"
+                                            class="new-column2-display">
+                                            <option value="Budget" selected="true">
+                                                Budget
+                                            </option>
+                                            <option value="Last Year">
+                                                Last Year
+                                            </option>
+                                        </select></th>
+                                    <th id="header3" align="right" width="100" class="actualAmount">
+                                        Variance</th>
+                                    <th id="header4" align="right" width="100" class="actualAmount">
+                                        %</th>
+                                    <th id="header5" align="right" width="150" class="new-header-th-150">
+                                        Actual YTD
+                                    </th>
+                                    <th id="header6" align="right" width="150" class="new-header-th-150">
+                                        Budget YTD
+                                    </th>
+                                    <th id="header7" align="right" width="100" class="actualAmount">
+                                        Variance</th>
+                                    <th id="header8" align="right" width="100" class="actualAmount">
+                                        %</th>
+                                </tr>
+                            </thead>
+                            <tr class="primaryColourBackground">
+                                <td colspan="1" class="titleRowWithoutLine "><a
+                                        href="GraphIncome?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
+                                        title="Click to view chart"
+                                        class="new-link-title"><b>Income</b></a><span id="Income_expandPicture"><a href="javascript:expandIncome();"><i
+                                                class="fa-solid fa-square-plus inline-icon" title="Click to expand"></i></a></span><a
+                                        href="GraphIncome?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
+                                        title="Click to view chart"><p class="inline-action">View<i class="fa-solid fa-arrow-up-right-from-square inline-icon"></i></p></a>
+                                    &nbsp;
+                                    <span class="new-hidden"
+                                        id="Income_collapsePicture"><a
+                                            href="javascript:collapseIncome();"><i class="fa-solid fa-square-minus"
+                                                title="Click to collapse"></i></a></span>
+                                </td>
+                                <td align="right">$68,031</td>
+                                <td align="right">$100,000</td>
+                                <td colspan="1" class="actualAmount new-actual-red" align="right">-$31,969</td>
+                                <td colspan="1" class="actualAmount new-actual-red" align="right">-32<small>%</small>
+                                </td>
+                                <td align="right">$941,056</td>
+                                <td align="right">$1,000,000</td>
+                                <td colspan="1" class="actualAmount new-actual-red" align="right">-$58,944</td>
+                                <td colspan="1" class="actualAmount new-actual-red" align="right">-6<small>%</small>
+                                </td>
+                            </tr>
+                            <tr id="IncomeRow1"
+                                class="tableRowBackground hoverRow new-detail-row-collapsed" onclick="javascript:openTop5Dialog(1, false);"
+                                title="Click to show top 5">
+                                <td class="new-td-indent">Income
+                                    &nbsp;<i class="fa fa-info-circle inline-icon"></i></td>
+                                <td align="right">$68,031</td>
+                                <td align="right">$100,000</td>
+                                <td align="right" class="actualAmount new-actual-red">-$31,969</td>
+                                <td align="right" class="actualAmount new-actual-red">-32<small>%</small></td>
+                                <td align="right">$941,056</td>
+                                <td align="right">$1,000,000</td>
+                                <td align="right" class="actualAmount new-actual-red">-$58,944</td>
+                                <td align="right" class="actualAmount new-actual-red">-6<small>%</small></td>
+                            </tr>
+                            <tr>
+                                <td height="10" colspan="3"></td>
+                                <td colspan="2" class="actualAmount"></td>
+                                <td height="10" colspan="2"></td>
+                                <td colspan="2" class="actualAmount"></td>
+                            </tr>
+                            <tr class="hoverRow">
+                                <td colspan="1" class="titleRowWithoutLine">
+                                    <span class="new-hidden"
+                                        id="DirectCosts_collapsePicture"><a
+                                            href="javascript:collapseDirectCosts();"><i class="fa-solid fa-square-minus"
+                                                title="Click to collapse"></i></a></span>
+                                                &nbsp;
+                                    <a
+                                        href="GraphDirectCosts?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
+                                        title="Click to view chart" class="new-link-title">Less:
+                                        Direct Costs</a><span id="DirectCosts_expandPicture">
+                                            <a href="javascript:expandDirectCosts();">
+                                                <i
+                                                class="fa-solid fa-square-plus inline-icon" title="Click to expand"></i></a></span><a
+                                        href="GraphDirectCosts?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
+                                        title="Click to view chart"><p class="inline-action">View<i class="fa-solid fa-arrow-up-right-from-square inline-icon"></i></p></a>
+                                    
+                                </td>
+                                <td align="right">$58,070</td>
+                                <td align="right">$62,637</td>
+                                <td colspan="1" class="actualAmount new-actual-green" align="right">-$4,567</td>
+                                <td colspan="1" class="actualAmount new-actual-green" align="right">
+                                    -7<small>%</small></td>
+                                <td align="right">$623,669</td>
+                                <td align="right">$574,756</td>
+                                <td colspan="1" class="actualAmount new-actual-red" align="right">$48,913</td>
+                                <td colspan="1" class="actualAmount new-actual-red" align="right">9<small>%</small>
+                                </td>
+                            </tr>
+                            <tr id="DirectCostsRow1"
+                                class="tableRowBackground hoverRow new-detail-row-collapsed" onclick="javascript:openTop5Dialog(5, true);"
+                                title="Click to show top 5">
+                                <td class="new-td-indent">
+                                    Labour Costs
+                                    <i class="fa fa-info-circle inline-icon"></i></td>
+                                <td align="right">$41,650</td>
+                                <td align="right">$42,637</td>
+                                <td align="right" class="actualAmount new-actual-green">-$987</td>
+                                <td align="right" class="actualAmount new-actual-green">-2<small>%</small></td>
+                                <td align="right">$412,053</td>
+                                <td align="right">$392,876</td>
+                                <td align="right" class="actualAmount new-actual-red">$19,177</td>
+                                <td align="right" class="actualAmount new-actual-red">5<small>%</small></td>
+                            </tr>
+                            <tr id="DirectCostsRow2"
+                                class="alternateTableRowBackground hoverRow new-detail-row-collapsed"
+                                onclick="javascript:openTop5Dialog(4, true);" title="Click to show top 5">
+                                <td class="new-td-indent">
+                                    Other Direct Costs
+                                    <i class="fa fa-info-circle inline-icon"></i></td>
+                                <td align="right">$16,420</td>
+                                <td align="right">$20,000</td>
+                                <td align="right" class="actualAmount new-actual-green">-$3,580</td>
+                                <td align="right" class="actualAmount new-actual-green">-18<small>%</small></td>
+                                <td align="right">$211,617</td>
+                                <td align="right">$181,880</td>
+                                <td align="right" class="actualAmount new-actual-red">$29,737</td>
+                                <td align="right" class="actualAmount new-actual-red">16<small>%</small></td>
+                            </tr>
+                            <tr>
+                                <td height="10" colspan="3" ></td>
+                                <td height="10" colspan="2" 
+                                    class="actualAmount"></td>
+                                <td height="10" colspan="2" ></td>
+                                <td height="10" colspan="2"
+                                    class="actualAmount"></td>
+                            </tr>
+                            <tr class="primaryColourBackground rowHighlight">
+                                <td class="new-td-heading18"><b><a
+                                            href="GraphDirectProfit?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
+                                            title="Click to view chart"
+                                            class="new-link-title">Direct Profit</a></b><a
+                                        href="GraphDirectProfit?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
+                                        title="Click to view chart"><p class="inline-action">View<i class="fa-solid fa-arrow-up-right-from-square inline-icon"></i></p></a></td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 14.64%">$9,961
+                                </td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 37.36%">
+                                    $37,363</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-$27,402</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-73<small>%</small></td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 33.73%">
+                                    $317,386</td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 42.52%">
+                                    $425,244</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-$107,857</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-25<small>%</small></td>
+                            </tr>
+                            <tr class="hoverRow">
+                                <td><small>% of Income</small></td>
+                                <td align="right"><small>14.64<small>%</small></small></td>
+                                <td align="right"><small>37.36<small>%</small></small></td>
+                                <td class="actualAmount" colspan="2"></td>
+                                <td align="right"><small>33.73<small>%</small></small></td>
+                                <td align="right"><small>42.52<small>%</small></small></td>
+                                <td class="actualAmount" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td height="40" colspan="3"></td>
+                                <td colspan="2" class="actualAmount"></td>
+                                <td height="40" colspan="2"></td>
+                                <td colspan="2" class="actualAmount"></td>
+                            </tr>
+                            <tr class="hoverRow">
+                                <td colspan="1" class="titleRowWithoutLine"><a
+                                        href="GraphOverheadExpenses?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
+                                    title="Click to view chart" class="new-link-title">Less:
+                                        Overhead Expenses</a><span id="OH_expandPicture"><a href="javascript:expandOh();"><i
+                                            class="fa-solid fa-square-plus inline-icon" title="Click to expand"></i></a></span><a
+                                        href="GraphOverheadExpenses?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
+                                        title="Click to view chart"><p class="inline-action">View<i class="fa-solid fa-arrow-up-right-from-square inline-icon"></i></p></a>
+                                    &nbsp;
+                                    <span class="new-hidden"
+                                        id="OH_collapsePicture"><a
+                                            href="javascript:collapseOh();"><i class="fa-solid fa-square-minus"
+                                                title="Click to collapse"></i></a></span>
+                                </td>
+                                <td align="right">$9,290</td>
+                                <td align="right">$19,120</td>
+                                <td colspan="1" class="actualAmount new-actual-green" align="right">-$9,830</td>
+                                <td colspan="1" class="actualAmount new-actual-green" align="right">
+                                    -51<small>%</small></td>
+                                <td align="right">$143,284</td>
+                                <td align="right">$131,140</td>
+                                <td colspan="1" class="actualAmount new-actual-red" align="right">$12,144</td>
+                                <td colspan="1" class="actualAmount new-actual-red" align="right">9<small>%</small>
+                                </td>
+                            </tr>
+                            <tr id="OhRow1"
+                                class="tableRowBackground hoverRow new-detail-row-collapsed" onclick="javascript:openTop5Dialog(6, true);"
+                                title="Click to show top 5">
+                                <td class="new-td-indent">
+                                    Administration
+                                    <i class="fa fa-info-circle inline-icon"></i></td>
+                                <td align="right">$1,544</td>
+                                <td align="right">$12,510</td>
+                                <td align="right" class="actualAmount new-actual-green">-$10,966</td>
+                                <td align="right" class="actualAmount new-actual-green">-88<small>%</small></td>
+                                <td align="right">$35,586</td>
+                                <td align="right">$64,800</td>
+                                <td align="right" class="actualAmount new-actual-green">-$29,214</td>
+                                <td align="right" class="actualAmount new-actual-green">-45<small>%</small></td>
+                            </tr>
+                            <tr id="OhRow3"
+                                class="alternateTableRowBackground hoverRow new-detail-row-collapsed"
+                                onclick="javascript:openTop5Dialog(8, true);" title="Click to show top 5">
+                                <td class="new-td-indent">
+                                    IT
+                                    <i class="fa fa-info-circle inline-icon"></i></td>
+                                <td align="right">$0</td>
+                                <td align="right">$200</td>
+                                <td align="right" class="actualAmount new-actual-green">-$200</td>
+                                <td align="right" class="actualAmount new-actual-green">-100<small>%</small></td>
+                                <td align="right">$484</td>
+                                <td align="right">$1,850</td>
+                                <td align="right" class="actualAmount new-actual-green">-$1,366</td>
+                                <td align="right" class="actualAmount new-actual-green">-74<small>%</small></td>
+                            </tr>
+                            <tr id="OhRow4"
+                                class="tableRowBackground hoverRow new-detail-row-collapsed" onclick="javascript:openTop5Dialog(7, true);"
+                                title="Click to show top 5">
+                                <td class="new-td-indent">
+                                    Labour
+                                    <i class="fa fa-info-circle inline-icon"></i></td>
+                                <td align="right">$0</td>
+                                <td align="right">$0</td>
+                                <td align="right" class="actualAmount">$0</td>
+                                <td align="right" class="actualAmount">0<small>%</small></td>
+                                <td align="right">$0</td>
+                                <td align="right">$0</td>
+                                <td align="right" class="actualAmount">$0</td>
+                                <td align="right" class="actualAmount">0<small>%</small></td>
+                            </tr>
+                            <tr id="OhRow5"
+                                class="alternateTableRowBackground hoverRow new-detail-row-collapsed"
+                                onclick="javascript:openTop5Dialog(9, true);" title="Click to show top 5">
+                                <td class="new-td-indent">
+                                    Marketing
+                                    <i class="fa fa-info-circle inline-icon"></i></td>
+                                <td align="right">$35</td>
+                                <td align="right">$240</td>
+                                <td align="right" class="actualAmount new-actual-green">-$205</td>
+                                <td align="right" class="actualAmount new-actual-green">-85<small>%</small></td>
+                                <td align="right">$2,314</td>
+                                <td align="right">$2,760</td>
+                                <td align="right" class="actualAmount new-actual-green">-$446</td>
+                                <td align="right" class="actualAmount new-actual-green">-16<small>%</small></td>
+                            </tr>
+                            <tr id="OhRow2"
+                                class="tableRowBackground hoverRow new-detail-row-collapsed" onclick="javascript:openTop5Dialog(10, true);"
+                                title="Click to show top 5">
+                                <td class="new-td-indent">
+                                    Motor Vehicle
+                                    <i class="fa fa-info-circle inline-icon"></i></td>
+                                <td align="right">$4,662</td>
+                                <td align="right">$6,170</td>
+                                <td align="right" class="actualAmount new-actual-green">-$1,508</td>
+                                <td align="right" class="actualAmount new-actual-green">-24<small>%</small></td>
+                                <td align="right">$69,828</td>
+                                <td align="right">$61,730</td>
+                                <td align="right" class="actualAmount new-actual-red">$8,098</td>
+                                <td align="right" class="actualAmount new-actual-red">13<small>%</small></td>
+                            </tr>
+                            <tr id="OhRow6"
+                                class="alternateTableRowBackground hoverRow new-detail-row-collapsed"
+                                onclick="javascript:openTop5Dialog(11, true);" title="Click to show top 5">
+                                <td class="new-td-indent">
+                                    Occupancy
+                                    <i class="fa fa-info-circle inline-icon"></i></td>
+                                <td align="right">$3,048</td>
+                                <td align="right">$0</td>
+                                <td align="right" class="actualAmount new-actual-red">$3,048</td>
+                                <td align="right" class="actualAmount new-actual-red">0<small>%</small></td>
+                                <td align="right">$35,073</td>
+                                <td align="right">$0</td>
+                                <td align="right" class="actualAmount new-actual-red">$35,073</td>
+                                <td align="right" class="actualAmount new-actual-red">0<small>%</small></td>
+                            </tr>
+                      <tr>
+                                <td height="10" colspan="3" ></td>
+                                <td height="10" colspan="2" 
+                                    class="actualAmount"></td>
+                                <td height="10" colspan="2" ></td>
+                                <td height="10" colspan="2"
+                                    class="actualAmount"></td>
+                            </tr>
+                            <tr class="primaryColourBackground">
+                                <td class="new-td-heading18"><b><a
+                                            href="GraphOperatingProfit?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
+                                            title="Click to view chart"
+                                            class="new-link-title">Operating Profit</a></b><a
+                                        href="GraphOperatingProfit?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
+                                        title="Click to view chart"><p class="inline-action">View<i class="fa-solid fa-arrow-up-right-from-square inline-icon"></i></p></a></td>
+                                <td align="right" id="OperatingProfitDisplay" class="new-actual-bold new-actual-green"
+                                    title="% of Income 0.99%">$670</td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 18.24%">
+                                    $18,243</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-$17,573</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-96<small>%</small></td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 18.50%">
+                                    $174,102</td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 29.41%">
+                                    $294,104</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-$120,002</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-41<small>%</small></td>
+                            </tr>
+                            <tr class="hoverRow">
+                                <td><small>% of Income</small></td>
+                                <td align="right"><small>0.99<small>%</small></small></td>
+                                <td align="right"><small>18.24<small>%</small></small></td>
+                                <td colspan="2" class="actualAmount"></td>
+                                <td align="right"><small>18.50<small>%</small></small></td>
+                                <td align="right"><small>29.41<small>%</small></small></td>
+                                <td colspan="2" class="actualAmount"></td>
+                            </tr>
+                            <tr>
+                                <td height="40" colspan="3"></td>
+                                <td colspan="2" class="actualAmount"></td>
+                                <td height="40" colspan="2"></td>
+                                <td colspan="2" class="actualAmount"></td>
+                            </tr>
+                            <tr class="hoverRow" onclick="javascript:openTop5Dialog(12, false);"
+                                title="Click to show top 5">
+                                <td>
+                                    Add: Other Income
+                                    <i class="fa fa-info-circle inline-icon"></i></td>
+                                <td align="right">$0</td>
+                                <td align="right">$5,000</td>
+                                <td align="right" class="actualAmount new-actual-red">-$5,000</td>
+                                <td align="right" class="actualAmount new-actual-red">-100<small>%</small></td>
+                                <td align="right">$15,013</td>
+                                <td align="right">$4,970</td>
+                                <td align="right" class="actualAmount new-actual-green">$10,043</td>
+                                <td align="right" class="actualAmount new-actual-green">202<small>%</small></td>
+                            </tr>
+                          <tr>
+                                <td height="10" colspan="3" ></td>
+                                <td height="10" colspan="2" 
+                                    class="actualAmount"></td>
+                                <td height="10" colspan="2" ></td>
+                                <td height="10" colspan="2"
+                                    class="actualAmount"></td>
+                            </tr>
+                            <tr class="primaryColourBackground">
+                                <td class="new-td-heading18"
+                                    title="Earnings before Interest, Tax, Depreciation &amp; Amortisation"><b>EBITDA</b>
+                                </td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 0.99%">$670
+                                </td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 23.24%">
+                                    $23,243</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-$22,573</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-97<small>%</small></td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 20.10%">
+                                    $189,115</td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 29.91%">
+                                    $299,074</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-$109,959</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-37<small>%</small></td>
+                            </tr>
+                            <tr>
+                                <td><small>% of Income</small></td>
+                                <td align="right"><small>0.99<small>%</small></small></td>
+                                <td align="right"><small>23.24<small>%</small></small></td>
+                                <td colspan="2" class="actualAmount"></td>
+                                <td align="right"><small>20.10<small>%</small></small></td>
+                                <td align="right"><small>29.91<small>%</small></small></td>
+                                <td colspan="2" class="actualAmount"></td>
+                            </tr>
+                            <tr>
+                                <td height="40" colspan="3"></td>
+                                <td colspan="2" class="actualAmount"></td>
+                                <td height="40" colspan="2"></td>
+                                <td colspan="2" class="actualAmount"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" class="titleRowWithoutLine">
+                                    Less: Dep'n &amp; Interest
+                                    <span id="DepInt_expandPicture"><a href="javascript:expandDepInt();"><i
+                                                class="fa-solid fa-square-plus inline-icon" title="Click to expand"></i></a></span><span
+                                        id="DepInt_collapsePicture" class="new-hidden"><a
+                                            href="javascript:collapseDepInt();"><i class="fa-solid fa-square-minus"
+                                                title="Click to collapse"></i></a></span>
+                                </td>
+                                <td align="right">$0</td>
+                                <td align="right">$2,000</td>
+                                <td align="right" class="actualAmount new-actual-green">-$2,000</td>
+                                <td align="right" class="actualAmount new-actual-green">-100<small>%</small></td>
+                                <td align="right">$2,325</td>
+                                <td align="right">$2,000</td>
+                                <td align="right" class="actualAmount new-actual-red">$325</td>
+                                <td align="right" class="actualAmount new-actual-red">16<small>%</small></td>
+                            </tr>
+                            <tr id="DepIntRow1" class="hoverRow new-detail-row-collapsed"
+                                onclick="javascript:openTop5Dialog(16, true);" title="Click to show top 5">
+                                <td>
+                                    Depreciation
+                                    &nbsp;<i class="fa fa-info-circle inline-icon"></i></td>
+                                <td align="right">$0</td>
+                                <td align="right">$2,000</td>
+                                <td align="right" class="actualAmount new-actual-green">-$2,000</td>
+                                <td align="right" class="actualAmount new-actual-green">-100<small>%</small></td>
+                                <td align="right">$1,968</td>
+                                <td align="right">$2,000</td>
+                                <td align="right" class="actualAmount new-actual-green">-$32</td>
+                                <td align="right" class="actualAmount new-actual-green">-2<small>%</small></td>
+                            </tr>
+                            <tr id="DepIntRow2" class="hoverRow new-detail-row-collapsed"
+                                onclick="javascript:openTop5Dialog(17, true);" title="Click to show top 5">
+                                <td>
+                                    Interest
+                                    &nbsp;<i class="fa fa-info-circle inline-icon"></i></td>
+                                <td align="right">$0</td>
+                                <td align="right">$0</td>
+                                <td align="right" class="actualAmount">$0</td>
+                                <td align="right" class="actualAmount">0<small>%</small></td>
+                                <td align="right">$358</td>
+                                <td align="right">$0</td>
+                                <td align="right" class="actualAmount new-actual-red">$358</td>
+                                <td align="right" class="actualAmount new-actual-red">0<small>%</small></td>
+                            </tr>
+                            <tr>
+                                <td height="10" colspan="3" ></td>
+                                <td height="10" colspan="2" 
+                                    class="actualAmount"></td>
+                                <td height="10" colspan="2" ></td>
+                                <td height="10" colspan="2"
+                                    class="actualAmount"></td>
+                            </tr>
+                            <tr class="primaryColourBackground">
+                                <td class="new-td-heading18"><b><a
+                                            href="GraphNetProfit?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
+                                            title="Click to view chart"
+                                            class="new-link-title">Net Profit</a></b><a
+                                        href="GraphNetProfit?ActionContextId=sfzE1zTmtNbDd6xXqTGYXw"
+                                        title="Click to view chart"><p class="inline-action">View<i class="fa-solid fa-arrow-up-right-from-square inline-icon"></i></p></a></td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 0.99%">$670
+                                </td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 21.24%">
+                                    $21,243</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-$20,573</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-97<small>%</small></td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 19.85%">
+                                    $186,789</td>
+                                <td align="right" class="new-actual-bold new-actual-green" title="% of Income 29.71%">
+                                    $297,074</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-$110,284</td>
+                                <td align="right" class="actualAmount new-actual-bold new-actual-red">-37<small>%</small></td>
+                            </tr>
+                            <tr class="hoverRow">
+                                <td><small>% of Income</small></td>
+                                <td align="right"><small>0.99<small>%</small></small></td>
+                                <td align="right"><small>21.24<small>%</small></small></td>
+                                <td colspan="2" class="actualAmount"></td>
+                                <td align="right"><small>19.85<small>%</small></small></td>
+                                <td align="right"><small>29.71<small>%</small></small></td>
+                                <td colspan="2" class="actualAmount"></td>
+                            </tr>
+                            <tr>
+                                <td height="20" colspan="5"></td>
+                            </tr>
+                            <tr>
+                                <td>*Excludes Inter Group Accounts</td>
+                            </tr>
+       
+                        </table>
+
+                        
+                        <div id="dialog-transactions" class="new-hidden" title="Transactions">
+                            <table width="100%" id="TransactionsListData"></table>
+                        </div>
+                    </form>
+      
+
+               
+                </div>
+            </td>
+        </tr>
+        <tr height="2">
+            <td colspan="2" class="bottomPageLine"></td>
+        </tr>
+        <tr height="20">
+            <td colspan="2">
+                <table width="100%" border="0">
+                    <tr>
+                        <td width="45%" align="left" nowrap="true" class="small">
+                            Copyright 2025 - Magnifi Pty Ltd | ABN 83 106 161 951
+                        </td>
+                        <td align="left" width="200" nowrap="true"></td>
+                        <td width="45%" align="right" nowrap="true" class="small no-print"><a href="NewsFeed">News</a>
+                            &nbsp;
+                            <a href="UserAgreement">User Agreement</a>
+                            &nbsp;
+                            <a href="PrivacyPolicy">Privacy Policy</a>
+                            &nbsp;
+                            <a href="Security">Security</a>
+                            &nbsp;
+                            Beta v1.99
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <script>
+        const loader = document.getElementById('loader-wrapper');
+        loader.style.display = 'none';        
+    </script>
+</body>
+
+</html>
+
