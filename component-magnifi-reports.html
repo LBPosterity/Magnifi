@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<head>
+
+  <title>Magnifi Reports sidebar</title>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<meta charset="UTF-8">
+
+</head>
+
+<html lang="en">
+
+
+<style>
+    @import url("styles.css");
+
+    /* page: sidebar pinned to the left edge, full height, no spacing around it */
+    html,
+    body
+    {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+
+    .report-sidebar
+    {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-2);   /* spacing between logo, picker, nav, scrolling area and footer */
+        width: var(--size-48);
+        height: 100vh;
+        height: 100dvh;   /* full viewport height, allowing for mobile browser toolbars */
+        padding: var(--size-3) var(--size-5) var(--size-1) var(--size-5);
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(160deg, var(--bg-light-green) 0%, var(--white) 80%);
+        border-right: 1px solid var(--border-dark);
+        overflow: hidden;
+    }
+
+    /* brand ------------------------------------------------ */
+
+    .report-brand
+    {
+        position: relative;
+        flex-shrink: 0;
+
+        & img
+        {
+            height: 34px;
+            width: auto;
+            display: block;
+        }
+    }
+
+    /* report picker ------------------------------------------------ */
+
+    .report-sidebar select
+    {
+        width: 100%;
+        min-height: 50px;
+        padding: var(--size-1) var(--size-2);
+        font-size: 13px;
+        line-height: 1.3;
+        color: var(--text);
+        white-space: normal;
+        border-radius: var(--radius-md);
+        flex-shrink: 0;
+    }
+
+    .report-sidebar select:focus::picker-icon
+    {
+        color: var(--green-contrast);
+    }
+
+    /* options list: same width as the select (customisable select + anchor positioning - Chromium browsers) */
+    .report-sidebar select::picker(select)
+    {
+        width: anchor-size(width);
+        min-width: 0;
+    }
+
+    /* long names wrap instead of truncating, up to 3 lines. The clamp sits on a span inside the
+       option, so the option's own padding doesn't let a 4th line peek through */
+    .report-sidebar select option span
+    {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        overflow: hidden;
+        white-space: normal;
+        line-height: 1.3;
+    }
+
+    /* section navigation ------------------------------------------------ */
+
+    .report-nav
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+
+        & .wrapper-dual-btn .btn
+        {
+            background: transparent;
+            border: 1px solid var(--border-dark);
+            color: var(--text);
+        }
+
+        & .wrapper-dual-btn .btn:first-of-type
+        {
+            border-right: 1px solid var(--border-dark);
+        }
+
+        & .wrapper-dual-btn .btn:hover,
+        & .wrapper-dual-btn .btn.active
+        {
+            background: var(--bg-light-green);
+        }
+
+        /* no left border: the arrow button's right border already divides the pair */
+        & .wrapper-dual-btn .btn-contents
+        {
+            min-width: var(--size-12);
+            border-left: none;
+        }
+    }
+
+    /* scrolling area: contents tree + section content ------------------------------------------------ */
+
+    .report-scroll
+    {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-3);   /* between the contents tree (when open) and the section content */
+        margin-inline: calc(var(--size-1) * -1);
+        padding-inline: var(--size-1);
+    }
+
+    /* contents tree ------------------------------------------------ */
+
+    .report-contents
+    {
+        /* see-through fills so the sidebar gradient shows behind hovered / current items */
+        --contents-hover-bg: color-mix(in srgb, var(--text) 6%, transparent);
+        --contents-active-bg: color-mix(in srgb, var(--brand-green) 14%, transparent);
+
+        display: none;
+        flex-shrink: 0;
+        padding-bottom: var(--size-2);
+        border-bottom: 1px solid var(--border-dark);
+
+        &.open
+        {
+            display: block;
+        }
+
+        & ul
+        {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        & a
+        {
+            display: block;
+            padding: var(--size-1);
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            color: var(--text);
+
+            &:hover
+            {
+                text-decoration: none;
+                color: var(--text);
+                background: var(--contents-hover-bg);
+            }
+
+            /* current section */
+            &[aria-current="true"]
+            {
+                color: var(--green-contrast-text);
+                font-weight: 500;
+                background: var(--contents-active-bg);
+            }
+        }
+
+        /* nested sections sit behind a vertical guide line */
+        & ul ul
+        {
+            margin: 0 0 var(--size-1) var(--size-1);
+            padding-left: var(--size-1);
+            border-left: 1px solid var(--border-dark);
+        }
+    }
+
+    /* section content ------------------------------------------------ */
+
+    .report-section
+    {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-2);   /* between heading, paragraphs and buttons */
+
+        & h2
+        {
+            color: var(--green-contrast-text);
+        }
+
+        & p
+        {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+    }
+
+    .report-actions
+    {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: var(--size-1);
+    }
+
+    /* footer ------------------------------------------------ */
+
+    .report-footer
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+        padding-top: var(--size-1);
+        border-top: 1px solid var(--border-dark);
+
+        & .btn
+        {
+            color: var(--text-light);
+        }
+
+        & .btn svg
+        {
+            stroke: var(--text-light);
+        }
+    }
+
+    /* collapsed: a narrow rail with the logo turned vertical and the expand button ------------------------------------------------ */
+
+    .report-sidebar.collapsed
+    {
+        width: var(--size-9);
+        padding-inline: var(--size-1);
+        justify-content: space-between;   /* logo at the top, expand button at the bottom */
+
+        /* the box is as tall as the logo is wide; the logo is rotated 90deg inside it */
+        & .report-brand
+        {
+            height: 160px;
+        }
+
+        /* rotated to read top to bottom, and 10% smaller than the full-width logo */
+        & .report-brand img
+        {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(90deg) scale(.8);
+        }
+
+        & > select,
+        & .report-nav,
+        & .report-scroll,
+        & .btn-exit
+        {
+            display: none;
+        }
+
+        & .report-footer
+        {
+            justify-content: center;
+        }
+
+        & .btn-collapse svg
+        {
+            transform: rotate(180deg);
+        }
+    }
+
+</style>
+
+<body>
+
+<aside class="report-sidebar" id="report-sidebar" aria-label="Report navigation">
+
+    <div class="report-brand">
+        <img src="assets/Magnifi%20Report%20Logo.png" alt="Magnifi Report">
+    </div>
+
+    <select aria-label="Choose a report">
+        <option selected><span>Acme Corporate Pty Ltd 2026 Q3 Quarterly Financial Report</span></option>
+        <option><span>Acme Corporate Pty Ltd 2026 Q2 Quarterly Financial Report</span></option>
+        <option><span>Acme Corporate Pty Ltd 2026 Q1 Quarterly Financial Report</span></option>
+        <option><span>Acme Corporate Pty Ltd 2025 Annual Financial Report</span></option>
+        <option><span>Acme Corporate Pty Ltd and Controlled Entities 2025 Consolidated Annual Financial Report with Board Commentary and Divisional Performance Breakdown</span></option>
+    </select>
+
+    <div class="report-nav">
+        <div class="wrapper-dual-btn">
+            <button class="btn" id="btn-prev" aria-label="Previous section"><i data-feather="chevron-left"></i></button>
+            <button class="btn btn-contents" id="btn-contents" aria-expanded="false" aria-controls="report-contents">Contents</button>
+        </div>
+        <button class="btn primary" id="btn-next">Next <i data-feather="chevron-right"></i></button>
+    </div>
+
+    <div class="report-scroll">
+
+        <nav class="report-contents" id="report-contents" aria-label="Report contents">
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#profit" aria-current="true">Profit</a>
+                    <ul>
+                        <li><a href="#income">Income</a></li>
+                        <li><a href="#direct-profit">Direct Profit</a></li>
+                        <li><a href="#operating-profit">Operating Profit</a></li>
+                        <li><a href="#ebitda">EBITDA</a></li>
+                        <li><a href="#net-profit">Net Profit</a></li>
+                    </ul>
+                </li>
+                <li><a href="#cash">Cash</a>
+                    <ul>
+                        <li><a href="#cashflow-forecast">Cashflow Forecast</a></li>
+                    </ul>
+                </li>
+                <li><a href="#profit-to-cash">Profit To Cash</a></li>
+                <li><a href="#working-capital">Working Capital</a></li>
+                <li><a href="#capacity">Capacity</a></li>
+                <li><a href="#productivity">Productivity</a></li>
+            </ul>
+        </nav>
+
+        <section class="report-section">
+            <h2 id="report-section-title">Profit</h2>
+            <p>There was a Total Operating Profit of $174,102 Year to Date (YTD), behind budget (down $140,522, 45%).</p>
+            <p>The shortfall was driven by Biz Services Pty Limited, where income growth on last year was strong but fell short of this year's budget, while overhead spending ran well ahead of plan.</p>
+            <p>Biz Administration Pty Limited recorded no activity against its budgeted contribution, adding a further gap to the Group's result.</p>
+
+            <div class="report-actions">
+                <button class="btn tertiary small">View Chart</button>
+                <button class="btn tertiary small">Additional Reports</button>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="report-footer">
+        <button class="btn clear btn-exit">Exit Report</button>
+        <button class="btn clear btn-collapse" id="btn-collapse" aria-label="Collapse sidebar" aria-expanded="true"><i data-feather="chevrons-left"></i></button>
+    </div>
+
+</aside>
+
+
+<script>
+    feather.replace();
+
+    var sidebar  = document.getElementById('report-sidebar');
+    var contents = document.getElementById('report-contents');
+    var toggle   = document.getElementById('btn-contents');
+    var collapse = document.getElementById('btn-collapse');
+    var title    = document.getElementById('report-section-title');
+    var links    = Array.prototype.slice.call(contents.querySelectorAll('a'));
+
+    // Contents: show / hide the tree
+    toggle.addEventListener('click', function(){
+        var open = !contents.classList.contains('open');
+        contents.classList.toggle('open', open);
+        toggle.classList.toggle('active', open);
+        toggle.setAttribute('aria-expanded', open);
+    });
+
+    // Go to a section: mark it current in the tree and show its title
+    function goTo(index){
+        if(index < 0 || index >= links.length) return;
+        links.forEach(function(link){ link.removeAttribute('aria-current'); });
+        links[index].setAttribute('aria-current', 'true');
+        title.textContent = links[index].textContent;
+    }
+
+    function currentIndex(){
+        return links.findIndex(function(link){ return link.getAttribute('aria-current') === 'true'; });
+    }
+
+    links.forEach(function(link, i){
+        link.addEventListener('click', function(e){ e.preventDefault(); goTo(i); });
+    });
+    document.getElementById('btn-prev').addEventListener('click', function(){ goTo(currentIndex() - 1); });
+    document.getElementById('btn-next').addEventListener('click', function(){ goTo(currentIndex() + 1); });
+
+    // Collapse / expand the whole sidebar
+    collapse.addEventListener('click', function(){
+        var collapsed = sidebar.classList.toggle('collapsed');
+        collapse.setAttribute('aria-expanded', !collapsed);
+        collapse.setAttribute('aria-label', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
+    });
+</script>
+
+</body>
+
+</html>
