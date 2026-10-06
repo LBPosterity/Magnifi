@@ -196,6 +196,8 @@
 
     .inline-comment-btn
     {
+        --inline-comment-ring: #3EC4AB4D;   /* --brand-green at 30% opacity */
+
         display: inline-flex;
         justify-content: center;
         align-items: center;
@@ -204,7 +206,7 @@
         padding: 0;
         border: none;
         border-radius: var(--radius-rounded);
-        background: linear-gradient(to top right, var(--green-contrast-text) 0%, var(--brand-green) 100%);
+        background: linear-gradient(to top right, var(--green-dark) 0%, var(--brand-green) 100%);
         cursor: pointer;
         outline: 4px solid transparent;
         transition: outline-color 0.2s ease;
@@ -219,7 +221,7 @@
         &:hover,
         &:focus-visible
         {
-            outline-color: color-mix(in srgb, var(--brand-green) 30%, transparent);
+            outline-color: var(--inline-comment-ring);
         }
     }
 
@@ -242,7 +244,7 @@
 
         & h4
         {
-            color: var(--brand-green);
+            color: var(--green-contrast-text);
             margin-bottom: var(--size-1);
         }
 
