@@ -40,6 +40,15 @@
             pointer-events: none; /* prevent interaction with non-highlighted rows */
         }
 
+        /* keep the column headings visible while highlighting: stack them above the fade overlays (z-index 999),
+           and exempt them from the dimming and click-blocking applied to every other row */
+        .highlightActive thead tr
+        {
+            opacity: 1;
+            z-index: 1000;
+            pointer-events: auto;
+        }
+
         /* demo buttons above the table */
         .highlight-controls
         {
