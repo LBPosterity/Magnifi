@@ -8,8 +8,9 @@ Before changing anything, read this file, then copy the patterns that already ex
 
 | File | What it is |
 |---|---|
-| `magnifi-homepage.html`, `magnifi-for-business.html`, `magnifi-for-advisors.html` | Main pages |
-| `feature-*.html` | One page per product feature (capacity planning, multi-level reporting, rolling cashflow) |
+| `magnifi-homepage.html`, `magnifi-for-business.html`, `magnifi-for-advisors.html`, `magnifi-pricing.html` | Main pages |
+| `feature-*.html` | One page per product feature (capacity planning, profit to cash, multi-level reporting, rolling cashflow) |
+| Placeholder pages | Pages that are linked from the menus but have no content yet: `feature-4-way-forecasting`, `feature-dashboards`, `feature-what-if-playground`, `feature-ai-commentary`, `magnifi-features`, `magnifi-how-it-works`, `magnifi-book-demo`, `magnifi-start-free`, `magnifi-login`, `magnifi-blog`, `magnifi-contact`, `magnifi-privacy`, `magnifi-terms` (all `.html`). Each has just a heading and "Page content coming soon." To build one out, replace its hero with real sections — **keep the file name** so the links keep working, and update its `<title>` and description |
 | `nav.html` | Shared site header, desktop menus and mobile menu. Loaded into every page by `scripts.js` |
 | `footer.html` | Shared site footer. Loaded into every page by `scripts.js` |
 | `styles.css` | **Design tokens** (all colours, type, spacing, radius, shadows), base styles, layout, and shared components (cards, chips, tags, buttons, lists) |
@@ -178,7 +179,7 @@ Mark each section with a one-line uppercase comment (`<!-- PRICING -->`). Give s
 | `.icon-tile` | Square icon at the top of a card (put an SVG with `currentColor` or an emoji inside). `--sm`, `--white`, `--red`, `--amber` |
 | `.chips` + `.chip` | Rounded labels: industries, badges, statuses, help-article links. `.chip--lg` (bigger, with shadow — strips & badges), `--green`, `--tint`, `--muted`, `--active` (selected filter), `--link` (help-centre link, adds ↗) |
 | `.tag` | Tiny uppercase status label (green). `--soon` (amber "Coming soon"), `--muted`, `--tint`, `--lg` (outlined badge at the top of a feature hero) |
-| `.check-list` | List with a green tick per item (each `li` starts with the tick SVG) |
+| `.check-list` | List with a green tick per item (each `li` starts with the tick SVG). `--divided` (smaller list under a divider, e.g. perks in a pricing card — `<strong>` lead-ins turn navy), `--columns` (items flow into 3 / 2 / 1 columns) |
 | `.dot-list` / `.dot` | List with green dots / a single dot |
 | `.link-more` | "Learn more →" link |
 | `.trend-up` / `.trend-down` | Green / red text for movements (▲ / ▼) |
@@ -201,7 +202,7 @@ Mark each section with a one-line uppercase comment (`<!-- PRICING -->`). Give s
 | `.journey-zones` | Free / subscription bar (advisors journey) |
 | `.stats` + `.stat` | Stats strip (inside `.section--tint.section--compact`) |
 | `.dashboard-mock`, `.kpi` | Dashboard mock-up and KPI tiles (`.kpi--soft` variant) |
-| `.chart-panel`, `.chart-svg`, `.legend` | Product chart mock-ups |
+| `.chart-panel`, `.chart-svg`, `.legend` | Product chart mock-ups. Legend swatches: `--green`, `--mint`, `--muted`, `--navy`, `--amber` |
 | `.screenshot-frame` / `.screenshot-scroll` + `.scroll-hint` | Real screenshots (scroll version for wide tables) |
 | `.shot-placeholder` | "[SCREENSHOT] …" placeholder box |
 | `.seesaw`, `.balance-notes` | Capacity/income balance illustration |
@@ -209,7 +210,8 @@ Mark each section with a one-line uppercase comment (`<!-- PRICING -->`). Give s
 | `.formula` | Capacity formula (inside a `.card--dark`) |
 | `.funnel` | Rolling-cashflow "two inputs → one output" diagram |
 | `.cta-band` | Dark band with a call to action on the right |
-| `.price-amt`, `.price-sub` | Pricing cards (use `.card--lg`, `.card--featured` for the recommended plan) |
+| `.price-amt`, `.price-sub` | Pricing cards (use `.card--lg`, `.card--featured` for the recommended plan). On the pricing page: `.pricing` (keeps plans to a readable width), `.price-note` (small centred print), `.tag.card-ribbon` (label on the top edge of a card) |
+| `.statement-*` | Financial report mock-up (e.g. Profit to Cash): `.statement-block` groups rows under small `.eyebrow--muted` labels; `.statement-row` (label left, value right) with `--detail` (indented line item), `--subtotal`, `--divided`, `--total`; `.statement-summary` (highlighted result row, `--negative`) with `.statement-check` tick-box (`--on`); `.statement-total` (navy final figure). Colour values with `.trend-up` / `.trend-down` |
 | `.testimonial` | Quote section. `.placeholder-note` marks placeholder content |
 | `.card-quote` | Quote inside a navy card (credibility sections) |
 | `.faq` | FAQ: `<details><summary>Question</summary><div class="faq-answer">Answer</div></details>` |

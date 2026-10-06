@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profit to Cash – Magnifi | Understand Where Your Cash Actually Goes</title>
+<meta name="description" content="Magnifi's Profit to Cash report bridges the gap between reported profit and actual cash in the bank — showing every movement, from non-cash exclusions through to your closing position.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#344150;--navy-deep:#1E2733;--ink:#2C3744;
+  --green:#12BE7A;--green-bright:#37DFA1;--green-deep:#0E9A62;
+  --mint:#6FC0B0;--mint-soft:#A6D7CD;--slate:#5C6979;
+  --line:#DBE2E8;--paper:#FFFFFF;--paper-soft:#F4F7F9;--paper-tint:#EAF2EF;
+  --amber:#E8A33D;--red:#C0392B;
+  --radius:10px;
+  --shadow-sm:0 1px 4px rgba(52,65,80,.08);
+  --shadow-md:0 4px 20px rgba(52,65,80,.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Hanken Grotesk',sans-serif;font-size:16px;line-height:1.6;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:'Fraunces',serif;color:var(--navy);line-height:1.2;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+.container{max-width:1140px;margin:0 auto;padding:0 32px;}
+.container-narrow{max-width:800px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;background:var(--paper);border-bottom:1px solid var(--line);height:72px;display:flex;align-items:center;transition:box-shadow .2s;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1140px;margin:0 auto;padding:0 32px;}
+.nav-links{display:flex;align-items:center;gap:26px;list-style:none;font-size:14px;font-weight:500;color:var(--navy);}
+.nav-links a:hover{color:var(--green-deep);}
+.nav-links .active{color:var(--green-deep);border-bottom:2px solid var(--green);padding-bottom:2px;}
+.nav-ctas{display:flex;align-items:center;gap:10px;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;border-radius:6px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;border:none;}
+.btn-primary{background:var(--green);color:#fff;}
+.btn-primary:hover{background:var(--green-deep);}
+.btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--navy);}
+.btn-ghost:hover{border-color:var(--navy);}
+.btn-lg{padding:14px 32px;font-size:15px;border-radius:8px;}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;padding:4px;}
+.nav-hamburger span{display:block;height:2px;background:var(--navy);border-radius:2px;transition:all .25s;}
+.nav-mobile{display:none;position:fixed;top:72px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);z-index:199;padding:16px 24px 24px;flex-direction:column;gap:0;box-shadow:0 8px 24px rgba(52,65,80,.12);}
+.nav-mobile.open{display:flex;}
+.nav-mobile a{display:block;padding:12px 0;font-size:15px;font-weight:500;color:var(--navy);border-bottom:1px solid var(--line);}
+.nav-mobile a:last-child{border-bottom:none;}
+.mob-cta{margin-top:16px;display:flex;flex-direction:column;gap:10px;}
+.mob-cta a{text-align:center;border-radius:8px;padding:13px;font-weight:600;border-bottom:none !important;}
+.mob-start{background:var(--green);color:#fff !important;}
+.mob-ghost{border:1.5px solid var(--line);color:var(--navy) !important;}
+
+/* BREADCRUMB */
+.breadcrumb{background:var(--paper-soft);border-bottom:1px solid var(--line);padding:10px 0;font-size:13px;color:var(--slate);}
+.breadcrumb a{color:var(--slate);}
+.breadcrumb a:hover{color:var(--green-deep);}
+.breadcrumb span{margin:0 6px;}
+.breadcrumb .current{color:var(--navy);font-weight:500;}
+
+/* HERO */
+.hero{background:var(--paper);padding:72px 0 64px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:600px;height:600px;background:radial-gradient(ellipse at 70% 30%,rgba(18,190,122,.10) 0%,transparent 65%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--paper-tint);border:1px solid var(--mint-soft);color:var(--green-deep);font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;margin-bottom:20px;text-transform:uppercase;letter-spacing:.05em;}
+.hero h1{font-size:clamp(30px,4.5vw,52px);font-weight:600;color:var(--navy);max-width:680px;margin-bottom:20px;}
+.hero-lead{font-size:18px;color:var(--slate);max-width:580px;margin-bottom:20px;line-height:1.65;}
+.hero-declarative{font-size:14px;color:var(--slate);margin-bottom:32px;padding:12px 16px;border-left:3px solid var(--mint);background:var(--paper-soft);border-radius:0 6px 6px 0;max-width:620px;line-height:1.6;}
+.hero-ctas{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+
+/* ON THIS PAGE */
+.otp-wrap{background:var(--paper);padding:32px 0 56px;}
+.otp-bar{border:1px solid var(--line);border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:16px;background:linear-gradient(180deg,var(--paper) 0%,var(--paper-soft) 100%);box-shadow:var(--shadow-sm);flex-wrap:wrap;}
+.otp-label{font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;display:flex;align-items:center;gap:7px;}
+.otp-label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);}
+.otp-pills{display:flex;flex-wrap:wrap;gap:7px;list-style:none;}
+.otp-pills a{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:500;color:var(--navy);background:var(--paper);border:1px solid var(--line);padding:5px 13px;border-radius:20px;transition:all .18s;}
+.otp-pills a:hover{border-color:var(--green);color:var(--green-deep);background:var(--paper-tint);transform:translateY(-1px);}
+.otp-pills .num{font-family:'Fraunces',serif;font-size:12px;font-weight:600;color:var(--green-deep);}
+
+/* SECTION HELPERS */
+.eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-deep);margin-bottom:12px;}
+.section-heading{font-size:clamp(24px,3.2vw,36px);font-weight:600;margin-bottom:16px;}
+.section-sub{font-size:17px;color:var(--slate);line-height:1.65;max-width:680px;}
+.kb-link{color:var(--green-deep);font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);background:var(--paper-soft);padding:3px 10px;border-radius:20px;margin-top:4px;}
+.kb-link:hover{border-color:var(--green-deep);}
+.kb-link::after{content:'↗';font-size:11px;}
+
+/* WHAT IS IT */
+.what-is{background:var(--paper);}
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:40px;}
+.concept-text p{color:var(--ink);line-height:1.7;margin-bottom:16px;}
+.concept-text p:last-of-type{margin-bottom:0;}
+.define-box{background:var(--paper-tint);border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:20px 22px;margin-bottom:16px;font-size:15px;color:var(--ink);line-height:1.65;}
+.define-box strong{color:var(--navy);}
+.screenshot-frame{border-radius:var(--radius);border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow-md);background:#fff;}
+.screenshot-placeholder{background:var(--paper-soft);padding:48px 32px;text-align:center;}
+.screenshot-placeholder .label{font-size:13px;font-weight:600;color:var(--slate);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;}
+.screenshot-placeholder .desc{font-size:14px;color:var(--slate);line-height:1.6;}
+
+/* FOUR SECTIONS */
+.flow-section{background:var(--paper-tint);}
+.flow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px;}
+.flow-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;}
+.flow-card-num{font-family:'Fraunces',serif;font-size:11px;font-weight:700;color:var(--green-deep);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.flow-card-num::before{content:'';display:inline-block;width:18px;height:2px;background:var(--green);}
+.flow-card h3{font-size:16px;font-weight:600;margin-bottom:8px;}
+.flow-card p{font-size:13px;color:var(--slate);line-height:1.6;}
+.flow-card .metric{font-size:12px;color:var(--green-deep);font-weight:600;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);}
+
+/* HOW IT WORKS */
+.how-it-works{background:var(--paper);}
+.dashboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:36px;}
+
+/* P2C PANEL */
+.p2c-panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md);}
+.p2c-panel-header{background:var(--paper-soft);border-bottom:1px solid var(--line);padding:12px 18px;display:flex;align-items:center;}
+.p2c-panel-title{font-size:13px;font-weight:700;color:var(--navy);}
+.p2c-panel-period{font-size:11px;color:var(--slate);margin-left:auto;background:var(--paper-tint);border:1px solid var(--mint-soft);padding:2px 10px;border-radius:10px;font-weight:600;}
+
+/* Summary rows — the main interactive rows with checkboxes */
+.p2c-summary{display:flex;align-items:center;justify-content:space-between;padding:11px 18px;background:var(--paper-tint);border-bottom:1px solid var(--line);}
+.p2c-summary-label{font-size:14px;font-weight:700;color:var(--navy);}
+.p2c-summary-right{display:flex;align-items:center;gap:10px;}
+.p2c-summary-val{font-size:15px;font-weight:700;}
+.p2c-summary-val.pos{color:var(--green-deep);}
+.p2c-summary-val.neg{color:var(--red);}
+.p2c-cb{width:22px;height:22px;border-radius:5px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;}
+.p2c-cb.on{background:var(--green);}
+.p2c-cb.on::after{content:'✓';color:#fff;font-size:12px;font-weight:700;}
+.p2c-cb.off{border:2px solid var(--line);background:var(--paper);}
+
+/* Detail blocks */
+.p2c-block{padding:12px 18px;border-bottom:1px solid var(--line);}
+.p2c-block:last-child{border-bottom:none;}
+.p2c-section-label{font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.05em;margin-bottom:7px;}
+.p2c-row{display:flex;align-items:center;justify-content:space-between;padding:3px 0 3px 10px;}
+.p2c-row-label{font-size:12px;color:var(--slate);font-style:italic;}
+.p2c-row-val{font-size:12px;color:var(--navy);font-weight:500;}
+.p2c-subtotal{display:flex;justify-content:flex-end;padding:5px 0 2px;border-top:1px solid var(--line);margin-top:3px;}
+.p2c-subtotal span{font-size:12px;font-weight:600;color:var(--navy);}
+.p2c-net-row{display:flex;align-items:center;justify-content:space-between;padding:5px 10px 2px;}
+.p2c-net-label{font-size:12px;color:var(--navy);}
+.p2c-net-val{font-size:12px;font-weight:600;}
+
+/* Closing cash */
+.p2c-closing{padding:12px 18px;}
+.p2c-closing-row{display:flex;align-items:center;justify-content:space-between;padding:4px 0;}
+.p2c-closing-label{font-size:13px;color:var(--navy);}
+.p2c-closing-label.bold{font-weight:700;}
+.p2c-closing-val{font-size:13px;font-weight:600;}
+
+/* CHART MOCK */
+.chart-mock{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-md);margin-bottom:16px;}
+.chart-mock-title{font-size:12px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;}
+.chart-bars{display:flex;align-items:flex-end;gap:16px;height:150px;margin-bottom:10px;}
+.chart-bar-group{display:flex;flex-direction:column;align-items:center;flex:1;gap:6px;height:100%;}
+.chart-bar-wrap{display:flex;gap:4px;align-items:flex-end;height:130px;width:100%;}
+.bar{border-radius:4px 4px 0 0;flex:1;}
+.bar-blue{background:#1E78C8;}
+.bar-orange{background:#E8A33D;}
+.bar-green{background:var(--green);}
+.chart-bar-label{font-size:11px;color:var(--slate);font-weight:600;text-align:center;}
+.chart-legend{display:flex;gap:14px;justify-content:center;margin-top:6px;}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--slate);}
+.legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+
+/* ENTITY/GROUP */
+.entity-section{background:var(--paper-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
+.two-col-text h2{margin-bottom:14px;}
+.two-col-text p{font-size:15px;color:var(--slate);line-height:1.7;margin-bottom:14px;}
+.two-col-text p:last-of-type{margin-bottom:0;}
+.feature-bullets{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:20px;}
+.feature-bullets li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--slate);line-height:1.6;}
+.feature-bullets li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:7px;}
+.consol-visual{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-md);}
+.consol-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);}
+.consol-row:last-of-type{border-bottom:none;}
+.consol-label{font-size:13px;color:var(--navy);}
+.consol-label .sub{font-size:11px;color:var(--slate);display:block;margin-top:1px;}
+.consol-val{font-size:13px;font-weight:600;}
+.consol-val.pos{color:var(--green-deep);}
+.consol-val.neg{color:var(--red);}
+.consol-total{display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--navy);border-radius:8px;margin-top:10px;}
+.consol-total-label{font-size:13px;font-weight:700;color:#fff;}
+.consol-total-val{font-size:15px;font-weight:700;color:#fff;}
+
+/* CREDIBILITY */
+.credibility{background:var(--navy-deep);padding:64px 0;}
+.cred-inner{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
+.cred-text h2{color:#fff;font-size:clamp(22px,3vw,32px);margin-bottom:14px;}
+.cred-text p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:20px;}
+.cred-badges{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px;}
+.cred-badge{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:8px 14px;font-size:13px;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:6px;}
+.cred-badge::before{content:'✓';color:var(--green-bright);font-weight:700;}
+.cred-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:12px;padding:28px;}
+.cred-card-quote{font-size:15px;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:18px;font-style:italic;}
+.cred-card-attr{display:flex;align-items:center;gap:12px;}
+.cred-card-avatar{width:40px;height:40px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:#fff;flex-shrink:0;}
+.cred-card-name{font-size:14px;color:#fff;font-weight:600;}
+.cred-card-role{font-size:12px;color:rgba(255,255,255,.5);}
+
+/* FAQ */
+.faq-section{background:var(--paper-soft);}
+.faq-list{display:flex;flex-direction:column;max-width:760px;margin:36px auto 0;}
+details{border-bottom:1px solid var(--line);}
+details:first-child{border-top:1px solid var(--line);}
+summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;font-size:15px;font-weight:600;color:var(--navy);user-select:none;}
+summary::-webkit-details-marker{display:none;}
+.faq-marker{width:24px;height:24px;border-radius:50%;background:var(--paper-tint);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--green-deep);flex-shrink:0;transition:all .2s;}
+details[open] .faq-marker{background:var(--green);color:#fff;border-color:var(--green);}
+.faq-marker::after{content:'+';}
+details[open] .faq-marker::after{content:'–';}
+.faq-body{padding:0 0 18px;font-size:14px;color:var(--slate);line-height:1.7;}
+.faq-body a{color:var(--green-deep);text-decoration:underline;}
+
+/* FINAL CTA */
+.final-cta{background:var(--paper);position:relative;overflow:hidden;text-align:center;}
+.final-cta::before{content:'';position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse at 50% 80%,rgba(18,190,122,.09) 0%,transparent 65%);pointer-events:none;}
+.final-cta-inner{position:relative;z-index:1;}
+.final-cta h2{font-size:clamp(26px,3.8vw,40px);margin-bottom:14px;}
+.final-cta p{font-size:17px;color:var(--slate);max-width:520px;margin:0 auto 28px;line-height:1.65;}
+.cta-buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.cta-note{font-size:13px;color:var(--slate);margin-top:14px;}
+
+/* FOOTER */
+.footer{background:var(--navy-deep);padding:44px 0 28px;}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.footer-links{display:flex;flex-wrap:wrap;gap:20px;list-style:none;}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.5);}
+.footer-links a:hover{color:rgba(255,255,255,.85);}
+.footer-copy{margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:rgba(255,255,255,.3);text-align:center;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .concept-grid,.dashboard-grid,.two-col,.cred-inner{grid-template-columns:1fr;}
+  .flow-grid{grid-template-columns:1fr 1fr;}
+  .dashboard-grid > div:last-child{margin-top:8px;}
+}
+@media(max-width:640px){
+  .nav-links,.nav-ctas{display:none;}
+  .nav-hamburger{display:flex;}
+  .hero{padding:48px 0 40px;}
+  section{padding:52px 0;}
+  .flow-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="main-nav">
+  <div class="nav-inner">
+    <a href="/">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" style="height:30px;width:auto">
+        <text x="0" y="29" font-family="Georgia,serif" font-size="26" font-weight="700" fill="#344150">magnifi</text>
+        <circle cx="192" cy="18" r="7" fill="#6FC0B0"/>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/features" class="active">Features</a></li>
+      <li><a href="/for-business">For Business</a></li>
+      <li><a href="/for-advisors">For Advisors</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="#">Resources</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="#" class="btn btn-ghost">See how it works</a>
+      <a href="#" class="btn btn-primary">Start Free</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile" id="mobile-menu">
+  <a href="/">Home</a>
+  <a href="/features">Features</a>
+  <a href="/for-business">For Business</a>
+  <a href="/for-advisors">For Advisors</a>
+  <a href="/pricing">Pricing</a>
+  <a href="#">Resources</a>
+  <div class="mob-cta">
+    <a href="#" class="mob-ghost">See how it works</a>
+    <a href="#" class="mob-start">Start Free</a>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="container">
+    <a href="/">Home</a><span>&rsaquo;</span>
+    <a href="/features">Features</a><span>&rsaquo;</span>
+    <span class="current">Profit to Cash</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">&#9632; Profit to Cash</div>
+    <h1>Where did the profit go?</h1>
+    <p class="hero-lead">A healthy P&amp;L doesn't always mean a healthy bank balance. Magnifi's Profit to Cash report shows you exactly how your reported profit converts — or doesn't — into actual cash, and where the difference went.</p>
+    <p class="hero-declarative">Profit to Cash is a structured reconciliation built into the Magnifi dashboard. It starts with your reported profit and works down to your closing cash position — accounting for non-cash items, capital movements, and the timing gap between invoicing and collection.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn btn-primary btn-lg">Start Free</a>
+    </div>
+  </div>
+</section>
+
+<!-- ON THIS PAGE -->
+<div class="otp-wrap">
+  <div class="container">
+    <div class="otp-bar">
+      <div class="otp-label">On this page</div>
+      <ul class="otp-pills">
+        <li><a href="#what-is"><span class="num">01</span> What it is</a></li>
+        <li><a href="#whats-in-it"><span class="num">02</span> What's in it</a></li>
+        <li><a href="#how-it-works"><span class="num">03</span> How it works</a></li>
+        <li><a href="#entity-group"><span class="num">04</span> Entity or group</a></li>
+        <li><a href="#faq"><span class="num">05</span> FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IS IT -->
+<section class="what-is" id="what-is">
+  <div class="container">
+    <span class="eyebrow">What it is</span>
+    <h2 class="section-heading">The bridge between your P&amp;L and your bank account.</h2>
+    <div class="concept-grid">
+      <div class="concept-text">
+        <div class="define-box"><strong>Profit to Cash in Magnifi</strong> is a structured report that starts with your reported profit and works down to your closing cash position — accounting for every item that explains why the two numbers are different. Run it for actuals, budgets, or a mix of both.</div>
+        <p>Profitable businesses run out of cash every day. A strong P&amp;L tells you the business is generating surplus — it doesn't tell you where that surplus has gone, or whether you'll have enough to cover next month's commitments. The gap is usually some combination of non-cash accounting entries, capital movements like hire purchase repayments or asset purchases, and the timing difference between when revenue is recognised and when customers actually pay.</p>
+        <p>Magnifi calculates each of these movements automatically from your actuals and forecast, so you can see the full picture without building it yourself. The report is available as a dashboard tab and updates each time you import.</p>
+        <a href="https://support.magnifi.com.au/portal/en/kb/articles/profit-to-cash" class="kb-link" target="_blank">Profit to Cash — Help Centre</a>
+      </div>
+
+      <div class="screenshot-frame">
+        <div class="screenshot-placeholder">
+          <div class="label">[SCREENSHOT]</div>
+          <div class="desc">Profit to Cash dashboard tab — full report from Cash Profit through to Closing Cash Position, with the stacked bar chart visible on the right</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S IN IT -->
+<section class="flow-section" id="whats-in-it">
+  <div class="container">
+    <span class="eyebrow">What's in it</span>
+    <h2 class="section-heading">Four sections. One complete picture.</h2>
+    <p class="section-sub">The report works top-down — each section addresses a different reason why cash and profit diverge.</p>
+    <div class="flow-grid">
+
+      <div class="flow-card">
+        <div class="flow-card-num">Section 01</div>
+        <h3>Cash Profit</h3>
+        <p>Starts with reported profit and adds back non-cash items — depreciation, accrued wages, leave provisions, and any other accounts flagged as non-cash in your chart of accounts. The result is what the business generated in cash terms, before capital transactions and timing.</p>
+        <div class="metric">Reported Profit + Non-Cash Items = Cash Profit</div>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-card-num">Section 02</div>
+        <h3>Free Cash Flow</h3>
+        <p>Adjusts Cash Profit for cash movements that don't flow through the P&amp;L — loan receipts, hire purchase repayments, fixed asset purchases, director loan movements, and dividends. The result is the net cash position after all operating and capital transactions.</p>
+        <div class="metric">Cash Profit ± Other Cash Movements = Free Cash Flow</div>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-card-num">Section 03</div>
+        <h3>Cash Timing Adjustments</h3>
+        <p>Accounts for the gap between when revenue and costs hit the P&amp;L and when cash actually moves. Rising debtors mean revenue has been recognised but not collected. Falling creditors mean bills have been paid ahead of when expenses were recognised.</p>
+        <div class="metric">Free Cash Flow − Timing Gap = Net Cash Surplus/(Deficiency)</div>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-card-num">Section 04</div>
+        <h3>Closing Cash Position</h3>
+        <p>Brings it home: Free Cash Flow adjusted for timing movements gives a Net Cash Surplus or Deficiency for the period. Add that to your opening cash balance and you have your closing position — tied back to the balance sheet.</p>
+        <div class="metric">Opening Cash ± Net Movement = Closing Cash</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+    <span class="eyebrow">How it works</span>
+    <h2 class="section-heading">The report panel and chart, side by side.</h2>
+    <p class="section-sub" style="margin-bottom:36px;">The full reconciliation sits on the left. Each summary metric has a checkbox — tick it and that figure is included in the stacked bar chart on the right. The chart updates instantly as you make selections, making it easy to tailor the view for a client presentation or your own monthly review.</p>
+
+    <div class="dashboard-grid">
+
+      <!-- LEFT: REPORT PANEL MOCK -->
+      <div>
+        <div class="p2c-panel">
+          <div class="p2c-panel-header">
+            <div class="p2c-panel-title">Profit to Cash</div>
+            <div class="p2c-panel-period">Last Actual &nbsp;·&nbsp; Apr 2026</div>
+          </div>
+
+          <!-- Cash Profit detail -->
+          <div class="p2c-block">
+            <div class="p2c-section-label">Reported Profit</div>
+            <div class="p2c-row"><span class="p2c-row-label">Reported Profit</span><span class="p2c-row-val">$33,076</span></div>
+            <div style="height:8px;"></div>
+            <div class="p2c-section-label">Non-Cash Exclusions</div>
+            <div class="p2c-row"><span class="p2c-row-label">Accrued Wages (Direct)</span><span class="p2c-row-val">$10,000</span></div>
+            <div class="p2c-row"><span class="p2c-row-label">Accrued Wages (Indirect)</span><span class="p2c-row-val">$4,000</span></div>
+            <div class="p2c-row"><span class="p2c-row-label">Annual Leave Provision</span><span class="p2c-row-val">$5,306</span></div>
+            <div class="p2c-row"><span class="p2c-row-label">Depreciation</span><span class="p2c-row-val">$50,000</span></div>
+            <div class="p2c-subtotal"><span>$69,306</span></div>
+          </div>
+          <!-- Cash Profit summary row with checkbox -->
+          <div class="p2c-summary">
+            <span class="p2c-summary-label">Cash Profit</span>
+            <div class="p2c-summary-right">
+              <span class="p2c-summary-val pos">$102,381</span>
+              <div class="p2c-cb on"></div>
+            </div>
+          </div>
+
+          <!-- Other Cash Receipts / Payments detail -->
+          <div class="p2c-block">
+            <div class="p2c-section-label">Add: Other Cash Receipts</div>
+            <div class="p2c-row"><span class="p2c-row-label">Loans – Related Parties</span><span class="p2c-row-val">$28,171</span></div>
+            <div class="p2c-row"><span class="p2c-row-label">Other Liabilities</span><span class="p2c-row-val">$140</span></div>
+            <div class="p2c-subtotal"><span>$28,311</span></div>
+            <div style="height:8px;"></div>
+            <div class="p2c-section-label">Less: Other Cash Payments</div>
+            <div class="p2c-row"><span class="p2c-row-label">Hire Purchase Liability</span><span class="p2c-row-val">$52,908</span></div>
+            <div class="p2c-row"><span class="p2c-row-label">Loans – Directors</span><span class="p2c-row-val">$23,152</span></div>
+            <div class="p2c-row"><span class="p2c-row-label">Fixed Assets</span><span class="p2c-row-val">$12,603</span></div>
+            <div class="p2c-row"><span class="p2c-row-label">Dividends</span><span class="p2c-row-val">$25,000</span></div>
+            <div class="p2c-subtotal"><span>$113,662</span></div>
+          </div>
+          <!-- Free Cash Flow summary row with checkbox -->
+          <div class="p2c-summary">
+            <span class="p2c-summary-label">Free Cash Flow</span>
+            <div class="p2c-summary-right">
+              <span class="p2c-summary-val pos">$17,030</span>
+              <div class="p2c-cb on"></div>
+            </div>
+          </div>
+
+          <!-- Timing detail -->
+          <div class="p2c-block">
+            <div class="p2c-section-label">Less Cash Outflow from:</div>
+            <div class="p2c-row"><span class="p2c-row-label">Increase in Customer Debts</span><span class="p2c-row-val">$427,113</span></div>
+            <div class="p2c-row"><span class="p2c-row-label">Decrease in Supplier Debts</span><span class="p2c-row-val">$18,813</span></div>
+            <div class="p2c-subtotal"><span>$445,925</span></div>
+            <div class="p2c-net-row">
+              <span class="p2c-net-label">Net impact on Cash</span>
+              <span class="p2c-net-val" style="color:var(--red);">–$445,925</span>
+            </div>
+          </div>
+          <!-- Net Cash Deficiency summary row — checkbox OFF -->
+          <div class="p2c-summary" style="background:rgba(192,57,43,.06);">
+            <span class="p2c-summary-label">Net Cash Deficiency</span>
+            <div class="p2c-summary-right">
+              <span class="p2c-summary-val neg">–$428,895</span>
+              <div class="p2c-cb off"></div>
+            </div>
+          </div>
+
+          <!-- Closing Cash Position -->
+          <div class="p2c-closing">
+            <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;">Closing Cash Position</div>
+            <div class="p2c-closing-row">
+              <span class="p2c-closing-label">Opening Cash</span>
+              <span class="p2c-closing-val" style="color:var(--navy);">$368,426</span>
+            </div>
+            <div class="p2c-closing-row">
+              <span class="p2c-closing-label">Less: Cash Deficiency</span>
+              <span class="p2c-closing-val" style="color:var(--red);">–$428,895</span>
+            </div>
+            <div class="p2c-closing-row" style="margin-top:4px;padding-top:6px;border-top:1px solid var(--line);">
+              <span class="p2c-closing-label bold">Closing Cash</span>
+              <span class="p2c-closing-val" style="font-size:14px;color:var(--red);">–$60,469</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;font-size:12px;color:var(--slate);line-height:1.6;padding:10px 14px;background:var(--paper-soft);border-radius:6px;border:1px solid var(--line);">
+          Ticked metrics appear in the chart — untick to remove.
+        </div>
+      </div>
+
+      <!-- RIGHT: STACKED CHART + CALLOUT -->
+      <div>
+        <div class="chart-mock">
+          <div class="chart-mock-title">Money In / Money Out / Cash — Apr 2026</div>
+          <!-- Stacked bar chart
+               Scale: 1,200k = 190px chart height (baseline y=215, top y=25)
+               1px = 1,200,000/190 = ~6,316 per px
+
+               Money In ~$1,130k total:
+                 Other (orange) $130k = 20px  → y=25, h=20  (top segment, rounded top only)
+                 Operating (blue) $1,000k = 158px → y=45, h=158 (bottom segment, rounded bottom only)
+                 Stack top = y=25, total h=178
+
+               Money Out ~$1,080k total:
+                 Other (orange) $150k = 24px  → y=43, h=24
+                 Operating (blue) $930k = 147px → y=67, h=147
+                 Stack top = y=43, total h=171
+
+               Cash ~$60k total (Operating only):
+                 Operating $60k = 10px → y=205, h=10 (fully rounded, small bar)
+          -->
+          <svg viewBox="0 0 320 250" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;margin-bottom:10px;">
+            <!-- Gridlines -->
+            <line x1="38" y1="25"  x2="310" y2="25"  stroke="#DBE2E8" stroke-width="1"/>
+            <line x1="38" y1="57"  x2="310" y2="57"  stroke="#DBE2E8" stroke-width="1"/>
+            <line x1="38" y1="89"  x2="310" y2="89"  stroke="#DBE2E8" stroke-width="1"/>
+            <line x1="38" y1="121" x2="310" y2="121" stroke="#DBE2E8" stroke-width="1"/>
+            <line x1="38" y1="153" x2="310" y2="153" stroke="#DBE2E8" stroke-width="1"/>
+            <line x1="38" y1="185" x2="310" y2="185" stroke="#DBE2E8" stroke-width="1"/>
+            <line x1="38" y1="215" x2="310" y2="215" stroke="#344150" stroke-width="1.5"/>
+
+            <!-- Y axis labels (k format) -->
+            <text x="33" y="29"  text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">1,200k</text>
+            <text x="33" y="61"  text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">1,000k</text>
+            <text x="33" y="93"  text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">800k</text>
+            <text x="33" y="125" text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">600k</text>
+            <text x="33" y="157" text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">400k</text>
+            <text x="33" y="189" text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">200k</text>
+            <text x="33" y="219" text-anchor="end" font-family="Hanken Grotesk,sans-serif" font-size="9" fill="#5C6979">0</text>
+
+            <!-- MONEY IN -->
+            <!-- Orange top segment: rounded top corners only -->
+            <path d="M75,25 Q75,25 78,25 L128,25 Q131,25 131,28 L131,45 L75,45 Z" fill="#E8A33D"/>
+            <!-- Blue bottom segment: rounded bottom corners only, flush against orange -->
+            <path d="M75,45 L131,45 L131,215 Q131,215 128,215 L78,215 Q75,215 75,215 Z" fill="#1E78C8"/>
+            <text x="103" y="232" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="10" font-weight="600" fill="#5C6979">Money In</text>
+
+            <!-- MONEY OUT -->
+            <path d="M143,43 Q143,43 146,43 L196,43 Q199,43 199,46 L199,67 L143,67 Z" fill="#E8A33D"/>
+            <path d="M143,67 L199,67 L199,215 Q199,215 196,215 L146,215 Q143,215 143,215 Z" fill="#1E78C8"/>
+            <text x="171" y="232" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="10" font-weight="600" fill="#5C6979">Money Out</text>
+
+            <!-- CASH (small bar, fully rounded) -->
+            <rect x="243" y="205" width="50" height="10" fill="#12BE7A" rx="3"/>
+            <text x="268" y="232" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="10" font-weight="600" fill="#5C6979">Cash</text>
+          </svg>
+
+          <div class="chart-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#1E78C8;"></div>Operating</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#E8A33D;"></div>Other</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;padding:18px 20px;background:var(--paper-tint);border:1px solid var(--mint-soft);border-radius:var(--radius);">
+          <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;">What this example shows</div>
+          <div style="font-size:13px;color:var(--slate);line-height:1.65;">This business earned $102k in Cash Profit but a $427k blowout in customer debts — revenue invoiced but not yet collected — created a net cash deficiency for the month. The P&amp;L looked fine. The cash position told a different story.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ENTITY OR GROUP -->
+<section class="entity-section" id="entity-group">
+  <div class="container">
+    <div class="two-col">
+      <div class="two-col-text">
+        <span class="eyebrow">Reporting level</span>
+        <h2 class="section-heading">Entity view or consolidated group.</h2>
+        <p>Profit to Cash is available at whatever level you're reporting from. View it for a single entity to understand how that business converts profit to cash — or switch to the group view to see the consolidated position across all entities.</p>
+        <p>The same report structure applies at both levels. Non-cash exclusions, capital movements, timing adjustments, and the closing position are calculated consistently whether you're looking at one entity or ten.</p>
+        <ul class="feature-bullets">
+          <li>Switch between entity and group using the organisation selector</li>
+          <li>Inter-entity transactions excluded automatically in the consolidated view</li>
+          <li>Share via live dashboard link — no login required for the recipient</li>
+        </ul>
+      </div>
+
+      <div class="consol-visual">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--slate);margin-bottom:14px;">Consolidated group — illustrative example</div>
+        <div class="consol-row">
+          <div class="consol-label">Cash Profit</div>
+          <div class="consol-val pos">$312,540</div>
+        </div>
+        <div class="consol-row">
+          <div class="consol-label">Add: Other Cash Receipts</div>
+          <div class="consol-val pos">$84,210</div>
+        </div>
+        <div class="consol-row">
+          <div class="consol-label">Less: Other Cash Payments</div>
+          <div class="consol-val neg">–$198,440</div>
+        </div>
+        <div class="consol-row">
+          <div class="consol-label">Free Cash Flow</div>
+          <div class="consol-val pos">$198,310</div>
+        </div>
+        <div style="border-top:1px solid var(--line);margin:8px 0;"></div>
+        <div class="consol-row">
+          <div class="consol-label">Net Timing Impact</div>
+          <div class="consol-val neg">–$1,284,600</div>
+        </div>
+        <div class="consol-total">
+          <div class="consol-total-label">Net Cash Deficiency</div>
+          <div class="consol-total-val">–$1,086,290</div>
+        </div>
+        <div style="margin-top:12px;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--slate);">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--mint);display:inline-block;flex-shrink:0;"></span>
+          Consolidated across 3 entities &nbsp;·&nbsp; Inter-entity eliminated &nbsp;·&nbsp; Figures illustrative
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDIBILITY -->
+<section class="credibility">
+  <div class="container">
+    <div class="cred-inner">
+      <div class="cred-text">
+        <span class="eyebrow" style="color:var(--green-bright);">Built by an accountant</span>
+        <h2>Designed by someone who's had this conversation many times.</h2>
+        <p>Magnifi was built by a Chartered Accountant with 20 years in public practice and CFO roles. The Profit to Cash report is structured the way an experienced advisor explains the profit-cash gap to a business owner — starting from what they already know (their profit) and working toward what they need to know (their cash).</p>
+        <p>It isn't a by-product of another report. It's built to answer a specific question, clearly, for people who need to act on the answer.</p>
+        <div class="cred-badges">
+          <div class="cred-badge">Xero accredited app</div>
+          <div class="cred-badge">Built &amp; refined since 2017</div>
+          <div class="cred-badge">Used by listed entities</div>
+          <div class="cred-badge">AWS infrastructure</div>
+        </div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-quote">"We have a manufacturing client who's consistently profitable but always watching his cash. Profit to Cash showed him in one view that his debtors were blowing out month after month — the problem wasn't the business, it was collections. We had a completely different conversation after that."</div>
+        <div class="cred-card-attr">
+          <div class="cred-card-avatar">CA</div>
+          <div>
+            <div class="cred-card-name">Director, Public Practice</div>
+            <div class="cred-card-role">Chartered accounting firm, Newcastle NSW</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="container-narrow">
+    <span class="eyebrow">FAQ</span>
+    <h2 class="section-heading" style="text-align:center;">Common questions</h2>
+    <div class="faq-list">
+
+      <details>
+        <summary>My business is profitable — why would I need this report? <span class="faq-marker"></span></summary>
+        <div class="faq-body">Profit and cash are different things. Profit is calculated on an accrual basis — revenue is recognised when invoiced, costs when incurred, regardless of when money changes hands. Cash is what's actually in the bank. The gap between the two is usually made up of timing (debtors not yet collected, creditors not yet paid), non-cash entries like depreciation and provisions, and capital movements like loan repayments or asset purchases that don't touch the P&amp;L at all. Profit to Cash makes that gap visible and breaks it into its components — so you know whether a cash shortfall is structural, temporary, or driven by a specific issue like slow collections.</div>
+      </details>
+
+      <details>
+        <summary>What counts as a non-cash item? <span class="faq-marker"></span></summary>
+        <div class="faq-body">Non-cash items are P&amp;L entries that reduce profit without involving an actual cash outflow in that period. Depreciation is the most common example — it reduces profit each month but the cash left the business when the asset was purchased, not gradually over time. Accrued wages and annual leave provisions work the same way. In Magnifi, you flag these accounts in your chart of accounts mapping and they are added back automatically in the Cash Profit calculation. Your accountant can advise on which accounts in your specific chart of accounts should be treated as non-cash.</div>
+      </details>
+
+      <details>
+        <summary>Can I use this report to present to a client or board? <span class="faq-marker"></span></summary>
+        <div class="faq-body">Yes. The Profit to Cash tab is included in the live dashboard link you share from an entity or group. The recipient sees the full dashboard — including Profit to Cash — updated as of your most recent import. No login is required. You can share the entity view, the group view, or both, and revoke access at any time.</div>
+      </details>
+
+      <details>
+        <summary>Is this the same as a formal cash flow statement? <span class="faq-marker"></span></summary>
+        <div class="faq-body">No. Magnifi includes a separate Cash Flow report that presents operating versus non-operating cash movements in a simplified format. Profit to Cash is a management-focused view — it's designed to answer the question "where did the profit go?" in a way that's accessible to business owners, not just accountants. The two reports draw on the same underlying data but present it differently and serve different purposes.</div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <div class="final-cta-inner">
+      <span class="eyebrow">Get started</span>
+      <h2>See where your profit actually goes.</h2>
+      <p>Connect your actuals, map your accounts, and Magnifi builds the Profit to Cash report automatically — no manual work, always current.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn btn-primary btn-lg">Start Free</a>
+      </div>
+      <p class="cta-note">No setup fee &middot; No lock-in contract &middot; Connects to Xero or Excel</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <a href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" style="height:26px;width:auto">
+          <text x="0" y="29" font-family="Georgia,serif" font-size="26" font-weight="700" fill="white" opacity="0.65">magnifi</text>
+          <circle cx="192" cy="18" r="7" fill="#6FC0B0" opacity="0.65"/>
+        </svg>
+      </a>
+      <ul class="footer-links">
+        <li><a href="/features">Features</a></li>
+        <li><a href="/for-business">For Business</a></li>
+        <li><a href="/for-advisors">For Advisors</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="https://support.magnifi.com.au" target="_blank">Help Centre</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-copy">&copy; 2025 Magnifi Pty Ltd &middot; ABN 83 106 161 951 &middot; <a href="#" style="color:rgba(255,255,255,.3)">Privacy</a> &middot; <a href="#" style="color:rgba(255,255,255,.3)">Terms</a></div>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  const spans = hamburger.querySelectorAll('span');
+  if (open) {
+    spans[0].style.transform = 'translateY(7px) rotate(45deg)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+  } else {
+    spans.forEach(s => { s.style.transform=''; s.style.opacity=''; });
+  }
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    hamburger.querySelectorAll('span').forEach(s => { s.style.transform=''; s.style.opacity=''; });
+  });
+});
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.style.boxShadow = window.scrollY > 8 ? '0 2px 16px rgba(52,65,80,.10)' : 'none';
+});
+document.querySelectorAll('details').forEach(d => {
+  d.addEventListener('toggle', () => {
+    if (d.open) document.querySelectorAll('details').forEach(o => { if (o !== d) o.removeAttribute('open'); });
+  });
+});
+</script>
+</body>
+</html>

@@ -185,9 +185,97 @@
         display: none;
     }
 
+    /* Magnifi report inline comment ------------------------------------------------
+       Small round button; hovering (or keyboard-focusing) it fades in a comment box beside it. */
+
+    .inline-comment
+    {
+        position: relative;
+        display: inline-flex;
+    }
+
+    .inline-comment-btn
+    {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        border: none;
+        border-radius: var(--radius-rounded);
+        background: linear-gradient(to top right, var(--green-contrast-text) 0%, var(--brand-green) 100%);
+        cursor: pointer;
+        outline: 4px solid transparent;
+        transition: outline-color 0.2s ease;
+
+        & i
+        {
+            --size: 13px;
+            color: var(--white);
+        }
+
+        /* soft see-through green ring as hover / focus feedback */
+        &:hover,
+        &:focus-visible
+        {
+            outline-color: color-mix(in srgb, var(--brand-green) 30%, transparent);
+        }
+    }
+
+    .inline-comment-box
+    {
+        position: absolute;
+        top: 0%;
+        left: calc(100% + var(--size-1));
+        z-index: 10;
+        width: var(--size-32);
+        padding: var(--size-3);
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translate(-8px, -5%);
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+
+        & h4
+        {
+            color: var(--brand-green);
+            margin-bottom: var(--size-1);
+        }
+
+        & p
+        {
+            font-size: 14px;
+            color: var(--text);
+        }
+    }
+
+    .inline-comment:hover .inline-comment-box,
+    .inline-comment:focus-within .inline-comment-box
+    {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(0, -5%);
+    }
+
 </style>
 
 <body>
+
+    <h3>Magnifi Report Inline Comment<br><br></h3>
+
+    <div class="inline-comment">
+        <button class="inline-comment-btn" aria-label="View comment" aria-describedby="inline-comment-1"><i class="fa-regular fa-comment"></i></button>
+        <div class="inline-comment-box" role="tooltip" id="inline-comment-1">
+            <h4>Income ahead of budget</h4>
+            <p>Income is tracking 8% ahead of budget this quarter, driven by two new client projects in Biz Services. Worth checking whether next month needs extra capacity.</p>
+        </div>
+    </div>
+
+    <br><br><br>
 
     <h3>Toolbar Filters<br><br></h3>
 

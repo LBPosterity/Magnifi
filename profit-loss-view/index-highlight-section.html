@@ -39,10 +39,6 @@
             position: relative; /* ensure the pseudo-element is positioned relative to the row */
             pointer-events: none; /* prevent interaction with non-highlighted rows */
         }
-        .highlightActive .colHeader
-        {
-            opacity: 1;
-        }
 
         /* demo buttons above the table */
         .highlight-controls
@@ -61,6 +57,12 @@
             outline-offset: -2px; 
         }
 
+
+        .highlightActive tr.rowHighlight
+        {
+            pointer-events: auto !important; /* allow interaction with highlighted rows */
+        }
+
         /* fade overlays above and below the highlighted row. They hang off the row's first cell, not the <tr>:
            pseudo-elements on a <tr> become an extra table cell and push every cell one column to the right.
            The cell isn't positioned, so the overlays still size and position against the row (position: relative). */
@@ -70,6 +72,17 @@
         {
             position: static;
             overflow: visible;
+        }
+
+        /* the section's main label (first cell of the first highlighted row) goes bold; the small "View" link stays normal */
+        .highlightActive .rowHighlight:not(.rowHighlight ~ .rowHighlight) > td:first-child
+        {
+            font-weight: bold;
+
+            & .inline-action
+            {
+                font-weight: normal;
+            }
         }
 
         /* :not(.rowHighlight ~ .rowHighlight) = the first highlighted row only (:first-of-type would mean the first <tr>) */

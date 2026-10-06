@@ -1,0 +1,223 @@
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Magnifi Pricing — Simple, transparent, no surprises</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#344150;--navy-deep:#1E2733;--ink:#2C3744;--green:#12BE7A;--green-bright:#37DFA1;--green-deep:#0E9A62;--mint:#6FC0B0;--slate:#5C6979;--line:#DBE2E8;--paper:#FFFFFF;--paper-soft:#F4F7F9;--paper-tint:#EAF2EF;--amber:#E8A33D;--shadow:0 24px 60px -26px rgba(31,41,55,.40)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Hanken Grotesk',sans-serif;color:var(--ink);background:var(--paper);line-height:1.55;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;line-height:1.05;letter-spacing:-.012em;color:var(--navy)}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+  .eyebrow{font-size:.74rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--green-deep);margin-bottom:18px}
+  a{color:inherit;text-decoration:none}
+  .center{margin-left:auto;margin-right:auto;text-align:center}
+  .btn{display:inline-flex;align-items:center;gap:.5em;font-weight:700;font-size:.98rem;padding:.88em 1.6em;border-radius:10px;transition:transform .18s,background .18s;cursor:pointer;border:1.5px solid transparent}
+  .btn-primary{background:var(--green);color:#fff;box-shadow:0 12px 26px -10px rgba(18,190,122,.6)}
+  .btn-primary:hover{transform:translateY(-2px);background:var(--green-deep)}
+  .btn-ghost{background:transparent;color:var(--navy);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--green);background:var(--paper-soft)}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .logo-img{height:30px;width:auto;display:block}
+  .nav-links{display:flex;gap:30px;align-items:center;font-size:.95rem;font-weight:600;color:var(--slate)}
+  .nav-links a:hover{color:var(--navy)}.nav-links a.active{color:var(--green-deep)}
+  .nav-cta{display:flex;gap:12px;align-items:center}
+  @media(max-width:880px){.nav-links{display:none}.nav-cta .btn-ghost{display:none}}
+
+  /* HERO */
+  .phero{text-align:center;background:radial-gradient(70% 120% at 50% -10%, rgba(55,223,161,.18), transparent 60%),var(--paper);padding:80px 0 20px}
+  .phero h1{font-size:clamp(2.4rem,4.6vw,3.6rem)}
+  .phero p{color:var(--slate);font-size:1.18rem;margin:18px auto 0;max-width:46ch}
+
+  section{padding:60px 0}
+
+  /* PRICING CARDS */
+  .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;max-width:920px;margin:0 auto}
+  @media(max-width:820px){.price-grid{grid-template-columns:1fr}}
+  .pc{border:1px solid var(--line);border-radius:20px;padding:38px;background:#fff}
+  .pc.feature{border:2px solid var(--green);box-shadow:var(--shadow);position:relative}
+  .pc .lbl{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green-deep);margin-bottom:16px}
+  .pc .amt{font-family:'Fraunces',serif;font-size:3rem;color:var(--navy);line-height:1}
+  .pc .amt small{font-size:1rem;color:var(--slate);font-family:'Hanken Grotesk';font-weight:600}
+  .pc .sub{color:var(--slate);margin:10px 0 22px;line-height:1.5}
+  .ptag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:20px;white-space:nowrap}
+
+  /* PERKS ROW — replaces feature list under Business card */
+  .perks{display:flex;flex-direction:column;gap:11px;margin-top:26px;padding-top:26px;border-top:1px solid var(--line)}
+  .perk{display:flex;align-items:center;gap:10px;font-size:.93rem;color:var(--slate)}
+  .perk svg{flex:none}
+  .perk strong{color:var(--navy)}
+
+  /* ADVISOR FEATURES */
+  .pc ul{list-style:none;margin:24px 0 0;display:flex;flex-direction:column;gap:12px}
+  .pc li{display:flex;gap:11px;font-size:.97rem}.pc li svg{flex:none;margin-top:3px}
+
+  /* GST NOTE */
+  .note{max-width:920px;margin:18px auto 0;text-align:center;color:var(--slate);font-size:.92rem}
+  .note strong{color:var(--navy)}
+
+  /* FULL FEATURED BAND */
+  .full-band{background:var(--paper-tint);border:1px solid var(--line);border-radius:18px;max-width:920px;margin:28px auto 0;padding:28px 36px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  @media(max-width:700px){.full-band{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.full-band{grid-template-columns:1fr}}
+  .fb-item{display:flex;align-items:flex-start;gap:10px;font-size:.94rem;color:var(--ink)}
+  .fb-item svg{flex:none;margin-top:2px}
+  .fb-header{max-width:920px;margin:0 auto 4px;text-align:center}
+  .fb-header p{color:var(--slate);font-size:.95rem}
+
+  /* CREDIBILITY */
+  .cred{background:#F4F7F9;border-top:1px solid #DBE2E8;border-bottom:1px solid #DBE2E8}
+  .cred-inner{display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:center}
+  @media(max-width:880px){.cred-inner{grid-template-columns:1fr;gap:28px}}
+  .cred p{color:#5C6979;font-size:1.08rem}
+  .badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+  .badge{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #DBE2E8;border-radius:30px;padding:9px 16px;font-weight:600;font-size:.9rem;color:#344150}
+  .cred-card{background:#344150;color:#fff;border-radius:18px;padding:34px}
+  .cred-card .big{font-family:'Fraunces',serif;font-size:1.28rem;line-height:1.42;color:#fff}
+  .cred-card .sub{margin-top:14px;color:#37DFA1;font-weight:600;font-size:.92rem}
+  .section-head{max-width:680px}.section-head h2{font-size:clamp(2rem,3.4vw,2.7rem)}.section-head p{color:var(--slate);font-size:1.1rem;margin-top:14px}
+
+  /* FAQ */
+  .faq{max-width:840px;margin:40px auto 0}
+  .faq details{border:1px solid #DBE2E8;border-radius:12px;margin-bottom:12px;background:#fff;overflow:hidden}
+  .faq summary{cursor:pointer;padding:20px 22px;font-weight:700;color:#344150;font-size:1.04rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:'+';color:#12BE7A;font-size:1.5rem;font-weight:400;line-height:1}
+  .faq details[open] summary::after{content:'\2013'}
+  .faq .ans{padding:0 22px 20px;color:#5C6979;font-size:.99rem;line-height:1.62}
+
+  /* FINAL CTA */
+  .final{text-align:center;background:radial-gradient(70% 130% at 50% -10%, rgba(55,223,161,.2), transparent 60%),var(--paper)}
+  .final h2{font-size:clamp(2.2rem,4vw,3.2rem)}.final p{color:var(--slate);font-size:1.15rem;margin:18px auto 30px;max-width:46ch}
+  .actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  /* FOOTER */
+  footer{background:var(--navy-deep);color:rgba(255,255,255,.66);padding:60px 0 34px;font-size:.92rem}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}@media(max-width:820px){.foot-grid{grid-template-columns:1fr 1fr}}
+  .foot-logo{height:26px;filter:brightness(0) invert(1);opacity:.9;margin-bottom:14px}
+  footer h4{color:#fff;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;font-weight:700}
+  footer ul{list-style:none;display:flex;flex-direction:column;gap:10px}footer a:hover{color:var(--green-bright)}
+  .foot-base{border-top:1px solid rgba(255,255,255,.12);margin-top:44px;padding-top:24px;font-size:.82rem;color:rgba(255,255,255,.5)}
+</style>
+
+<header class="nav"><div class="wrap nav-inner">
+  <img class="logo-img" src="data:image/jpeg;base64,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" alt="Magnifi">
+  <nav class="nav-links"><a href="#">Home</a><a href="#">Features</a><a href="#">For Business</a><a href="#">For Advisors</a><a href="#" class="active">Pricing</a></nav>
+  <div class="nav-cta"><a class="btn btn-ghost" href="#">Book a Demo</a><a class="btn btn-primary" href="#">Start Free</a></div>
+</div></header>
+
+<section class="phero"><div class="wrap">
+  <div class="eyebrow">Pricing</div>
+  <h1>Simple, transparent, no surprises.</h1>
+  <p>One clear price per entity. No setup fees, no long contracts, and free for advisors until you're ready to share.</p>
+</div></section>
+
+<section style="padding-top:40px"><div class="wrap">
+  <div class="price-grid">
+
+    <!-- BUSINESS CARD -->
+    <div class="pc feature">
+      <span class="ptag">For your business</span>
+      <div class="lbl">Per entity · excl. GST</div>
+      <div class="amt">$85<small> /mo · first entity</small></div>
+      <div class="sub">+ $35/mo for each additional entity in your group. Billed monthly, no long contracts.</div>
+      <a class="btn btn-primary" href="#" style="width:100%;justify-content:center;margin-bottom:4px">Start Free — 30 days on us</a>
+      <p style="font-size:.82rem;color:var(--slate);text-align:center;margin-top:6px">No credit card required to start</p>
+      <div class="perks">
+        <div class="perk"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Full-featured</strong> — everything Magnifi can do, from day one</span></div>
+        <div class="perk"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Unlimited users</strong> — invite your team, no per-seat fees</span></div>
+        <div class="perk"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>30-day free trial</strong> — explore the full platform before you pay</span></div>
+        <div class="perk"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Fast, personalised support</strong> — from people who know the product</span></div>
+      </div>
+    </div>
+
+    <!-- ADVISOR CARD -->
+    <div class="pc">
+      <div class="lbl">For advisors</div>
+      <div class="amt">Free<small> · to set up</small></div>
+      <div class="sub">Pay only when you go live — $85/mo first entity, $35/mo each additional. Excl. GST, billed monthly.</div>
+      <a class="btn btn-ghost" href="#" style="width:100%;justify-content:center">Create free advisor account</a>
+      <ul>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Free advisor account, always</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Build unlimited client files for free</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited users on every account</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Subscription triggers only on invite or share</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Absorb the cost or pass it to the client</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Fast, personalised support included</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="note">An entity is one Xero organisation (or imported file). Within a single client group, the first entity is $85/mo and each additional is $35/mo. Separate clients are billed separately. <strong>All prices exclude GST and are billed monthly.</strong></p>
+
+  <!-- FULL FEATURED CALLOUT -->
+  <div style="max-width:920px;margin:44px auto 0">
+    <div class="fb-header"><div class="eyebrow" style="margin-bottom:10px">Everything included</div><p>Every plan is fully featured — no tiers, no locked modules, no surprises.</p></div>
+    <div class="full-band">
+      <div class="fb-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Capacity planning</div>
+      <div class="fb-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Four-way forecasting</div>
+      <div class="fb-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>P&amp;L, cashflow &amp; balance sheet</div>
+      <div class="fb-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Rolling cashflow re-forecasting</div>
+      <div class="fb-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Xero connection or Excel import</div>
+      <div class="fb-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>What-if &amp; Playground</div>
+      <div class="fb-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Dashboards &amp; live sharing</div>
+      <div class="fb-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Multi-entity &amp; consolidations</div>
+      <div class="fb-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited users</div>
+    </div>
+  </div>
+
+</div></section>
+
+<!-- CREDIBILITY -->
+<section class="cred"><div class="wrap cred-inner">
+  <div>
+    <div class="eyebrow">Built on real experience</div>
+    <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem)">Built by an accountant who's done your job.</h2>
+    <p style="margin-top:14px">Magnifi has been built and refined since 2017, used by everything from small businesses to listed entities, and it's an accredited Xero app — shaped throughout by deep experience in practice and finance. Its sweet spot is businesses in the 10–200 employee range, where a gut feel for the numbers no longer cuts it and real clarity starts to matter.</p>
+    <div class="badges">
+      <span class="badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Xero accredited</span>
+      <span class="badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Built &amp; refined since 2017</span>
+      <span class="badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12BE7A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Small business to listed entities</span>
+    </div>
+  </div>
+  <div class="cred-card">
+    <div class="big">"Designed by a chartered accountant — 20 years in public practice, and 8 years as a CFO consultant."</div>
+    <div class="sub">Built by someone who's lived the problem Magnifi solves.</div>
+  </div>
+</div></section>
+
+<!-- FAQ -->
+<section><div class="wrap">
+  <div class="section-head center"><div class="eyebrow">FAQ</div><h2>Pricing questions, answered.</h2></div>
+  <div class="faq">
+    <details><summary>Is there really a 30-day free trial?</summary><div class="ans">Yes — for businesses, you get 30 days free with the full platform, no credit card required. Connect Xero, bring in your team and see your numbers before you pay anything.</div></details>
+    <details><summary>Can I cancel anytime?</summary><div class="ans">Yes. There are no long contracts — subscriptions are month to month, and you can cancel whenever you like.</div></details>
+    <details><summary>How many users can I add?</summary><div class="ans">Unlimited. You can invite your whole team — finance, operations, owners — at no extra cost. User seats are never a variable.</div></details>
+    <details><summary>What does "fast, personalised support" mean?</summary><div class="ans">It means you talk to people who know Magnifi deeply — not a chatbot or a tier-one help desk. Questions get real answers, quickly.</div></details>
+    <details><summary>What counts as an entity?</summary><div class="ans">Each Xero organisation (or imported file) is one entity. Within a single client group, the first entity is $85/mo and each additional entity is $35/mo. Two separate clients are billed separately.</div></details>
+    <details><summary>How does advisor pricing work?</summary><div class="ans">Your advisor account is free, and building client files is free. A subscription only starts when you invite a client or share dashboards. You can absorb the cost or pass it to the client, and you manage the subscription either way.</div></details>
+    <details><summary>Are prices GST-inclusive?</summary><div class="ans">No — all prices are quoted excluding GST. GST applies to Australian customers at the standard rate.</div></details>
+    <details><summary>How do I pay?</summary><div class="ans">By card, billed monthly. No setup fees and no minimum term.</div></details>
+    <details><summary>Do I need to be on Xero?</summary><div class="ans">Xero is the smoothest path — we're an accredited Xero app, so your data flows straight in. Not on Xero? You can import via Excel instead.</div></details>
+    <details><summary>Do I have to be a service business?</summary><div class="ans">No. Magnifi is built around service businesses, where capacity planning really shines. But any business with employees gets the full four-way forecast, employee-driven labour costs, multi-layer reporting and dashboards.</div></details>
+  </div>
+</div></section>
+
+<section class="final"><div class="wrap">
+  <h2>Start free today.</h2>
+  <p>30 days free, no credit card needed. Connect Xero, bring in your team, and see your numbers in minutes.</p>
+  <div class="actions"><a class="btn btn-primary" href="#">Start Free</a><a class="btn btn-ghost" href="#">Book a Demo</a></div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div><img class="foot-logo" src="data:image/jpeg;base64,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" alt="Magnifi"><p style="max-width:26ch">Financial forecasting built for how service businesses actually work.</p></div>
+    <div><h4>Product</h4><ul><li><a href="#">Smart Forecasting</a></li><li><a href="#">Capacity Planning</a></li><li><a href="#">Profit to Cash</a></li><li><a href="#">Dashboards</a></li></ul></div>
+    <div><h4>Who it's for</h4><ul><li><a href="#">For Business</a></li><li><a href="#">For Advisors</a></li><li><a href="#">Pricing</a></li><li><a href="#">Book a Demo</a></li></ul></div>
+    <div><h4>Company</h4><ul><li><a href="#">Knowledge Base</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li><li><a href="#">User Login</a></li></ul></div>
+  </div>
+  <div class="foot-base">© 2026 Magnifi Pty Ltd · Financial forecasting software for Australian businesses · ABN 83 106 161 951</div>
+</div></footer>
