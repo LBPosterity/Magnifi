@@ -36,7 +36,7 @@
         height: 100dvh;   /* full viewport height, allowing for mobile browser toolbars */
         padding: var(--size-3) var(--size-5) var(--size-1) var(--size-5);
         font-family: "Roboto", sans-serif;
-        background: linear-gradient(160deg, var(--bg-light-green) 0%, var(--white) 80%);
+        background: linear-gradient(120deg, var(--bg-light-green) 0%, var(--white) 55%);
         border-right: 1px solid var(--border-dark);
         overflow: hidden;
     }
@@ -105,31 +105,6 @@
         justify-content: space-between;
         align-items: center;
         flex-shrink: 0;
-
-        & .wrapper-dual-btn .btn
-        {
-            background: transparent;
-            border: 1px solid var(--border-dark);
-            color: var(--text);
-        }
-
-        & .wrapper-dual-btn .btn:first-of-type
-        {
-            border-right: 1px solid var(--border-dark);
-        }
-
-        & .wrapper-dual-btn .btn:hover,
-        & .wrapper-dual-btn .btn.active
-        {
-            background: var(--bg-light-green);
-        }
-
-        /* no left border: the arrow button's right border already divides the pair */
-        & .wrapper-dual-btn .btn-contents
-        {
-            min-width: var(--size-12);
-            border-left: none;
-        }
     }
 
     /* scrolling area: contents tree + section content ------------------------------------------------ */
@@ -144,16 +119,16 @@
         gap: var(--size-3);   /* between the contents tree (when open) and the section content */
         margin-inline: calc(var(--size-1) * -1);
         padding-inline: var(--size-1);
+        /* a scrolling area always clips what hangs outside it, so give the comments button's count badge
+           room at the top: pad by the badge's overhang and pull the area up the same amount (no visual shift) */
+        margin-top: calc(var(--size-1) * -1);
+        padding-top: var(--size-1);
     }
 
     /* contents tree ------------------------------------------------ */
 
     .report-contents
     {
-        /* see-through fills so the sidebar gradient shows behind hovered / current items */
-        --contents-hover-bg: color-mix(in srgb, var(--text) 6%, transparent);
-        --contents-active-bg: color-mix(in srgb, var(--brand-green) 14%, transparent);
-
         display: none;
         flex-shrink: 0;
         padding-bottom: var(--size-2);
@@ -176,14 +151,14 @@
             display: block;
             padding: var(--size-1);
             border-radius: var(--radius-sm);
-            font-size: 15px;
+            font-size: 14px;
             color: var(--text);
 
             &:hover
             {
                 text-decoration: none;
                 color: var(--text);
-                background: var(--contents-hover-bg);
+                background: var(--hover-transparent);   /* see-through so the sidebar gradient shows */
             }
 
             /* current section */
@@ -191,7 +166,7 @@
             {
                 color: var(--green-contrast-text);
                 font-weight: 500;
-                background: var(--contents-active-bg);
+                background: var(--green-transparent);
             }
         }
 
@@ -231,6 +206,172 @@
         flex-wrap: wrap;
         justify-content: space-between;
         gap: var(--size-1);
+    }
+
+    /* section heading + comments button ------------------------------------------------ */
+
+    .report-heading
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--size-1);
+    }
+
+
+    /* comments view: takes over the sidebar below the logo ------------------------------------------------ */
+
+    .report-comments
+    {
+        display: none;
+        flex: 1;
+        min-height: 0;
+        flex-direction: column;
+        gap: var(--size-2);
+    }
+
+    .report-sidebar.comments-mode
+    {
+        & > select,
+        & .report-nav,
+        & .report-scroll
+        {
+            display: none;
+        }
+
+        & .report-comments
+        {
+            display: flex;
+        }
+    }
+
+    .comments-header
+    {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--size-1);
+        flex-shrink: 0;
+
+        & h2
+        {
+            flex: 1;
+            color: var(--green-contrast-text);
+        }
+    }
+
+    /* scrolling list of comments */
+    .comments-list
+    {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;   /* scrolling past the end doesn't scroll the page behind */
+        display: flex;
+        flex-direction: column;
+        margin-inline: calc(var(--size-1) * -1);
+        padding: var(--size-0-5) var(--size-1) var(--size-2);
+
+        /* comments keep their full height and the list scrolls, instead of squashing them to fit */
+        & > *
+        {
+            flex-shrink: 0;
+        }
+    }
+
+    /* comment card: default (soft amber border, light meta text) → hover (orange border, dark meta text) */
+    .comment-card
+    {
+        padding: var(--size-2);
+        background: var(--white);
+        border: 1px solid var(--orange-light);
+        border-radius: var(--radius-md);
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text);
+    }
+
+    .comment:hover .comment-card
+    {
+        border-color: var(--orange);
+    }
+
+    .comment:hover .comment-meta,
+    .comment:hover .comment-meta .comment-author
+    {
+        color: var(--text);
+    }
+
+    /* author, date and the "…" menu under each comment */
+    .comment-meta
+    {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--size-0-25) var(--size-1) var(--size-2) var(--size-1);
+        font-size: 13px;
+        color: var(--text-light);
+
+        & .comment-author
+        {
+            font-weight: 600;
+        }
+
+        & .comment-sent
+        {
+            color: var(--green-contrast-text);
+            font-weight: 500;
+        }
+    }
+
+    /* the standard .dropdown-wrapper, fixed to the screen (positioned by the script) so the
+       sidebar's clipping doesn't cut it off; it can hang out over the report area */
+    .comment-options
+    {
+        position: fixed;
+        right: auto;   /* the script sets left/top from the "…" button */
+        transition: opacity 0.3s ease;   /* fade in only: don't slide from the last position */
+    }
+
+    /* new-comment editor, inserted at the top of the list */
+    .comment-editor
+    {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-2);
+        margin-bottom: var(--size-3);   /* space between the new comment and the comments below */
+
+        & textarea
+        {
+            width: 100%;
+            min-height: 80px;
+            max-height: 300px;   /* grows with the text up to here, then scrolls */
+            field-sizing: content;
+            padding: 0;
+            border: none;
+            outline: none;
+            resize: none;
+            background: transparent;
+            font: inherit;
+            color: var(--text);
+
+            &::placeholder
+            {
+                color: var(--label-light);
+            }
+        }
+    }
+
+    .comment-editor-actions
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
     }
 
     /* footer ------------------------------------------------ */
@@ -282,6 +423,7 @@
         & > select,
         & .report-nav,
         & .report-scroll,
+        & .report-comments,
         & .btn-exit
         {
             display: none;
@@ -318,10 +460,10 @@
 
     <div class="report-nav">
         <div class="wrapper-dual-btn">
-            <button class="btn" id="btn-prev" aria-label="Previous section"><i data-feather="chevron-left"></i></button>
-            <button class="btn btn-contents" id="btn-contents" aria-expanded="false" aria-controls="report-contents">Contents</button>
+            <button class="btn outline small" id="btn-prev" aria-label="Previous section"><i data-feather="chevron-left"></i></button>
+            <button class="btn outline small" id="btn-contents" aria-expanded="false" aria-controls="report-contents">Contents</button>
         </div>
-        <button class="btn primary" id="btn-next">Next <i data-feather="chevron-right"></i></button>
+        <button class="btn primary small" id="btn-next">Next <i data-feather="chevron-right"></i></button>
     </div>
 
     <div class="report-scroll">
@@ -351,7 +493,10 @@
         </nav>
 
         <section class="report-section">
-            <h2 id="report-section-title">Profit</h2>
+            <div class="report-heading">
+                <h2 id="report-section-title">Profit</h2>
+                <button class="btn secondary small icon" id="btn-comments" aria-label="Comments"><i class="fa-regular fa-comment"></i><span class="badge" id="comment-badge"></span></button>
+            </div>
             <p>There was a Total Operating Profit of $174,102 Year to Date (YTD), behind budget (down $140,522, 45%).</p>
             <p>The shortfall was driven by Biz Services Pty Limited, where income growth on last year was strong but fell short of this year's budget, while overhead spending ran well ahead of plan.</p>
             <p>Biz Administration Pty Limited recorded no activity against its budgeted contribution, adding a further gap to the Group's result.</p>
@@ -364,12 +509,28 @@
 
     </div>
 
+    <!-- comments view: replaces the picker, nav and content while open -->
+    <div class="report-comments" id="report-comments">
+        <div class="comments-header">
+            <button class="btn outline small icon round" id="btn-comments-back" aria-label="Back to report"><i data-feather="chevron-left"></i></button>
+            <h2>Comments</h2>
+            <button class="btn primary small icon" id="btn-add-comment" aria-label="Add comment"><i data-feather="plus"></i></button>
+        </div>
+        <div class="comments-list" id="comments-list"></div>
+    </div>
+
     <div class="report-footer">
         <button class="btn clear btn-exit">Exit Report</button>
         <button class="btn clear btn-collapse" id="btn-collapse" aria-label="Collapse sidebar" aria-expanded="true"><i data-feather="chevrons-left"></i></button>
     </div>
 
 </aside>
+
+<!-- comment options menu (one shared menu, opened beside whichever comment's "…" was clicked) -->
+<div class="dropdown-wrapper comment-options" id="comment-options" role="menu">
+    <button class="menuItem" role="menuitem" data-action="send">Send To Accountant</button>
+    <button class="menuItem negative" role="menuitem" data-action="delete">Delete</button>
+</div>
 
 
 <script>
@@ -414,6 +575,157 @@
         collapse.setAttribute('aria-expanded', !collapsed);
         collapse.setAttribute('aria-label', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
     });
+
+    // ---------- Comments ----------
+    var CURRENT_USER = 'Adam Jones';
+    var commentsList = document.getElementById('comments-list');
+    var commentBadge = document.getElementById('comment-badge');
+    var commentsBtn  = document.getElementById('btn-comments');
+    var menu         = document.getElementById('comment-options');
+    var menuFor      = null;   // the comment whose "…" menu is open
+
+    // sample comments for the demo
+    var sampleComments = [
+        { text: 'Revenue is up 8% QoQ, but how much of that is the one-off Henderson contract? I\'d like to see organic growth broken out.', author: 'Adam Jones', date: '21/11/26 10:42 AM' },
+        { text: 'EBITDA looks healthy, but operating cash flow doesn\'t match. What\'s happening in working capital?', author: 'Adam Jones', date: '19/11/26 1:09 AM' },
+        { text: 'Headcount is up 15% but revenue per employee has gone backwards. Walk me through the hiring plan.', author: 'Adam Jones', date: '17/11/26 4:25 AM' },
+        { text: 'Debtor days have crept from 38 to 52. Are we chasing the overdue accounts, or is this a timing issue at quarter end?', author: 'Adam Jones', date: '14/11/26 3:18 PM' },
+        { text: 'Overheads are 12% over budget. Which line items are driving that, and are any of them one-off?', author: 'Adam Jones', date: '12/11/26 9:55 AM' },
+        { text: 'The cashflow forecast assumes the bank facility is renewed in March. What\'s the plan if it isn\'t?', author: 'Adam Jones', date: '10/11/26 2:30 PM' },
+        { text: 'Gross margin on Biz Services dropped 4 points. Pricing, or cost of delivery?', author: 'Adam Jones', date: '07/11/26 11:06 AM' },
+        { text: 'Can we get the capacity numbers by team rather than for the whole group? Utilisation looks fine overall but I suspect one team is stretched.', author: 'Adam Jones', date: '04/11/26 4:47 PM' }
+    ];
+
+    // e.g. 13/10/26 2:05 PM
+    function formatDate(d){
+        var pad = function(n){ return (n < 10 ? '0' : '') + n; };
+        var h = d.getHours(), ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12;
+        return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + String(d.getFullYear()).slice(-2) + ' ' + h + ':' + pad(d.getMinutes()) + ' ' + ampm;
+    }
+
+    function buildComment(c){
+        var el = document.createElement('div');
+        el.className = 'comment';
+        el.innerHTML =
+            '<div class="comment-card"></div>' +
+            '<div class="comment-meta">' +
+                '<span><span class="comment-author"></span> <span class="comment-date"></span></span>' +
+                '<button class="btn clear small icon comment-menu-btn" aria-label="Comment options" aria-haspopup="menu" aria-expanded="false"><i data-feather="more-horizontal"></i></button>' +
+            '</div>';
+        // user text goes in as text, never as HTML
+        el.querySelector('.comment-card').textContent = c.text;
+        el.querySelector('.comment-author').textContent = c.author;
+        el.querySelector('.comment-date').textContent = c.date;
+        return el;
+    }
+
+    // count badge on the comments button
+    function updateCount(){
+        var n = commentsList.querySelectorAll('.comment').length;
+        commentBadge.textContent = n || '';
+        commentsBtn.setAttribute('aria-label', n ? 'Comments (' + n + ')' : 'Comments');
+    }
+
+    sampleComments.forEach(function(c){ commentsList.appendChild(buildComment(c)); });
+    feather.replace();
+    updateCount();
+
+    // open / close the comments view
+    commentsBtn.addEventListener('click', function(){ sidebar.classList.add('comments-mode'); });
+    document.getElementById('btn-comments-back').addEventListener('click', function(){
+        closeMenu();
+        sidebar.classList.remove('comments-mode');
+    });
+
+    // "+": an editor at the top of the list, ready to type
+    document.getElementById('btn-add-comment').addEventListener('click', function(){
+        var existing = commentsList.querySelector('.comment-editor textarea');
+        if(existing){ existing.focus(); return; }
+
+        var editor = document.createElement('div');
+        editor.className = 'comment-card comment-editor';
+        editor.innerHTML =
+            '<textarea placeholder="New comment..." aria-label="New comment"></textarea>' +
+            '<div class="comment-editor-actions">' +
+                '<button class="btn outline small btn-discard">Discard</button>' +
+                '<button class="btn primary small btn-save"><i data-feather="home"></i>Add</button>' +
+            '</div>';
+        commentsList.prepend(editor);
+        commentsList.scrollTop = 0;
+        feather.replace();
+
+        var textarea = editor.querySelector('textarea');
+        textarea.focus();
+
+        // grow with the text in browsers without CSS field-sizing (the max-height still caps it)
+        if(!CSS.supports('field-sizing', 'content')){
+            textarea.addEventListener('input', function(){
+                textarea.style.height = 'auto';
+                textarea.style.height = textarea.scrollHeight + 'px';
+            });
+        }
+
+        editor.querySelector('.btn-discard').addEventListener('click', function(){ editor.remove(); });
+        editor.querySelector('.btn-save').addEventListener('click', function(){
+            var text = textarea.value.trim();
+            if(!text){ textarea.focus(); return; }
+            editor.replaceWith(buildComment({ text: text, author: CURRENT_USER, date: formatDate(new Date()) }));
+            feather.replace();
+            updateCount();
+        });
+    });
+
+    // "…" menu: opens under the clicked button, left edges aligned
+    function closeMenu(){
+        if(menuFor) {
+            var btn = menuFor.querySelector('.comment-menu-btn');
+            btn.classList.remove('active');
+            btn.setAttribute('aria-expanded', 'false');
+        }
+        menu.classList.remove('active');
+        menuFor = null;
+    }
+
+    commentsList.addEventListener('click', function(e){
+        var btn = e.target.closest('.comment-menu-btn');
+        if(!btn) return;
+        var comment = btn.closest('.comment');
+        if(menuFor === comment){ closeMenu(); return; }
+        closeMenu();
+        var r = btn.getBoundingClientRect();
+        menu.style.left = r.left + 'px';
+        menu.style.top  = (r.bottom + 4) + 'px';
+        menu.classList.add('active');
+        btn.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+        menuFor = comment;
+    });
+
+    menu.addEventListener('click', function(e){
+        var item = e.target.closest('[data-action]');
+        if(!item || !menuFor) return;
+        var comment = menuFor;
+        closeMenu();
+
+        if(item.dataset.action === 'delete'){
+            comment.remove();
+            updateCount();
+        } else if(item.dataset.action === 'send' && !comment.querySelector('.comment-sent')){
+            // demo only: mark the comment as sent
+            var sent = document.createElement('span');
+            sent.className = 'comment-sent';
+            sent.textContent = ' · Sent to accountant';
+            comment.querySelector('.comment-meta > span').appendChild(sent);
+        }
+    });
+
+    // close the menu on an outside click, Esc, or when the list scrolls (it's fixed to the screen)
+    document.addEventListener('click', function(e){
+        if(menuFor && !e.target.closest('#comment-options') && !e.target.closest('.comment-menu-btn')) closeMenu();
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
+    commentsList.addEventListener('scroll', closeMenu);
 </script>
 
 </body>

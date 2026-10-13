@@ -15,11 +15,20 @@
     --purple: #7A2FF2;
     --purple-dark: #5d1ebc;
 
+    --orange: #F5A623;
+    --orange-light: #F1DFB8;
+    --negative: #9b0043;
+
+    /* see-through fills (show the background behind): text at 6%, brand green at 14% and 30% */
+    --hover-transparent: #3644580F;
+    --green-transparent: #3EC4AB24;
+    --green-ring: #3EC4AB4D;
+
     --ai-btn-gradient: linear-gradient(0deg, var(--purple-dark) 20%, var(--purple) 100%);
 
     --border: #85B0CB30;
     --border-light: #85B0CB20;
-    --border-dark: #85B0CB60;
+    --border-dark: #85B0CB80;
     --white: #ffffff;
     --bg-light: #F1F6FC;
     --bg-light-green: #E6FAEE;
@@ -92,10 +101,39 @@
     
 }
 
-* 
+*
 {
   box-sizing: border-box;
   transition: 0.3s ease;
+}
+
+/* Scrollbars: thin, border-dark thumb on a clear track ----------------------- */
+
+*
+{
+    scrollbar-width: thin;
+    scrollbar-color: var(--label-light) transparent;
+}
+
+/* browsers without scrollbar-color (older Safari) */
+@supports not (scrollbar-color: auto)
+{
+    ::-webkit-scrollbar
+    {
+        width: 6px;
+        height: 6px;
+    }
+
+    ::-webkit-scrollbar-track
+    {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb
+    {
+        background: var(--border-dark);
+        border-radius: var(--radius-rounded);
+    }
 }
 
 body
@@ -191,6 +229,7 @@ h1, h2, h3, h4, h5, h6
     min-height: 38px;
     font-size: 14px;
     border-radius: 4px;
+    color: var(--text);
     border: 2px solid transparent;
     background: transparent;
     cursor: pointer;
@@ -256,6 +295,28 @@ h1, h2, h3, h4, h5, h6
     {
         background: var(--bg-light-green);
     }
+
+    & i, & svg
+    {
+        color: var(--text);
+        stroke: var(--text);
+    }
+}
+
+
+.btn.outline
+{
+    border: 1px solid var(--border);
+
+    &:hover
+    {
+        border-color: var(--border-dark);
+    }
+
+    &.active
+    {
+        background: var(--bg-light-green);
+    }
 }
 
 .btn.clear
@@ -264,11 +325,65 @@ h1, h2, h3, h4, h5, h6
     border-color: transparent;
     mix-blend-mode: multiply;
 
-    &:hover
+    &:hover, &.active
     {
         background: #e6faee;
         border-color: #e6faee;
     }
+}
+
+/* icon-only button: square (add .round for a circle); combine with any style and size */
+.btn.icon
+{
+    width: 38px;
+    padding: 0;
+    flex-shrink: 0;
+
+    &.small
+    {
+        width: 32px;
+    }
+
+    &.large
+    {
+        width: 48px;
+    }
+
+    &.round
+    {
+        border-radius: var(--radius-rounded);
+    }
+}
+
+/* count badge on the top-right corner of a button; hidden when empty */
+.badge
+{
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    --size: 16px;
+    width: var(--size);
+    min-width: var(--size);
+    height: var(--size);
+    border-radius: var(--radius-rounded);
+    background: var(--orange);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+
+    &:empty
+    {
+        display: none;
+    }
+}
+
+.btn:has(.badge)
+{
+    position: relative;
 }
 
 .btn.text
@@ -342,6 +457,12 @@ h1, h2, h3, h4, h5, h6
     {
         border-radius: 4px;
     }
+
+/* outline pairs keep a dividing line between the buttons */
+.wrapper-dual-btn .btn.outline:not(:last-of-type)
+{
+    border-right-width: 1px;
+}
 
 .wrapper-dual-btn .dropdown-wrapper
 {
@@ -509,12 +630,12 @@ h1, h2, h3, h4, h5, h6
 
     & .percentage
     {
-        color: #9b0043;
+        color: var(--negative);
     }
 
     & .stat-icon svg
     {
-        stroke: #9b0043;
+        stroke: var(--negative);
         transform: rotateX(180deg);
     }
 }
@@ -792,6 +913,21 @@ option, .menuItem
         border: 1px solid var(--border);
     }
 }
+
+    /* menu items that are <button>s: drop the browser's button look */
+    button.menuItem
+    {
+        width: 100%;
+        border: none;
+        background: transparent;
+        font-family: inherit;
+        text-align: left;
+    }
+
+    .menuItem.negative
+    {
+        color: var(--negative);
+    }
 
     .menuItem.active, option:active, option:checked
     {
