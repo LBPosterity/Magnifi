@@ -158,15 +158,14 @@
             {
                 text-decoration: none;
                 color: var(--text);
-                background: var(--hover-transparent);   /* see-through so the sidebar gradient shows */
-            }
+                background: rgba(0, 0, 120, 0.04);             }
 
             /* current section */
             &[aria-current="true"]
             {
                 color: var(--green-contrast-text);
                 font-weight: 500;
-                background: var(--green-transparent);
+                background: var(--green-hover);
             }
         }
 
@@ -243,6 +242,16 @@
         & .report-comments
         {
             display: flex;
+            opacity: 1;
+            translate: 0 0;
+            transition: opacity 0.3s ease, translate 0.3s ease;
+
+            /* where the view starts from when it appears: faded out and nudged right, so it slides in */
+            @starting-style
+            {
+                opacity: 0;
+                translate: var(--size-3) 0;
+            }
         }
     }
 
@@ -649,7 +658,7 @@
             '<textarea placeholder="New comment..." aria-label="New comment"></textarea>' +
             '<div class="comment-editor-actions">' +
                 '<button class="btn outline small btn-discard">Discard</button>' +
-                '<button class="btn primary small btn-save"><i data-feather="home"></i>Add</button>' +
+                '<button class="btn primary small btn-save">Save</button>' +
             '</div>';
         commentsList.prepend(editor);
         commentsList.scrollTop = 0;

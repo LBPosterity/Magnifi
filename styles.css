@@ -20,8 +20,7 @@
     --negative: #9b0043;
 
     /* see-through fills (show the background behind): text at 6%, brand green at 14% and 30% */
-    --hover-transparent: #3644580F;
-    --green-transparent: #3EC4AB24;
+    --green-hover: #3EC4AB24;
     --green-ring: #3EC4AB4D;
 
     --ai-btn-gradient: linear-gradient(0deg, var(--purple-dark) 20%, var(--purple) 100%);
