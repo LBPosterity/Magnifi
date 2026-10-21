@@ -25,8 +25,7 @@
         --cover-bg-end: #A3E6DE;        /* soft teal, bottom right */
         --cover-plane-fill: #8EDCCF40;  /* back planes: teal at 25% (deepens where they overlap) */
         --cover-plane-front: #B9F2DF8C; /* front plane: mint at 55% */
-        --cover-plane-edge: #FFFFFF99;  /* bright edge on the front plane */
-        --cover-plane-shadow: #2A8F8A1F;
+        --cover-plane-edge: #ffffff40;  /* bright edge on the front plane */
     }
 
     html,
@@ -82,6 +81,7 @@
         width: var(--plane-width);
         height: var(--plane-height);
         border-radius: 32px;
+        border: 1px solid var(--cover-plane-edge);
         background: var(--cover-plane-fill);
         /* pivot on the bottom-left corner: skew leans the sides over to the right, rotate tips the bottom edge
            down to the right, so each square reads as a tile seen at an angle */
@@ -101,8 +101,6 @@
     .cover-plane:last-child
     {
         background: var(--cover-plane-front);
-        border: 1px solid var(--cover-plane-edge);
-        box-shadow: 0 24px 64px var(--cover-plane-shadow);
     }
 
     /* each plane starts stacked on the front plane's spot and slides out along the cascade */
