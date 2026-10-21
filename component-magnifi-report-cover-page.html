@@ -66,7 +66,7 @@
         pointer-events: none;
 
         --plane-x: 7vw;          /* front plane's bottom-left corner */
-        --plane-y: 32.5vw;
+        --plane-y: 33.5vw;
         --plane-step-x: 7.7vw;   /* cascade step between planes */
         --plane-step-y: 13.9vw;
         --plane-width: 88vw;
@@ -242,7 +242,7 @@
     .cover-close
     {
         position: absolute;
-        bottom: var(--size-1);
+        bottom: var(--size-3);
         left: 50%;
         translate: -50% 0;
         font-size: 12px;
@@ -281,7 +281,7 @@
 
         <div class="cover-actions">
             <div class="cover-contents">
-                <button class="btn outline small" id="btn-contents" aria-expanded="false" aria-controls="cover-contents-menu">Contents <i data-feather="chevron-down"></i></button>
+                <button class="btn outline" id="btn-contents" aria-expanded="false" aria-controls="cover-contents-menu">Contents <i data-feather="chevron-down"></i></button>
                 <!-- same contents tree as the report sidebar (component-magnifi-reports.html) -->
                 <nav class="dropdown-wrapper align-left report-contents" id="cover-contents-menu" aria-label="Report contents">
                     <ul>
@@ -307,7 +307,7 @@
                     </ul>
                 </nav>
             </div>
-            <button class="btn primary small">View Report <i data-feather="chevron-right"></i></button>
+            <button class="btn primary">View Report <i data-feather="chevron-right"></i></button>
         </div>
     </div>
 
