@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<head>
+
+  <title>Magnifi Report cover page</title>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<html lang="en">
+
+
+<style>
+    @import url("styles.css");
+
+    /* cover colours (not in styles.css yet) ------------------------------------------------ */
+
+    :root
+    {
+        --cover-bg-start: #F2FDF9;      /* near-white mint, top left */
+        --cover-bg-end: #A3E6DE;        /* soft teal, bottom right */
+        --cover-plane-fill: #8EDCCF40;  /* back planes: teal at 25% (deepens where they overlap) */
+        --cover-plane-front: #B9F2DF8C; /* front plane: mint at 55% */
+        --cover-plane-edge: #FFFFFF99;  /* bright edge on the front plane */
+        --cover-plane-shadow: #2A8F8A1F;
+    }
+
+    html,
+    body
+    {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    /* page ------------------------------------------------ */
+
+    .report-cover
+    {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding: var(--size-5);
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(110deg, var(--cover-bg-start) 0%, var(--bg-light-green) 35%, var(--cover-bg-end) 100%);
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    /* background planes: tilted, rounded panels that overlap like isometric tiles ------------------------------------------------ */
+
+    /* three identical see-through squares in a cascade: each one sits the same step down and to the right
+       of the one in front (--i = 0 front, 1, 2), so the colour deepens where they overlap.
+       Everything is in vw so the layout keeps its shape at any screen width. */
+    .cover-planes
+    {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        --plane-x: 7vw;          /* front plane's bottom-left corner */
+        --plane-y: 32.5vw;
+        --plane-step-x: 7.7vw;   /* cascade step between planes */
+        --plane-step-y: 13.9vw;
+        --plane-width: 88vw;
+        --plane-height: 80vw;
+    }
+
+    .cover-plane
+    {
+        position: absolute;
+        left: calc(var(--plane-x) + var(--i) * var(--plane-step-x));
+        top: calc(var(--plane-y) + var(--i) * var(--plane-step-y) - var(--plane-height));
+        width: var(--plane-width);
+        height: var(--plane-height);
+        border-radius: 32px;
+        background: var(--cover-plane-fill);
+        /* pivot on the bottom-left corner: skew leans the sides over to the right, rotate tips the bottom edge
+           down to the right, so each square reads as a tile seen at an angle */
+        transform-origin: 0 100%;
+        transform: rotate(11.4deg) skewX(-14.6deg);
+        opacity: 0;
+        animation: cover-plane-in 2.2s cubic-bezier(.2, .7, .2, 1) forwards;
+        animation-delay: calc((2 - var(--i)) * .4s);   /* back plane first, front plane last */
+    }
+
+    /* cascade position: later in the markup = further forward (drawn on top) */
+    .cover-plane:nth-child(1) { --i: 2; }
+    .cover-plane:nth-child(2) { --i: 1; }
+    .cover-plane:nth-child(3) { --i: 0; }
+
+    /* front plane: brighter mint, with a light edge and a soft shadow onto the planes behind */
+    .cover-plane:last-child
+    {
+        background: var(--cover-plane-front);
+        border: 1px solid var(--cover-plane-edge);
+        box-shadow: 0 24px 64px var(--cover-plane-shadow);
+    }
+
+    /* each plane starts stacked on the front plane's spot and slides out along the cascade */
+    @keyframes cover-plane-in
+    {
+        from
+        {
+            opacity: 0;
+            translate: calc(var(--i) * var(--plane-step-x) * -1) calc(var(--i) * var(--plane-step-y) * -1);
+        }
+
+        to
+        {
+            opacity: 1;
+            translate: 0 0;
+        }
+    }
+
+    /* content ------------------------------------------------ */
+
+    .cover-content
+    {
+        position: relative;   /* above the planes */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--size-3);
+        max-width: calc(var(--size-50) * 2);   /* 800px: room for the title on one line */
+        margin-bottom: var(--size-12);   /* 96px: lifts the content so the contents menu has room below */
+        text-align: center;
+        opacity: 0;
+        animation: cover-content-in .8s ease .7s forwards;   /* after the planes have started */
+
+        & img
+        {
+            height: 34px;
+            width: auto;
+            display: block;
+            margin-bottom: var(--size-3);
+        }
+
+        & h1
+        {
+            font-size: 40px;
+            line-height: 1.2;
+        }
+
+        & p
+        {
+            font-size: 18px;
+            color: var(--text-light);
+        }
+    }
+
+    @keyframes cover-content-in
+    {
+        from
+        {
+            opacity: 0;
+            translate: 0 var(--size-2);
+        }
+
+        to
+        {
+            opacity: 1;
+            translate: 0 0;
+        }
+    }
+
+    .cover-actions
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: var(--size-1);
+        margin-top: var(--size-3);
+    }
+
+    /* the contents button opens the standard dropdown menu below it */
+    .cover-contents
+    {
+        position: relative;
+        text-align: left;
+
+        /* long contents scroll inside the menu instead of running off the bottom of the page */
+        & .dropdown-wrapper
+        {
+            max-height: var(--size-34);   /* 272px */
+            overflow-y: auto;
+            padding-inline: var(--size-1);   /* the tree's highlights sit inset from the menu edge */
+        }
+    }
+
+    /* contents tree: copied from .report-contents in component-magnifi-reports.html ------------------------------------------------ */
+
+    .report-contents
+    {
+        & ul
+        {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        & a
+        {
+            display: block;
+            padding: var(--size-1);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            color: var(--text);
+
+            &:hover
+            {
+                text-decoration: none;
+                color: var(--text);
+                background: rgba(0, 0, 120, 0.04);
+            }
+
+            /* current section */
+            &[aria-current="true"]
+            {
+                color: var(--green-contrast-text);
+                font-weight: 500;
+                background: var(--green-hover);
+            }
+        }
+
+        /* nested sections sit behind a vertical guide line */
+        & ul ul
+        {
+            margin: 0 0 var(--size-1) var(--size-1);
+            padding-left: var(--size-1);
+            border-left: 1px solid var(--border-dark);
+        }
+    }
+
+    /* "Close Report Mode" at the bottom of the page */
+    .cover-close
+    {
+        position: absolute;
+        bottom: var(--size-1);
+        left: 50%;
+        translate: -50% 0;
+        font-size: 12px;
+        color: var(--text-light);
+    }
+
+
+    /* no motion: everything is simply there */
+    @media (prefers-reduced-motion: reduce)
+    {
+        .cover-plane,
+        .cover-content
+        {
+            animation: none;
+            opacity: 1;
+        }
+    }
+
+</style>
+
+<body>
+
+<main class="report-cover">
+
+    <!-- background planes (decorative) -->
+    <div class="cover-planes" aria-hidden="true">
+        <div class="cover-plane"></div>
+        <div class="cover-plane"></div>
+        <div class="cover-plane"></div>
+    </div>
+
+    <div class="cover-content">
+        <img src="assets/Magnifi%20Report%20Logo.png" alt="Magnifi Report">
+        <h1>Acme Pty Ltd Quarterly Financial Report</h1>
+        <p>Prepared June 2026 | Financials for April to June 2026</p>
+
+        <div class="cover-actions">
+            <div class="cover-contents">
+                <button class="btn outline small" id="btn-contents" aria-expanded="false" aria-controls="cover-contents-menu">Contents <i data-feather="chevron-down"></i></button>
+                <!-- same contents tree as the report sidebar (component-magnifi-reports.html) -->
+                <nav class="dropdown-wrapper align-left report-contents" id="cover-contents-menu" aria-label="Report contents">
+                    <ul>
+                        <li><a href="#overview">Overview</a></li>
+                        <li><a href="#profit" aria-current="true">Profit</a>
+                            <ul>
+                                <li><a href="#income">Income</a></li>
+                                <li><a href="#direct-profit">Direct Profit</a></li>
+                                <li><a href="#operating-profit">Operating Profit</a></li>
+                                <li><a href="#ebitda">EBITDA</a></li>
+                                <li><a href="#net-profit">Net Profit</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#cash">Cash</a>
+                            <ul>
+                                <li><a href="#cashflow-forecast">Cashflow Forecast</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#profit-to-cash">Profit To Cash</a></li>
+                        <li><a href="#working-capital">Working Capital</a></li>
+                        <li><a href="#capacity">Capacity</a></li>
+                        <li><a href="#productivity">Productivity</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <button class="btn primary small">View Report <i data-feather="chevron-right"></i></button>
+        </div>
+    </div>
+
+    <a class="cover-close" href="#">Close Report Mode</a>
+
+</main>
+
+<script>
+    feather.replace();
+
+    // contents dropdown: open / close on the button, close on an outside click or Esc
+    var contentsBtn  = document.getElementById('btn-contents');
+    var contentsMenu = document.getElementById('cover-contents-menu');
+
+    function setContents(open){
+        contentsMenu.classList.toggle('active', open);
+        contentsBtn.classList.toggle('active', open);
+        contentsBtn.setAttribute('aria-expanded', open);
+    }
+
+    contentsBtn.addEventListener('click', function(){ setContents(!contentsMenu.classList.contains('active')); });
+    document.addEventListener('click', function(e){ if(!e.target.closest('.cover-contents')) setContents(false); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') setContents(false); });
+</script>
+
+</body>
+</html>
