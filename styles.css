@@ -738,6 +738,31 @@ h1, h2, h3, h4, h5, h6
 }
 
 
+/* Customer logo ----------------------------------------  */
+
+/* An uploaded logo, sized by the "equal area" rule: width = base × √(aspect ratio), so wide and square logos
+   have similar visual weight. Supply the ratio (width / height) when the logo is uploaded:
+   <img class="customer-logo" src="..." alt="..." style="--ratio: 2.4">
+   Without a ratio the logo is treated as square. */
+.customer-logo
+{
+    --base: var(--size-10);       /* 80px: the width a square logo gets */
+    --logo-min: var(--size-10);   /* 80px */
+    --logo-max: 300px;
+
+    display: block;
+    transition: none;   /* don't animate the size if the ratio arrives after the first render */
+    height: auto;
+    max-width: 100%;
+    max-height: var(--size-12);   /* 96px: very tall logos shrink to fit, without distorting */
+    object-fit: contain;
+    object-position: top left;
+    /* fallback for browsers without sqrt(): linear scaling */
+    width: clamp(var(--logo-min), calc(var(--base) * var(--ratio, 1)), var(--logo-max));
+    width: clamp(var(--logo-min), calc(var(--base) * sqrt(var(--ratio, 1))), var(--logo-max));
+}
+
+
 /* Toolbar ----------------------------------------  */
 
 /* text-style inputs only (an input with no type is a text input); checkboxes, radios, ranges etc. keep their own look */

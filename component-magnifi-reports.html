@@ -48,12 +48,27 @@
         position: relative;
         flex-shrink: 0;
 
-        & img
+        /* the default Magnifi Report logo; customer logos use .customer-logo from styles.css */
+        & img:not(.customer-logo)
         {
             height: 34px;
             width: auto;
             display: block;
         }
+    }
+
+    /* customer uploaded a logo: plain white sidebar instead of the green gradient */
+    .report-sidebar.custom-logo
+    {
+        background: var(--white);
+    }
+
+    /* collapsed rail: the rotated logo is limited by the height of the rail's logo box instead */
+    .report-sidebar.collapsed .report-brand .customer-logo
+    {
+        width: auto;
+        max-width: 160px;
+        max-height: var(--size-5);
     }
 
     /* report picker ------------------------------------------------ */

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<head>
+
+  <title>Magnifi Report cover page branding samples</title>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<html lang="en">
+
+
+<style>
+    @import url("styles.css");
+
+    /* cover colours (not in styles.css yet) ------------------------------------------------ */
+
+    :root
+    {
+        --cover-bg-start: #F2FDF9;      /* near-white mint, top left */
+        --cover-bg-end: #A3E6DE;        /* soft teal, bottom right */
+        --cover-plane-fill: #8EDCCF40;  /* back planes: teal at 25% (deepens where they overlap) */
+        --cover-plane-front: #B9F2DF8C; /* front plane: mint at 55% */
+        --cover-plane-edge: #ffffff40;  /* bright edge on the front plane */
+        --cover-image-overlay: #1F2A3A99;  /* dark layer over a customer background image: navy at 60% */
+    }
+
+    html,
+    body
+    {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    /* page ------------------------------------------------ */
+
+    .report-cover
+    {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding: var(--size-5);
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(110deg, var(--cover-bg-start) 0%, var(--bg-light-green) 35%, var(--cover-bg-end) 100%);
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    /* background planes: tilted, rounded panels that overlap like isometric tiles ------------------------------------------------ */
+
+    /* three identical see-through squares in a cascade: each one sits the same step down and to the right
+       of the one in front (--i = 0 front, 1, 2), so the colour deepens where they overlap.
+       Everything is in vw so the layout keeps its shape at any screen width. */
+    .cover-planes
+    {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        --plane-x: 7vw;          /* front plane's bottom-left corner */
+        --plane-y: 33.5vw;
+        --plane-step-x: 7.7vw;   /* cascade step between planes */
+        --plane-step-y: 13.9vw;
+        --plane-width: 88vw;
+        --plane-height: 80vw;
+    }
+
+    .cover-plane
+    {
+        position: absolute;
+        left: calc(var(--plane-x) + var(--i) * var(--plane-step-x));
+        top: calc(var(--plane-y) + var(--i) * var(--plane-step-y) - var(--plane-height));
+        width: var(--plane-width);
+        height: var(--plane-height);
+        border-radius: 32px;
+        border: 1px solid var(--cover-plane-edge);
+        background: var(--cover-plane-fill);
+        /* pivot on the bottom-left corner: skew leans the sides over to the right, rotate tips the bottom edge
+           down to the right, so each square reads as a tile seen at an angle */
+        transform-origin: 0 100%;
+        transform: rotate(11.4deg) skewX(-14.6deg);
+        opacity: 0;
+        animation: cover-plane-in 2.2s cubic-bezier(.2, .7, .2, 1) forwards;
+        animation-delay: calc((2 - var(--i)) * .4s);   /* back plane first, front plane last */
+    }
+
+    /* cascade position: later in the markup = further forward (drawn on top) */
+    .cover-plane:nth-child(1) { --i: 2; }
+    .cover-plane:nth-child(2) { --i: 1; }
+    .cover-plane:nth-child(3) { --i: 0; }
+
+    /* front plane: brighter mint, with a light edge and a soft shadow onto the planes behind */
+    .cover-plane:last-child
+    {
+        background: var(--cover-plane-front);
+    }
+
+    /* each plane starts stacked on the front plane's spot and slides out along the cascade */
+    @keyframes cover-plane-in
+    {
+        from
+        {
+            opacity: 0;
+            translate: calc(var(--i) * var(--plane-step-x) * -1) calc(var(--i) * var(--plane-step-y) * -1);
+        }
+
+        to
+        {
+            opacity: 1;
+            translate: 0 0;
+        }
+    }
+
+    /* content ------------------------------------------------ */
+
+    .cover-content
+    {
+        position: relative;   /* above the planes */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--size-3);
+        max-width: calc(var(--size-50) * 2);   /* 800px: room for the title on one line */
+        margin-bottom: var(--size-6); 
+        text-align: center;
+        opacity: 0;
+        animation: cover-content-in .8s ease .7s forwards;   /* after the planes have started */
+
+        & h1
+        {
+            font-size: 40px;
+            line-height: 1.2;
+        }
+
+        & p
+        {
+            font-size: 18px;
+            color: var(--text-light);
+        }
+    }
+
+    /* logo: pinned to the top of the page, the title and buttons stay in the middle ------------------------------------------------ */
+
+    .cover-logo
+    {
+        position: absolute;
+        top: var(--size-7);
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        opacity: 0;
+        animation: cover-content-in .8s ease .7s forwards;
+
+        /* the default Magnifi Report logo; customer logos use .customer-logo from styles.css */
+        & img:not(.customer-logo)
+        {
+            height: 34px;
+            width: auto;
+            display: block;
+        }
+
+        & .customer-logo
+        {
+            --base: var(--size-12);   /* 112px: larger logos on the cover */
+            object-position: top center;
+        }
+    }
+
+    @keyframes cover-content-in
+    {
+        from
+        {
+            opacity: 0;
+            translate: 0 var(--size-2);
+        }
+
+        to
+        {
+            opacity: 1;
+            translate: 0 0;
+        }
+    }
+
+    .cover-actions
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: var(--size-1);
+        margin-top: var(--size-3);
+    }
+
+    /* the contents button opens the standard dropdown menu below it */
+    .cover-contents
+    {
+        position: relative;
+        text-align: left;
+
+        /* long contents scroll inside the menu instead of running off the bottom of the page */
+        & .dropdown-wrapper
+        {
+            max-height: var(--size-34);   /* 272px */
+            overflow-y: auto;
+            padding-inline: var(--size-1);   /* the tree's highlights sit inset from the menu edge */
+        }
+    }
+
+    /* contents tree: copied from .report-contents in component-magnifi-reports.html ------------------------------------------------ */
+
+    .report-contents
+    {
+        & ul
+        {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        & a
+        {
+            display: block;
+            padding: var(--size-1);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            color: var(--text);
+
+            &:hover
+            {
+                text-decoration: none;
+                color: var(--text);
+                background: rgba(0, 0, 120, 0.04);
+            }
+
+            /* current section */
+            &[aria-current="true"]
+            {
+                color: var(--green-contrast-text);
+                font-weight: 500;
+                background: var(--green-hover);
+            }
+        }
+
+        /* nested sections sit behind a vertical guide line */
+        & ul ul
+        {
+            margin: 0 0 var(--size-1) var(--size-1);
+            padding-left: var(--size-1);
+            border-left: 1px solid var(--border-dark);
+        }
+    }
+
+    /* "Close Report Mode" at the bottom of the page */
+    .cover-close
+    {
+        position: absolute;
+        bottom: var(--size-3);
+        left: 50%;
+        translate: -50% 0;
+        font-size: 12px;
+        color: var(--text-light);
+    }
+
+
+    /* no motion: everything is simply there */
+    @media (prefers-reduced-motion: reduce)
+    {
+        .cover-plane,
+        .cover-logo,
+        .cover-content
+        {
+            animation: none;
+            opacity: 1;
+        }
+    }
+
+
+    /* branding samples: covers stacked down the page, each a full screen to scroll through ------------------------------------------------ */
+
+    /* covers further down the page wait to animate until they're scrolled into view */
+    .report-cover:not(.in-view)
+    {
+        & .cover-plane,
+        & .cover-image,
+        & .cover-logo,
+        & .cover-content
+        {
+            animation-play-state: paused;
+        }
+    }
+
+    /* customer background image: replaces the planes and covers the whole page.
+       A dark layer over the photo keeps the text readable whatever the image is */
+    .cover-image
+    {
+        position: absolute;
+        inset: 0;
+        background-position: center;
+        background-size: cover;
+        opacity: 0;
+        animation: cover-image-in 1.2s ease forwards;
+
+        &::after
+        {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--cover-image-overlay);
+        }
+    }
+
+    @keyframes cover-image-in
+    {
+        to
+        {
+            opacity: 1;
+        }
+    }
+
+    /* on a background image: light text, and a solid Contents button so it stands out from the photo */
+    .report-cover.has-image
+    {
+        & .cover-content h1,
+        & .cover-content p,
+        & .cover-close
+        {
+            color: var(--white);
+        }
+
+        & .btn.outline:not(.active)
+        {
+            background: var(--white);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce)
+    {
+        .cover-image
+        {
+            animation: none;
+            opacity: 1;
+        }
+    }
+
+</style>
+
+<body>
+
+<div id="branding-samples"></div>
+
+<!-- one cover: copied once per sample by the script below -->
+<template id="cover-template">
+<main class="report-cover">
+
+    <!-- background planes (decorative) -->
+    <div class="cover-planes" aria-hidden="true">
+        <div class="cover-plane"></div>
+        <div class="cover-plane"></div>
+        <div class="cover-plane"></div>
+    </div>
+
+    <div class="cover-logo">
+        <img src="assets/Magnifi%20Report%20Logo.png" alt="Magnifi Report">
+    </div>
+
+    <div class="cover-content">
+        <h1>Acme Pty Ltd Quarterly Financial Report</h1>
+        <p>Prepared June 2026 | Financials for April to June 2026</p>
+
+        <div class="cover-actions">
+            <div class="cover-contents">
+                <button class="btn outline" id="btn-contents" aria-expanded="false" aria-controls="cover-contents-menu">Contents <i data-feather="chevron-down"></i></button>
+                <!-- same contents tree as the report sidebar (component-magnifi-reports.html) -->
+                <nav class="dropdown-wrapper align-left report-contents" id="cover-contents-menu" aria-label="Report contents">
+                    <ul>
+                        <li><a href="#overview">Overview</a></li>
+                        <li><a href="#profit" aria-current="true">Profit</a>
+                            <ul>
+                                <li><a href="#income">Income</a></li>
+                                <li><a href="#direct-profit">Direct Profit</a></li>
+                                <li><a href="#operating-profit">Operating Profit</a></li>
+                                <li><a href="#ebitda">EBITDA</a></li>
+                                <li><a href="#net-profit">Net Profit</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#cash">Cash</a>
+                            <ul>
+                                <li><a href="#cashflow-forecast">Cashflow Forecast</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#profit-to-cash">Profit To Cash</a></li>
+                        <li><a href="#working-capital">Working Capital</a></li>
+                        <li><a href="#capacity">Capacity</a></li>
+                        <li><a href="#productivity">Productivity</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <button class="btn primary">View Report <i data-feather="chevron-right"></i></button>
+        </div>
+    </div>
+
+    <a class="cover-close" href="#">Close Report Mode</a>
+
+</main>
+</template>
+
+<script>
+    // one cover per sample. No logo = the Magnifi Report logo; no image = the green planes.
+    // ratio = the logo file's width / height, worked out ahead of time
+    var SAMPLES = [
+        { name: 'Magnifi Report' },                                                                                                                     // default: nothing uploaded
+        { name: 'Commercial Collective', logo: 'assets/logos/com-collective-logo.png', ratio: 4.202, image: 'assets/logos/com-collective-hero.jpg' },   // logo 1000 × 238
+        { name: 'Zimple', logo: 'assets/logos/zimple-inverted-logo.svg', ratio: 2.462, image: 'assets/logos/hero-zimple.avif' },                        // logo 128 × 52
+        { name: 'Commercial Collective', logo: 'assets/logos/com-collective-landscape-logo.png', ratio: 2.4 }                                           // logo only, 600 × 250
+    ];
+
+    var samples  = document.getElementById('branding-samples');
+    var template = document.getElementById('cover-template');
+
+    SAMPLES.forEach(function(sample, index){
+        var cover = template.content.cloneNode(true).firstElementChild;
+        var img   = cover.querySelector('.cover-logo img');
+
+        // each copy needs its own ids
+        cover.querySelectorAll('[id]').forEach(function(el){ el.id += '-' + index; });
+        cover.querySelectorAll('[aria-controls]').forEach(function(el){
+            el.setAttribute('aria-controls', el.getAttribute('aria-controls') + '-' + index);
+        });
+
+        if(sample.logo){
+            img.classList.add('customer-logo');
+            img.style.setProperty('--ratio', sample.ratio);
+            img.src = sample.logo;
+            img.alt = sample.name;
+        }
+
+        if(sample.image){
+            var image = document.createElement('div');
+            image.className = 'cover-image';
+            image.style.backgroundImage = 'url("' + sample.image + '")';
+            cover.querySelector('.cover-planes').replaceWith(image);
+            cover.classList.add('has-image');
+        }
+
+        samples.appendChild(cover);
+        initContents(cover);
+    });
+
+    feather.replace();
+
+    // start each cover's animation the first time it scrolls into view
+    var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+            if(entry.isIntersecting){
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: .4 });
+
+    samples.querySelectorAll('.report-cover').forEach(function(cover){ observer.observe(cover); });
+
+    // contents dropdown: open / close on the button, close on an outside click or Esc
+    function initContents(cover){
+        var wrapper      = cover.querySelector('.cover-contents');
+        var contentsBtn  = wrapper.querySelector('.btn');
+        var contentsMenu = wrapper.querySelector('.dropdown-wrapper');
+
+        function setContents(open){
+            contentsMenu.classList.toggle('active', open);
+            contentsBtn.classList.toggle('active', open);
+            contentsBtn.setAttribute('aria-expanded', open);
+        }
+
+        contentsBtn.addEventListener('click', function(){ setContents(!contentsMenu.classList.contains('active')); });
+        document.addEventListener('click', function(e){ if(!wrapper.contains(e.target)) setContents(false); });
+        document.addEventListener('keydown', function(e){ if(e.key === 'Escape') setContents(false); });
+    }
+</script>
+
+</body>
+</html>

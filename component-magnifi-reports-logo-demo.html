@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+
+<head>
+
+  <title>Magnifi Reports logo demo</title>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<meta charset="UTF-8">
+
+</head>
+
+<html lang="en">
+
+
+<style>
+    @import url("styles.css");
+
+    /* page: sidebar pinned to the left edge, full height, no spacing around it */
+    html,
+    body
+    {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+
+    .report-sidebar
+    {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-2);   /* spacing between logo, picker, nav, scrolling area and footer */
+        width: var(--size-48);
+        height: 100vh;
+        height: 100dvh;   /* full viewport height, allowing for mobile browser toolbars */
+        padding: var(--size-3) var(--size-5) var(--size-1) var(--size-5);
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(120deg, var(--bg-light-green) 0%, var(--white) 55%);
+        border-right: 1px solid var(--border-dark);
+        overflow: hidden;
+    }
+
+    /* brand ------------------------------------------------ */
+
+    .report-brand
+    {
+        position: relative;
+        flex-shrink: 0;
+
+        /* the default Magnifi Report logo; customer logos use .customer-logo from styles.css */
+        & img:not(.customer-logo)
+        {
+            height: 34px;
+            width: auto;
+            display: block;
+        }
+    }
+
+    /* customer uploaded a logo: plain white sidebar instead of the green gradient */
+    .report-sidebar.custom-logo
+    {
+        background: var(--white);
+    }
+
+    /* collapsed rail: the rotated logo is limited by the height of the rail's logo box instead */
+    .report-sidebar.collapsed .report-brand .customer-logo
+    {
+        width: auto;
+        max-width: 160px;
+        max-height: var(--size-5);
+    }
+
+    /* report picker ------------------------------------------------ */
+
+    .report-sidebar select
+    {
+        width: 100%;
+        min-height: 50px;
+        padding: var(--size-1) var(--size-2);
+        font-size: 13px;
+        line-height: 1.3;
+        color: var(--text);
+        white-space: normal;
+        border-radius: var(--radius-md);
+        flex-shrink: 0;
+    }
+
+    .report-sidebar select:focus::picker-icon
+    {
+        color: var(--green-contrast);
+    }
+
+    /* options list: same width as the select (customisable select + anchor positioning - Chromium browsers) */
+    .report-sidebar select::picker(select)
+    {
+        width: anchor-size(width);
+        min-width: 0;
+    }
+
+    /* long names wrap instead of truncating, up to 3 lines. The clamp sits on a span inside the
+       option, so the option's own padding doesn't let a 4th line peek through */
+    .report-sidebar select option span
+    {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        overflow: hidden;
+        white-space: normal;
+        line-height: 1.3;
+    }
+
+    /* section navigation ------------------------------------------------ */
+
+    .report-nav
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    /* scrolling area: contents tree + section content ------------------------------------------------ */
+
+    .report-scroll
+    {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-3);   /* between the contents tree (when open) and the section content */
+        margin-inline: calc(var(--size-1) * -1);
+        padding-inline: var(--size-1);
+        /* a scrolling area always clips what hangs outside it, so give the comments button's count badge
+           room at the top: pad by the badge's overhang and pull the area up the same amount (no visual shift) */
+        margin-top: calc(var(--size-1) * -1);
+        padding-top: var(--size-1);
+    }
+
+    /* contents tree ------------------------------------------------ */
+
+    .report-contents
+    {
+        display: none;
+        flex-shrink: 0;
+        padding-bottom: var(--size-2);
+        border-bottom: 1px solid var(--border-dark);
+
+        &.open
+        {
+            display: block;
+        }
+
+        & ul
+        {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        & a
+        {
+            display: block;
+            padding: var(--size-1);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            color: var(--text);
+
+            &:hover
+            {
+                text-decoration: none;
+                color: var(--text);
+                background: rgba(0, 0, 120, 0.04);             }
+
+            /* current section */
+            &[aria-current="true"]
+            {
+                color: var(--green-contrast-text);
+                font-weight: 500;
+                background: var(--green-hover);
+            }
+        }
+
+        /* nested sections sit behind a vertical guide line */
+        & ul ul
+        {
+            margin: 0 0 var(--size-1) var(--size-1);
+            padding-left: var(--size-1);
+            border-left: 1px solid var(--border-dark);
+        }
+    }
+
+    /* section content ------------------------------------------------ */
+
+    .report-section
+    {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-2);   /* between heading, paragraphs and buttons */
+
+        & h2
+        {
+            color: var(--green-contrast-text);
+        }
+
+        & p
+        {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+    }
+
+    .report-actions
+    {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: var(--size-1);
+    }
+
+    /* section heading + comments button ------------------------------------------------ */
+
+    .report-heading
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--size-1);
+    }
+
+
+    /* comments view: takes over the sidebar below the logo ------------------------------------------------ */
+
+    .report-comments
+    {
+        display: none;
+        flex: 1;
+        min-height: 0;
+        flex-direction: column;
+        gap: var(--size-2);
+    }
+
+    .report-sidebar.comments-mode
+    {
+        & > select,
+        & .report-nav,
+        & .report-scroll
+        {
+            display: none;
+        }
+
+        & .report-comments
+        {
+            display: flex;
+            opacity: 1;
+            translate: 0 0;
+            transition: opacity 0.3s ease, translate 0.3s ease;
+
+            /* where the view starts from when it appears: faded out and nudged right, so it slides in */
+            @starting-style
+            {
+                opacity: 0;
+                translate: var(--size-3) 0;
+            }
+        }
+    }
+
+    .comments-header
+    {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--size-1);
+        flex-shrink: 0;
+
+        & h2
+        {
+            flex: 1;
+            color: var(--green-contrast-text);
+        }
+    }
+
+    /* scrolling list of comments */
+    .comments-list
+    {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;   /* scrolling past the end doesn't scroll the page behind */
+        display: flex;
+        flex-direction: column;
+        margin-inline: calc(var(--size-1) * -1);
+        padding: var(--size-0-5) var(--size-1) var(--size-2);
+
+        /* comments keep their full height and the list scrolls, instead of squashing them to fit */
+        & > *
+        {
+            flex-shrink: 0;
+        }
+    }
+
+    /* comment card: default (soft amber border, light meta text) → hover (orange border, dark meta text) */
+    .comment-card
+    {
+        padding: var(--size-2);
+        background: var(--white);
+        border: 1px solid var(--orange-light);
+        border-radius: var(--radius-md);
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text);
+    }
+
+    .comment:hover .comment-card
+    {
+        border-color: var(--orange);
+    }
+
+    .comment:hover .comment-meta,
+    .comment:hover .comment-meta .comment-author
+    {
+        color: var(--text);
+    }
+
+    /* author, date and the "…" menu under each comment */
+    .comment-meta
+    {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--size-0-25) var(--size-1) var(--size-2) var(--size-1);
+        font-size: 13px;
+        color: var(--text-light);
+
+        & .comment-author
+        {
+            font-weight: 600;
+        }
+
+        & .comment-sent
+        {
+            color: var(--green-contrast-text);
+            font-weight: 500;
+        }
+    }
+
+    /* the standard .dropdown-wrapper, fixed to the screen (positioned by the script) so the
+       sidebar's clipping doesn't cut it off; it can hang out over the report area */
+    .comment-options
+    {
+        position: fixed;
+        right: auto;   /* the script sets left/top from the "…" button */
+        transition: opacity 0.3s ease;   /* fade in only: don't slide from the last position */
+    }
+
+    /* new-comment editor, inserted at the top of the list */
+    .comment-editor
+    {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-2);
+        margin-bottom: var(--size-3);   /* space between the new comment and the comments below */
+
+        & textarea
+        {
+            width: 100%;
+            min-height: 80px;
+            max-height: 300px;   /* grows with the text up to here, then scrolls */
+            field-sizing: content;
+            padding: 0;
+            border: none;
+            outline: none;
+            resize: none;
+            background: transparent;
+            font: inherit;
+            color: var(--text);
+
+            &::placeholder
+            {
+                color: var(--label-light);
+            }
+        }
+    }
+
+    .comment-editor-actions
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    /* footer ------------------------------------------------ */
+
+    .report-footer
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+        padding-top: var(--size-1);
+        border-top: 1px solid var(--border-dark);
+
+        & .btn
+        {
+            color: var(--text-light);
+        }
+
+        & .btn svg
+        {
+            stroke: var(--text-light);
+        }
+    }
+
+    /* collapsed: a narrow rail with the logo turned vertical and the expand button ------------------------------------------------ */
+
+    .report-sidebar.collapsed
+    {
+        width: var(--size-9);
+        padding-inline: var(--size-1);
+        justify-content: space-between;   /* logo at the top, expand button at the bottom */
+
+        /* the box is as tall as the logo is wide; the logo is rotated 90deg inside it */
+        & .report-brand
+        {
+            height: 160px;
+        }
+
+        /* rotated to read top to bottom, and 10% smaller than the full-width logo */
+        & .report-brand img
+        {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(90deg) scale(.8);
+        }
+
+        & > select,
+        & .report-nav,
+        & .report-scroll,
+        & .report-comments,
+        & .btn-exit
+        {
+            display: none;
+        }
+
+        & .report-footer
+        {
+            justify-content: center;
+        }
+
+        & .btn-collapse svg
+        {
+            transform: rotate(180deg);
+        }
+    }
+
+
+    /* logo demo: the same sidebar repeated side by side, one per logo ------------------------------------------------ */
+
+    .logo-demo
+    {
+        display: flex;
+        flex-direction: row;
+        height: 100vh;
+        height: 100dvh;
+        overflow-x: auto;
+    }
+
+    .logo-demo-item
+    {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        min-height: 0;
+    }
+
+    /* the sidebar fills its column */
+    .logo-demo .report-sidebar
+    {
+        flex: 1;
+        min-height: 0;
+        height: auto;
+    }
+
+
+</style>
+
+<body>
+
+<main class="logo-demo" id="logo-demo"></main>
+
+<!-- one sidebar: copied once per logo by the script below -->
+<template id="sidebar-template">
+<div class="logo-demo-item">
+
+<aside class="report-sidebar" id="report-sidebar" aria-label="Report navigation">
+
+    <div class="report-brand">
+        <img src="assets/Magnifi%20Report%20Logo.png" alt="Magnifi Report">
+    </div>
+
+    <select aria-label="Choose a report">
+        <option selected><span>Acme Corporate Pty Ltd 2026 Q3 Quarterly Financial Report</span></option>
+        <option><span>Acme Corporate Pty Ltd 2026 Q2 Quarterly Financial Report</span></option>
+        <option><span>Acme Corporate Pty Ltd 2026 Q1 Quarterly Financial Report</span></option>
+        <option><span>Acme Corporate Pty Ltd 2025 Annual Financial Report</span></option>
+        <option><span>Acme Corporate Pty Ltd and Controlled Entities 2025 Consolidated Annual Financial Report with Board Commentary and Divisional Performance Breakdown</span></option>
+    </select>
+
+    <div class="report-nav">
+        <div class="wrapper-dual-btn">
+            <button class="btn outline small" id="btn-prev" aria-label="Previous section"><i data-feather="chevron-left"></i></button>
+            <button class="btn outline small" id="btn-contents" aria-expanded="false" aria-controls="report-contents">Contents</button>
+        </div>
+        <button class="btn primary small" id="btn-next">Next <i data-feather="chevron-right"></i></button>
+    </div>
+
+    <div class="report-scroll">
+
+        <nav class="report-contents" id="report-contents" aria-label="Report contents">
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#profit" aria-current="true">Profit</a>
+                    <ul>
+                        <li><a href="#income">Income</a></li>
+                        <li><a href="#direct-profit">Direct Profit</a></li>
+                        <li><a href="#operating-profit">Operating Profit</a></li>
+                        <li><a href="#ebitda">EBITDA</a></li>
+                        <li><a href="#net-profit">Net Profit</a></li>
+                    </ul>
+                </li>
+                <li><a href="#cash">Cash</a>
+                    <ul>
+                        <li><a href="#cashflow-forecast">Cashflow Forecast</a></li>
+                    </ul>
+                </li>
+                <li><a href="#profit-to-cash">Profit To Cash</a></li>
+                <li><a href="#working-capital">Working Capital</a></li>
+                <li><a href="#capacity">Capacity</a></li>
+                <li><a href="#productivity">Productivity</a></li>
+            </ul>
+        </nav>
+
+        <section class="report-section">
+            <div class="report-heading">
+                <h2 id="report-section-title">Profit</h2>
+                <button class="btn secondary small icon" id="btn-comments" aria-label="Comments"><i class="fa-regular fa-comment"></i><span class="badge" id="comment-badge"></span></button>
+            </div>
+            <p>There was a Total Operating Profit of $174,102 Year to Date (YTD), behind budget (down $140,522, 45%).</p>
+            <p>The shortfall was driven by Biz Services Pty Limited, where income growth on last year was strong but fell short of this year's budget, while overhead spending ran well ahead of plan.</p>
+            <p>Biz Administration Pty Limited recorded no activity against its budgeted contribution, adding a further gap to the Group's result.</p>
+
+            <div class="report-actions">
+                <button class="btn tertiary small">View Chart</button>
+                <button class="btn tertiary small">Additional Reports</button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- comments view: replaces the picker, nav and content while open -->
+    <div class="report-comments" id="report-comments">
+        <div class="comments-header">
+            <button class="btn outline small icon round" id="btn-comments-back" aria-label="Back to report"><i data-feather="chevron-left"></i></button>
+            <h2>Comments</h2>
+            <button class="btn primary small icon" id="btn-add-comment" aria-label="Add comment"><i data-feather="plus"></i></button>
+        </div>
+        <div class="comments-list" id="comments-list"></div>
+    </div>
+
+    <div class="report-footer">
+        <button class="btn clear btn-exit">Exit Report</button>
+        <button class="btn clear btn-collapse" id="btn-collapse" aria-label="Collapse sidebar" aria-expanded="true"><i data-feather="chevrons-left"></i></button>
+    </div>
+
+</aside>
+
+<!-- comment options menu (one shared menu, opened beside whichever comment's "…" was clicked) -->
+<div class="dropdown-wrapper comment-options" id="comment-options" role="menu">
+    <button class="menuItem" role="menuitem" data-action="send">Send To Accountant</button>
+    <button class="menuItem negative" role="menuitem" data-action="delete">Delete</button>
+</div>
+
+</div>
+</template>
+
+
+<script>
+    // one sidebar per logo. Add a line here to try another logo
+    var LOGOS = [
+        { name: 'Magnifi Report (default)', src: 'assets/Magnifi%20Report%20Logo.png', isDefault: true },
+        { name: 'Acme, long landscape', src: 'assets/logos/acme-landscape-long.png', ratio: 10.337 },              // 1013 × 98
+        { name: 'Acme, landscape', src: 'assets/logos/acme-landscape.png', ratio: 3.104 },                        // 714 × 230
+        { name: 'Acme, square', src: 'assets/logos/acme-square.png', ratio: 1 },                                  // 564 × 564
+        { name: 'Acme, portrait', src: 'assets/logos/acme-portrait.png', ratio: 0.708 },                          // 375 × 530
+        { name: 'Acme, tall portrait', src: 'assets/logos/acme-portrait-tall.png', ratio: 0.391 },                // 280 × 716
+        { name: 'Commercial Collective', src: 'assets/logos/com-collective-landscape-logo.png', ratio: 2.4 },     // 600 × 250
+        { name: 'Maxim', src: 'assets/logos/maxim-logo.jpg', ratio: 3.3 },                                        // 561 × 170
+        { name: 'Maxim, portrait', src: 'assets/logos/maxim-portrait-logo.jpg', ratio: 1 },                       // 938 × 938
+        { name: 'Newcastle Permanent', src: 'assets/logos/newy-perm-logo.png', ratio: 2.703 },                    // 319 × 118
+        { name: 'University of Newcastle', src: 'assets/logos/newy-uni-logo.png', ratio: 1.8 },                   // 900 × 500
+        { name: 'Northshire Logistics', src: 'assets/logos/northshire-logistics-logo.png', ratio: 5.95 }          // 1190 × 200
+    ];
+
+    var demo     = document.getElementById('logo-demo');
+    var template = document.getElementById('sidebar-template');
+
+    LOGOS.forEach(function(logo, index){
+        var item    = template.content.cloneNode(true).firstElementChild;
+        var suffix  = '-' + index;
+        var brand   = item.querySelector('.report-brand');
+        var img     = brand.querySelector('img');
+
+        // each copy needs its own ids
+        item.querySelectorAll('[id]').forEach(function(el){ el.id += suffix; });
+        item.querySelectorAll('[aria-controls]').forEach(function(el){
+            el.setAttribute('aria-controls', el.getAttribute('aria-controls') + suffix);
+        });
+
+        img.alt = logo.name;
+        // aspect ratio for the equal area sizing, worked out ahead of time (a logo without one is treated as square)
+        if(logo.ratio) img.style.setProperty('--ratio', logo.ratio);
+        img.src = logo.src;
+        img.classList.toggle('customer-logo', !logo.isDefault);
+        item.querySelector('.report-sidebar').classList.toggle('custom-logo', !logo.isDefault);
+
+        demo.appendChild(item);
+        initSidebar(suffix);
+    });
+
+    feather.replace();
+
+    // the behaviour from component-magnifi-reports.html, run once per sidebar
+    function initSidebar(suffix){
+    function byId(id){ return document.getElementById(id + suffix); }
+
+    var sidebar  = byId('report-sidebar');
+    var contents = byId('report-contents');
+    var toggle   = byId('btn-contents');
+    var collapse = byId('btn-collapse');
+    var title    = byId('report-section-title');
+    var links    = Array.prototype.slice.call(contents.querySelectorAll('a'));
+
+    // Contents: show / hide the tree
+    toggle.addEventListener('click', function(){
+        var open = !contents.classList.contains('open');
+        contents.classList.toggle('open', open);
+        toggle.classList.toggle('active', open);
+        toggle.setAttribute('aria-expanded', open);
+    });
+
+    // Go to a section: mark it current in the tree and show its title
+    function goTo(index){
+        if(index < 0 || index >= links.length) return;
+        links.forEach(function(link){ link.removeAttribute('aria-current'); });
+        links[index].setAttribute('aria-current', 'true');
+        title.textContent = links[index].textContent;
+    }
+
+    function currentIndex(){
+        return links.findIndex(function(link){ return link.getAttribute('aria-current') === 'true'; });
+    }
+
+    links.forEach(function(link, i){
+        link.addEventListener('click', function(e){ e.preventDefault(); goTo(i); });
+    });
+    byId('btn-prev').addEventListener('click', function(){ goTo(currentIndex() - 1); });
+    byId('btn-next').addEventListener('click', function(){ goTo(currentIndex() + 1); });
+
+    // Collapse / expand the whole sidebar
+    collapse.addEventListener('click', function(){
+        var collapsed = sidebar.classList.toggle('collapsed');
+        collapse.setAttribute('aria-expanded', !collapsed);
+        collapse.setAttribute('aria-label', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
+    });
+
+    // ---------- Comments ----------
+    var CURRENT_USER = 'Adam Jones';
+    var commentsList = byId('comments-list');
+    var commentBadge = byId('comment-badge');
+    var commentsBtn  = byId('btn-comments');
+    var menu         = byId('comment-options');
+    var menuFor      = null;   // the comment whose "…" menu is open
+
+    // sample comments for the demo
+    var sampleComments = [
+        { text: 'Revenue is up 8% QoQ, but how much of that is the one-off Henderson contract? I\'d like to see organic growth broken out.', author: 'Adam Jones', date: '21/11/26 10:42 AM' },
+        { text: 'EBITDA looks healthy, but operating cash flow doesn\'t match. What\'s happening in working capital?', author: 'Adam Jones', date: '19/11/26 1:09 AM' },
+        { text: 'Headcount is up 15% but revenue per employee has gone backwards. Walk me through the hiring plan.', author: 'Adam Jones', date: '17/11/26 4:25 AM' },
+        { text: 'Debtor days have crept from 38 to 52. Are we chasing the overdue accounts, or is this a timing issue at quarter end?', author: 'Adam Jones', date: '14/11/26 3:18 PM' },
+        { text: 'Overheads are 12% over budget. Which line items are driving that, and are any of them one-off?', author: 'Adam Jones', date: '12/11/26 9:55 AM' },
+        { text: 'The cashflow forecast assumes the bank facility is renewed in March. What\'s the plan if it isn\'t?', author: 'Adam Jones', date: '10/11/26 2:30 PM' },
+        { text: 'Gross margin on Biz Services dropped 4 points. Pricing, or cost of delivery?', author: 'Adam Jones', date: '07/11/26 11:06 AM' },
+        { text: 'Can we get the capacity numbers by team rather than for the whole group? Utilisation looks fine overall but I suspect one team is stretched.', author: 'Adam Jones', date: '04/11/26 4:47 PM' }
+    ];
+
+    // e.g. 13/10/26 2:05 PM
+    function formatDate(d){
+        var pad = function(n){ return (n < 10 ? '0' : '') + n; };
+        var h = d.getHours(), ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12;
+        return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + String(d.getFullYear()).slice(-2) + ' ' + h + ':' + pad(d.getMinutes()) + ' ' + ampm;
+    }
+
+    function buildComment(c){
+        var el = document.createElement('div');
+        el.className = 'comment';
+        el.innerHTML =
+            '<div class="comment-card"></div>' +
+            '<div class="comment-meta">' +
+                '<span><span class="comment-author"></span> <span class="comment-date"></span></span>' +
+                '<button class="btn clear small icon comment-menu-btn" aria-label="Comment options" aria-haspopup="menu" aria-expanded="false"><i data-feather="more-horizontal"></i></button>' +
+            '</div>';
+        // user text goes in as text, never as HTML
+        el.querySelector('.comment-card').textContent = c.text;
+        el.querySelector('.comment-author').textContent = c.author;
+        el.querySelector('.comment-date').textContent = c.date;
+        return el;
+    }
+
+    // count badge on the comments button
+    function updateCount(){
+        var n = commentsList.querySelectorAll('.comment').length;
+        commentBadge.textContent = n || '';
+        commentsBtn.setAttribute('aria-label', n ? 'Comments (' + n + ')' : 'Comments');
+    }
+
+    sampleComments.forEach(function(c){ commentsList.appendChild(buildComment(c)); });
+    feather.replace();
+    updateCount();
+
+    // open / close the comments view
+    commentsBtn.addEventListener('click', function(){ sidebar.classList.add('comments-mode'); });
+    byId('btn-comments-back').addEventListener('click', function(){
+        closeMenu();
+        sidebar.classList.remove('comments-mode');
+    });
+
+    // "+": an editor at the top of the list, ready to type
+    byId('btn-add-comment').addEventListener('click', function(){
+        var existing = commentsList.querySelector('.comment-editor textarea');
+        if(existing){ existing.focus(); return; }
+
+        var editor = document.createElement('div');
+        editor.className = 'comment-card comment-editor';
+        editor.innerHTML =
+            '<textarea placeholder="New comment..." aria-label="New comment"></textarea>' +
+            '<div class="comment-editor-actions">' +
+                '<button class="btn outline small btn-discard">Discard</button>' +
+                '<button class="btn primary small btn-save">Save</button>' +
+            '</div>';
+        commentsList.prepend(editor);
+        commentsList.scrollTop = 0;
+        feather.replace();
+
+        var textarea = editor.querySelector('textarea');
+        textarea.focus();
+
+        // grow with the text in browsers without CSS field-sizing (the max-height still caps it)
+        if(!CSS.supports('field-sizing', 'content')){
+            textarea.addEventListener('input', function(){
+                textarea.style.height = 'auto';
+                textarea.style.height = textarea.scrollHeight + 'px';
+            });
+        }
+
+        editor.querySelector('.btn-discard').addEventListener('click', function(){ editor.remove(); });
+        editor.querySelector('.btn-save').addEventListener('click', function(){
+            var text = textarea.value.trim();
+            if(!text){ textarea.focus(); return; }
+            editor.replaceWith(buildComment({ text: text, author: CURRENT_USER, date: formatDate(new Date()) }));
+            feather.replace();
+            updateCount();
+        });
+    });
+
+    // "…" menu: opens under the clicked button, left edges aligned
+    function closeMenu(){
+        if(menuFor) {
+            var btn = menuFor.querySelector('.comment-menu-btn');
+            btn.classList.remove('active');
+            btn.setAttribute('aria-expanded', 'false');
+        }
+        menu.classList.remove('active');
+        menuFor = null;
+    }
+
+    commentsList.addEventListener('click', function(e){
+        var btn = e.target.closest('.comment-menu-btn');
+        if(!btn) return;
+        var comment = btn.closest('.comment');
+        if(menuFor === comment){ closeMenu(); return; }
+        closeMenu();
+        var r = btn.getBoundingClientRect();
+        menu.style.left = r.left + 'px';
+        menu.style.top  = (r.bottom + 4) + 'px';
+        menu.classList.add('active');
+        btn.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+        menuFor = comment;
+    });
+
+    menu.addEventListener('click', function(e){
+        var item = e.target.closest('[data-action]');
+        if(!item || !menuFor) return;
+        var comment = menuFor;
+        closeMenu();
+
+        if(item.dataset.action === 'delete'){
+            comment.remove();
+            updateCount();
+        } else if(item.dataset.action === 'send' && !comment.querySelector('.comment-sent')){
+            // demo only: mark the comment as sent
+            var sent = document.createElement('span');
+            sent.className = 'comment-sent';
+            sent.textContent = ' · Sent to accountant';
+            comment.querySelector('.comment-meta > span').appendChild(sent);
+        }
+    });
+
+    // close the menu on an outside click, Esc, or when the list scrolls (it's fixed to the screen)
+    document.addEventListener('click', function(e){
+        var menuBtn = e.target.closest('.comment-menu-btn');
+        var ownBtn  = menuBtn && commentsList.contains(menuBtn);   // a "…" in another sidebar closes this one's menu
+        if(menuFor && !menu.contains(e.target) && !ownBtn) closeMenu();
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
+    commentsList.addEventListener('scroll', closeMenu);
+    demo.addEventListener('scroll', closeMenu);   // the row of sidebars scrolls sideways too
+    }
+</script>
+
+</body>
+
+</html>

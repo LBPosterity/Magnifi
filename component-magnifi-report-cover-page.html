@@ -129,18 +129,10 @@
         align-items: center;
         gap: var(--size-3);
         max-width: calc(var(--size-50) * 2);   /* 800px: room for the title on one line */
-        margin-bottom: var(--size-12);   /* 96px: lifts the content so the contents menu has room below */
+        margin-bottom: var(--size-6); 
         text-align: center;
         opacity: 0;
         animation: cover-content-in .8s ease .7s forwards;   /* after the planes have started */
-
-        & img
-        {
-            height: 34px;
-            width: auto;
-            display: block;
-            margin-bottom: var(--size-3);
-        }
 
         & h1
         {
@@ -152,6 +144,34 @@
         {
             font-size: 18px;
             color: var(--text-light);
+        }
+    }
+
+    /* logo: pinned to the top of the page, the title and buttons stay in the middle ------------------------------------------------ */
+
+    .cover-logo
+    {
+        position: absolute;
+        top: var(--size-7);
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        opacity: 0;
+        animation: cover-content-in .8s ease .7s forwards;
+
+        /* the default Magnifi Report logo; customer logos use .customer-logo from styles.css */
+        & img:not(.customer-logo)
+        {
+            height: 34px;
+            width: auto;
+            display: block;
+        }
+
+        & .customer-logo
+        {
+            --base: var(--size-12);   /* 112px: larger logos on the cover */
+            object-position: top center;
         }
     }
 
@@ -254,6 +274,7 @@
     @media (prefers-reduced-motion: reduce)
     {
         .cover-plane,
+        .cover-logo,
         .cover-content
         {
             animation: none;
@@ -274,8 +295,11 @@
         <div class="cover-plane"></div>
     </div>
 
-    <div class="cover-content">
+    <div class="cover-logo">
         <img src="assets/Magnifi%20Report%20Logo.png" alt="Magnifi Report">
+    </div>
+
+    <div class="cover-content">
         <h1>Acme Pty Ltd Quarterly Financial Report</h1>
         <p>Prepared June 2026 | Financials for April to June 2026</p>
 
