@@ -276,13 +276,12 @@ h1, h2, h3, h4, h5, h6
 
 .btn.secondary
 {
-    background: #e6faee;
-    border-color: #e6faee;
+    background: var(--bg-light-green);
+    border-color: transparent;
 
     &:hover
     {
-        background: #ddf5e6;
-        border-color: #ddf5e6;
+        background: var(--bg-light-green-hover);
     }
 }
 

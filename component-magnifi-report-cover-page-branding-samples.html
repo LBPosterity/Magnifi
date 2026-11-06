@@ -200,65 +200,6 @@
         margin-top: var(--size-3);
     }
 
-    /* the contents button opens the standard dropdown menu below it */
-    .cover-contents
-    {
-        position: relative;
-        text-align: left;
-
-        /* long contents scroll inside the menu instead of running off the bottom of the page */
-        & .dropdown-wrapper
-        {
-            max-height: var(--size-34);   /* 272px */
-            overflow-y: auto;
-            padding-inline: var(--size-1);   /* the tree's highlights sit inset from the menu edge */
-        }
-    }
-
-    /* contents tree: copied from .report-contents in component-magnifi-reports.html ------------------------------------------------ */
-
-    .report-contents
-    {
-        & ul
-        {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        & a
-        {
-            display: block;
-            padding: var(--size-1);
-            border-radius: var(--radius-sm);
-            font-size: 14px;
-            color: var(--text);
-
-            &:hover
-            {
-                text-decoration: none;
-                color: var(--text);
-                background: rgba(0, 0, 120, 0.04);
-            }
-
-            /* current section */
-            &[aria-current="true"]
-            {
-                color: var(--green-contrast-text);
-                font-weight: 500;
-                background: var(--green-hover);
-            }
-        }
-
-        /* nested sections sit behind a vertical guide line */
-        & ul ul
-        {
-            margin: 0 0 var(--size-1) var(--size-1);
-            padding-left: var(--size-1);
-            border-left: 1px solid var(--border-dark);
-        }
-    }
-
     /* "Close Report Mode" at the bottom of the page */
     .cover-close
     {
@@ -326,7 +267,7 @@
         }
     }
 
-    /* on a background image: light text, and a solid Contents button so it stands out from the photo */
+    /* on a background image: light text */
     .report-cover.has-image
     {
         & .cover-content h1,
@@ -334,11 +275,6 @@
         & .cover-close
         {
             color: var(--white);
-        }
-
-        & .btn.outline:not(.active)
-        {
-            background: var(--white);
         }
     }
 
@@ -377,33 +313,6 @@
         <p>Prepared June 2026 | Financials for April to June 2026</p>
 
         <div class="cover-actions">
-            <div class="cover-contents">
-                <button class="btn outline" id="btn-contents" aria-expanded="false" aria-controls="cover-contents-menu">Contents <i data-feather="chevron-down"></i></button>
-                <!-- same contents tree as the report sidebar (component-magnifi-reports.html) -->
-                <nav class="dropdown-wrapper align-left report-contents" id="cover-contents-menu" aria-label="Report contents">
-                    <ul>
-                        <li><a href="#overview">Overview</a></li>
-                        <li><a href="#profit" aria-current="true">Profit</a>
-                            <ul>
-                                <li><a href="#income">Income</a></li>
-                                <li><a href="#direct-profit">Direct Profit</a></li>
-                                <li><a href="#operating-profit">Operating Profit</a></li>
-                                <li><a href="#ebitda">EBITDA</a></li>
-                                <li><a href="#net-profit">Net Profit</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#cash">Cash</a>
-                            <ul>
-                                <li><a href="#cashflow-forecast">Cashflow Forecast</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#profit-to-cash">Profit To Cash</a></li>
-                        <li><a href="#working-capital">Working Capital</a></li>
-                        <li><a href="#capacity">Capacity</a></li>
-                        <li><a href="#productivity">Productivity</a></li>
-                    </ul>
-                </nav>
-            </div>
             <button class="btn primary">View Report <i data-feather="chevron-right"></i></button>
         </div>
     </div>
@@ -452,7 +361,6 @@
         }
 
         samples.appendChild(cover);
-        initContents(cover);
     });
 
     feather.replace();
@@ -468,23 +376,6 @@
     }, { threshold: .4 });
 
     samples.querySelectorAll('.report-cover').forEach(function(cover){ observer.observe(cover); });
-
-    // contents dropdown: open / close on the button, close on an outside click or Esc
-    function initContents(cover){
-        var wrapper      = cover.querySelector('.cover-contents');
-        var contentsBtn  = wrapper.querySelector('.btn');
-        var contentsMenu = wrapper.querySelector('.dropdown-wrapper');
-
-        function setContents(open){
-            contentsMenu.classList.toggle('active', open);
-            contentsBtn.classList.toggle('active', open);
-            contentsBtn.setAttribute('aria-expanded', open);
-        }
-
-        contentsBtn.addEventListener('click', function(){ setContents(!contentsMenu.classList.contains('active')); });
-        document.addEventListener('click', function(e){ if(!wrapper.contains(e.target)) setContents(false); });
-        document.addEventListener('keydown', function(e){ if(e.key === 'Escape') setContents(false); });
-    }
 </script>
 
 </body>
