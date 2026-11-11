@@ -326,10 +326,11 @@
     // one cover per sample. No logo = the Magnifi Report logo; no image = the green planes.
     // ratio = the logo file's width / height, worked out ahead of time
     var SAMPLES = [
-        { name: 'Magnifi Report' },                                                                                                                     // default: nothing uploaded
+        { name: 'Magnifi Report' },
+        { name: 'Commercial Collective', logo: 'assets/logos/com-collective-landscape-logo.png', ratio: 2.4 },                                                                                                                     // default: nothing uploaded
         { name: 'Commercial Collective', logo: 'assets/logos/com-collective-logo.png', ratio: 4.202, image: 'assets/logos/com-collective-hero.jpg' },   // logo 1000 × 238
-        { name: 'Zimple', logo: 'assets/logos/zimple-inverted-logo.svg', ratio: 2.462, image: 'assets/logos/hero-zimple.avif' },                        // logo 128 × 52
-        { name: 'Commercial Collective', logo: 'assets/logos/com-collective-landscape-logo.png', ratio: 2.4 }                                           // logo only, 600 × 250
+        { name: 'Zimple', logo: 'assets/logos/zimple-inverted-logo.svg', ratio: 2.462, image: 'assets/logos/hero-zimple.avif' }                        // logo 128 × 52
+                                                   // logo only, 600 × 250
     ];
 
     var samples  = document.getElementById('branding-samples');
