@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+
+<head>
+
+  <title>Magnifi Reports custom branding: Zimple</title>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<html lang="en">
+
+
+<style>
+    @import url("styles.css");
+    @import url("styles-reports.css");
+
+    /* Zimple's branding, as it would be supplied with the customer's uploads ------------------------------------------------ */
+
+    /* brand colour: Zimple red, from their logo. Set on .custom-brand itself so it wins over the default in styles-reports.css */
+    .custom-brand
+    {
+        --custom-brand: #E82218;
+    }
+
+    :root
+    {
+        /* standard Magnifi cover colours, for covers without a brand colour (.custom-brand replaces them) */
+        --cover-bg-start: #F2FDF9;
+        --cover-bg-end: #A3E6DE;
+        --cover-plane-fill: #8EDCCF40;
+        --cover-plane-front: #B9F2DF8C;
+        --cover-plane-edge: #ffffff40;
+
+        --cover-image-overlay: #1F2A3A99;   /* dark layer over the background image: navy at 60% */
+        --cover-bg-colour: #0d1f35;         /* solid background colour: Zimple navy */
+    }
+
+    /* solid background colour: replaces the planes, with light text like a background image */
+    .report-cover.has-colour
+    {
+        background: var(--cover-bg-colour);
+
+        & .cover-content h1,
+        & .cover-content p,
+        & .cover-close
+        {
+            color: var(--white);
+        }
+    }
+
+
+    html,
+    body
+    {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    /* page ------------------------------------------------ */
+
+    .report-cover
+    {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding: var(--size-5);
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(110deg, var(--cover-bg-start) 0%, var(--bg-light-green) 35%, var(--cover-bg-end) 100%);
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    /* background planes: tilted, rounded panels that overlap like isometric tiles ------------------------------------------------ */
+
+    /* three identical see-through squares in a cascade: each one sits the same step down and to the right
+       of the one in front (--i = 0 front, 1, 2), so the colour deepens where they overlap.
+       Everything is in vw so the layout keeps its shape at any screen width. */
+    .cover-planes
+    {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        --plane-x: 7vw;          /* front plane's bottom-left corner */
+        --plane-y: 33.5vw;
+        --plane-step-x: 7.7vw;   /* cascade step between planes */
+        --plane-step-y: 13.9vw;
+        --plane-width: 88vw;
+        --plane-height: 80vw;
+    }
+
+    .cover-plane
+    {
+        position: absolute;
+        left: calc(var(--plane-x) + var(--i) * var(--plane-step-x));
+        top: calc(var(--plane-y) + var(--i) * var(--plane-step-y) - var(--plane-height));
+        width: var(--plane-width);
+        height: var(--plane-height);
+        border-radius: 32px;
+        border: 1px solid var(--cover-plane-edge);
+        background: var(--cover-plane-fill);
+        /* pivot on the bottom-left corner: skew leans the sides over to the right, rotate tips the bottom edge
+           down to the right, so each square reads as a tile seen at an angle */
+        transform-origin: 0 100%;
+        transform: rotate(11.4deg) skewX(-14.6deg);
+        opacity: 0;
+        animation: cover-plane-in 2.2s cubic-bezier(.2, .7, .2, 1) forwards;
+        animation-delay: calc((2 - var(--i)) * .4s);   /* back plane first, front plane last */
+    }
+
+    /* cascade position: later in the markup = further forward (drawn on top) */
+    .cover-plane:nth-child(1) { --i: 2; }
+    .cover-plane:nth-child(2) { --i: 1; }
+    .cover-plane:nth-child(3) { --i: 0; }
+
+    /* front plane: brighter mint, with a light edge and a soft shadow onto the planes behind */
+    .cover-plane:last-child
+    {
+        background: var(--cover-plane-front);
+    }
+
+    /* each plane starts stacked on the front plane's spot and slides out along the cascade */
+    @keyframes cover-plane-in
+    {
+        from
+        {
+            opacity: 0;
+            translate: calc(var(--i) * var(--plane-step-x) * -1) calc(var(--i) * var(--plane-step-y) * -1);
+        }
+
+        to
+        {
+            opacity: 1;
+            translate: 0 0;
+        }
+    }
+
+    /* content ------------------------------------------------ */
+
+    .cover-content
+    {
+        position: relative;   /* above the planes */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--size-3);
+        max-width: calc(var(--size-50) * 2);   /* 800px: room for the title on one line */
+        margin-bottom: var(--size-6); 
+        text-align: center;
+        opacity: 0;
+        animation: cover-content-in .8s ease .7s forwards;   /* after the planes have started */
+
+        & h1
+        {
+            font-size: 40px;
+            line-height: 1.2;
+        }
+
+        & p
+        {
+            font-size: 18px;
+            color: var(--text-light);
+        }
+    }
+
+    /* logo: pinned to the top of the page, the title and buttons stay in the middle ------------------------------------------------ */
+
+    .cover-logo
+    {
+        position: absolute;
+        top: var(--size-7);
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        opacity: 0;
+        animation: cover-content-in .8s ease .7s forwards;
+
+        /* the default Magnifi Report logo; customer logos use .customer-logo from styles.css */
+        & img:not(.customer-logo)
+        {
+            height: 34px;
+            width: auto;
+            display: block;
+        }
+
+        & .customer-logo
+        {
+            --base: var(--size-12);   /* 112px: larger logos on the cover */
+            object-position: top center;
+        }
+    }
+
+    @keyframes cover-content-in
+    {
+        from
+        {
+            opacity: 0;
+            translate: 0 var(--size-2);
+        }
+
+        to
+        {
+            opacity: 1;
+            translate: 0 0;
+        }
+    }
+
+    .cover-actions
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: var(--size-1);
+        margin-top: var(--size-3);
+    }
+
+    /* "Close Report Mode" at the bottom of the page */
+    .cover-close
+    {
+        position: absolute;
+        bottom: var(--size-3);
+        left: 50%;
+        translate: -50% 0;
+        font-size: 12px;
+        color: var(--text-light);
+    }
+
+
+    /* no motion: everything is simply there */
+    @media (prefers-reduced-motion: reduce)
+    {
+        .cover-plane,
+        .cover-logo,
+        .cover-content
+        {
+            animation: none;
+            opacity: 1;
+        }
+    }
+
+
+    /* branding samples: covers stacked down the page, each a full screen to scroll through ------------------------------------------------ */
+
+    /* covers further down the page wait to animate until they're scrolled into view */
+    .report-cover:not(.in-view)
+    {
+        & .cover-plane,
+        & .cover-image,
+        & .cover-logo,
+        & .cover-content
+        {
+            animation-play-state: paused;
+        }
+    }
+
+    /* customer background image: replaces the planes and covers the whole page.
+       A dark layer over the photo keeps the text readable whatever the image is */
+    .cover-image
+    {
+        position: absolute;
+        inset: 0;
+        background-position: center;
+        background-size: cover;
+        opacity: 0;
+        animation: cover-image-in 1.2s ease forwards;
+
+        &::after
+        {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--cover-image-overlay);
+        }
+    }
+
+    @keyframes cover-image-in
+    {
+        to
+        {
+            opacity: 1;
+        }
+    }
+
+    /* on a background image: light text */
+    .report-cover.has-image
+    {
+        & .cover-content h1,
+        & .cover-content p,
+        & .cover-close
+        {
+            color: var(--white);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce)
+    {
+        .cover-image
+        {
+            animation: none;
+            opacity: 1;
+        }
+    }
+
+
+    /* custom branding page: the two covers and the report sidebar stacked, scroll between them ------------------------------------------------ */
+
+    /* report sample: the sidebar at full screen height */
+    .branding-report
+    {
+        display: flex;
+        height: 100vh;
+        height: 100dvh;
+    }
+
+</style>
+
+<body>
+
+<!-- 1. COVER: ZIMPLE LOGO ONLY (Magnifi colours) -->
+<main class="report-cover custom-logo">
+
+    <!-- background planes (decorative) -->
+    <div class="cover-planes" aria-hidden="true">
+        <div class="cover-plane"></div>
+        <div class="cover-plane"></div>
+        <div class="cover-plane"></div>
+    </div>
+
+    <div class="cover-logo">
+        <img class="customer-logo" src="assets/logos/zimple-logo-dark.svg" alt="Zimple" style="--ratio: 2.462">
+    </div>
+
+    <div class="cover-content">
+        <h1>Acme Pty Ltd Quarterly Financial Report</h1>
+        <p>Prepared June 2026 | Financials for April to June 2026</p>
+
+        <div class="cover-actions">
+            <button class="btn primary">View Report <i data-feather="chevron-right"></i></button>
+        </div>
+    </div>
+
+    <a class="cover-close" href="#">Close Report Mode</a>
+
+</main>
+
+<!-- 2. COVER: ZIMPLE LOGO AND BRAND COLOUR -->
+<main class="report-cover custom-logo custom-brand">
+
+    <!-- background planes (decorative) -->
+    <div class="cover-planes" aria-hidden="true">
+        <div class="cover-plane"></div>
+        <div class="cover-plane"></div>
+        <div class="cover-plane"></div>
+    </div>
+
+    <div class="cover-logo">
+        <img class="customer-logo" src="assets/logos/zimple-logo-dark.svg" alt="Zimple" style="--ratio: 2.462">
+    </div>
+
+    <div class="cover-content">
+        <h1>Acme Pty Ltd Quarterly Financial Report</h1>
+        <p>Prepared June 2026 | Financials for April to June 2026</p>
+
+        <div class="cover-actions">
+            <button class="btn primary">View Report <i data-feather="chevron-right"></i></button>
+        </div>
+    </div>
+
+    <a class="cover-close" href="#">Close Report Mode</a>
+
+</main>
+
+<!-- 3. COVER: ZIMPLE LOGO, BRAND COLOUR AND SOLID BACKGROUND COLOUR -->
+<main class="report-cover custom-logo custom-brand has-colour">
+
+    <!-- solid background colour: no planes -->
+
+    <div class="cover-logo">
+        <img class="customer-logo" src="assets/logos/zimple-inverted-logo.svg" alt="Zimple" style="--ratio: 2.462">
+    </div>
+
+    <div class="cover-content">
+        <h1>Acme Pty Ltd Quarterly Financial Report</h1>
+        <p>Prepared June 2026 | Financials for April to June 2026</p>
+
+        <div class="cover-actions">
+            <button class="btn primary">View Report <i data-feather="chevron-right"></i></button>
+        </div>
+    </div>
+
+    <a class="cover-close" href="#">Close Report Mode</a>
+
+</main>
+
+<!-- 4. COVER: ZIMPLE LOGO, BRAND COLOUR AND BACKGROUND IMAGE -->
+<main class="report-cover custom-logo custom-brand has-image">
+
+    <!-- customer background image -->
+    <div class="cover-image" style="background-image: url('assets/logos/hero-zimple.avif')"></div>
+
+    <div class="cover-logo">
+        <img class="customer-logo" src="assets/logos/zimple-inverted-logo.svg" alt="Zimple" style="--ratio: 2.462">
+    </div>
+
+    <div class="cover-content">
+        <h1>Acme Pty Ltd Quarterly Financial Report</h1>
+        <p>Prepared June 2026 | Financials for April to June 2026</p>
+
+        <div class="cover-actions">
+            <button class="btn primary">View Report <i data-feather="chevron-right"></i></button>
+        </div>
+    </div>
+
+    <a class="cover-close" href="#">Close Report Mode</a>
+
+</main>
+
+<!-- 5. REPORT: SIDEBAR WITH THE ZIMPLE LOGO AND BRAND COLOUR -->
+<section class="branding-report">
+
+<aside class="report-sidebar custom-logo custom-brand" id="report-sidebar" aria-label="Report navigation">
+
+    <div class="report-brand">
+        <img class="customer-logo" src="assets/logos/zimple-logo-dark.svg" alt="Zimple" style="--ratio: 2.462">
+    </div>
+
+    <select aria-label="Choose a report">
+        <option selected><span>Acme Corporate Pty Ltd 2026 Q3 Quarterly Financial Report</span></option>
+        <option><span>Acme Corporate Pty Ltd 2026 Q2 Quarterly Financial Report</span></option>
+        <option><span>Acme Corporate Pty Ltd 2026 Q1 Quarterly Financial Report</span></option>
+        <option><span>Acme Corporate Pty Ltd 2025 Annual Financial Report</span></option>
+        <option><span>Acme Corporate Pty Ltd and Controlled Entities 2025 Consolidated Annual Financial Report with Board Commentary and Divisional Performance Breakdown</span></option>
+    </select>
+
+    <div class="report-nav">
+        <div class="wrapper-dual-btn">
+            <button class="btn outline small" id="btn-prev" aria-label="Previous section"><i data-feather="chevron-left"></i></button>
+            <button class="btn outline small" id="btn-contents" aria-expanded="false" aria-controls="report-contents">Contents</button>
+        </div>
+        <button class="btn primary small" id="btn-next">Next <i data-feather="chevron-right"></i></button>
+    </div>
+
+    <div class="report-scroll">
+
+        <nav class="report-contents" id="report-contents" aria-label="Report contents">
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#profit" aria-current="true">Profit</a>
+                    <ul>
+                        <li><a href="#income">Income</a></li>
+                        <li><a href="#direct-profit">Direct Profit</a></li>
+                        <li><a href="#operating-profit">Operating Profit</a></li>
+                        <li><a href="#ebitda">EBITDA</a></li>
+                        <li><a href="#net-profit">Net Profit</a></li>
+                    </ul>
+                </li>
+                <li><a href="#cash">Cash</a>
+                    <ul>
+                        <li><a href="#cashflow-forecast">Cashflow Forecast</a></li>
+                    </ul>
+                </li>
+                <li><a href="#profit-to-cash">Profit To Cash</a></li>
+                <li><a href="#working-capital">Working Capital</a></li>
+                <li><a href="#capacity">Capacity</a></li>
+                <li><a href="#productivity">Productivity</a></li>
+            </ul>
+        </nav>
+
+        <section class="report-section">
+            <div class="report-heading">
+                <h2 id="report-section-title">Profit</h2>
+                <button class="btn secondary small icon" id="btn-comments" aria-label="Comments"><i class="fa-regular fa-comment"></i><span class="badge" id="comment-badge"></span></button>
+            </div>
+            <p>There was a Total Operating Profit of $174,102 Year to Date (YTD), behind budget (down $140,522, 45%).</p>
+            <p>The shortfall was driven by Biz Services Pty Limited, where income growth on last year was strong but fell short of this year's budget, while overhead spending ran well ahead of plan.</p>
+            <p>Biz Administration Pty Limited recorded no activity against its budgeted contribution, adding a further gap to the Group's result.</p>
+
+            <div class="report-actions">
+                <button class="btn tertiary small">View Chart</button>
+                <button class="btn tertiary small">Additional Reports</button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- comments view: replaces the picker, nav and content while open -->
+    <div class="report-comments" id="report-comments">
+        <div class="comments-header">
+            <button class="btn outline small icon round" id="btn-comments-back" aria-label="Back to report"><i data-feather="chevron-left"></i></button>
+            <h2>Comments</h2>
+            <button class="btn primary small icon" id="btn-add-comment" aria-label="Add comment"><i data-feather="plus"></i></button>
+        </div>
+        <div class="comments-list" id="comments-list"></div>
+    </div>
+
+    <div class="report-footer">
+        <button class="btn clear btn-exit">Exit Report</button>
+        <button class="btn clear btn-collapse" id="btn-collapse" aria-label="Collapse sidebar" aria-expanded="true"><i data-feather="chevrons-left"></i></button>
+    </div>
+
+</aside>
+
+<!-- comment options menu (one shared menu, opened beside whichever comment's "…" was clicked) -->
+<div class="dropdown-wrapper comment-options" id="comment-options" role="menu">
+    <button class="menuItem" role="menuitem" data-action="send">Send To Accountant</button>
+    <button class="menuItem negative" role="menuitem" data-action="delete">Delete</button>
+</div>
+
+
+</section>
+
+<script>
+    // ---------- Covers ----------
+
+    // start each cover's animation the first time it scrolls into view
+    var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+            if(entry.isIntersecting){
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: .4 });
+
+    document.querySelectorAll('.report-cover').forEach(function(cover){ observer.observe(cover); });
+
+    // ---------- Report sidebar ----------
+    feather.replace();
+
+    var sidebar  = document.getElementById('report-sidebar');
+    var contents = document.getElementById('report-contents');
+    var toggle   = document.getElementById('btn-contents');
+    var collapse = document.getElementById('btn-collapse');
+    var title    = document.getElementById('report-section-title');
+    var links    = Array.prototype.slice.call(contents.querySelectorAll('a'));
+
+    // Contents: show / hide the tree
+    toggle.addEventListener('click', function(){
+        var open = !contents.classList.contains('open');
+        contents.classList.toggle('open', open);
+        toggle.classList.toggle('active', open);
+        toggle.setAttribute('aria-expanded', open);
+    });
+
+    // Go to a section: mark it current in the tree and show its title
+    function goTo(index){
+        if(index < 0 || index >= links.length) return;
+        links.forEach(function(link){ link.removeAttribute('aria-current'); });
+        links[index].setAttribute('aria-current', 'true');
+        title.textContent = links[index].textContent;
+    }
+
+    function currentIndex(){
+        return links.findIndex(function(link){ return link.getAttribute('aria-current') === 'true'; });
+    }
+
+    links.forEach(function(link, i){
+        link.addEventListener('click', function(e){ e.preventDefault(); goTo(i); });
+    });
+    document.getElementById('btn-prev').addEventListener('click', function(){ goTo(currentIndex() - 1); });
+    document.getElementById('btn-next').addEventListener('click', function(){ goTo(currentIndex() + 1); });
+
+    // Collapse / expand the whole sidebar
+    collapse.addEventListener('click', function(){
+        var collapsed = sidebar.classList.toggle('collapsed');
+        collapse.setAttribute('aria-expanded', !collapsed);
+        collapse.setAttribute('aria-label', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
+    });
+
+    // ---------- Comments ----------
+    var CURRENT_USER = 'Adam Jones';
+    var commentsList = document.getElementById('comments-list');
+    var commentBadge = document.getElementById('comment-badge');
+    var commentsBtn  = document.getElementById('btn-comments');
+    var menu         = document.getElementById('comment-options');
+    var menuFor      = null;   // the comment whose "…" menu is open
+
+    // sample comments for the demo
+    var sampleComments = [
+        { text: 'Revenue is up 8% QoQ, but how much of that is the one-off Henderson contract? I\'d like to see organic growth broken out.', author: 'Adam Jones', date: '21/11/26 10:42 AM' },
+        { text: 'EBITDA looks healthy, but operating cash flow doesn\'t match. What\'s happening in working capital?', author: 'Adam Jones', date: '19/11/26 1:09 AM' },
+        { text: 'Headcount is up 15% but revenue per employee has gone backwards. Walk me through the hiring plan.', author: 'Adam Jones', date: '17/11/26 4:25 AM' },
+        { text: 'Debtor days have crept from 38 to 52. Are we chasing the overdue accounts, or is this a timing issue at quarter end?', author: 'Adam Jones', date: '14/11/26 3:18 PM' },
+        { text: 'Overheads are 12% over budget. Which line items are driving that, and are any of them one-off?', author: 'Adam Jones', date: '12/11/26 9:55 AM' },
+        { text: 'The cashflow forecast assumes the bank facility is renewed in March. What\'s the plan if it isn\'t?', author: 'Adam Jones', date: '10/11/26 2:30 PM' },
+        { text: 'Gross margin on Biz Services dropped 4 points. Pricing, or cost of delivery?', author: 'Adam Jones', date: '07/11/26 11:06 AM' },
+        { text: 'Can we get the capacity numbers by team rather than for the whole group? Utilisation looks fine overall but I suspect one team is stretched.', author: 'Adam Jones', date: '04/11/26 4:47 PM' }
+    ];
+
+    // e.g. 13/10/26 2:05 PM
+    function formatDate(d){
+        var pad = function(n){ return (n < 10 ? '0' : '') + n; };
+        var h = d.getHours(), ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12;
+        return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + String(d.getFullYear()).slice(-2) + ' ' + h + ':' + pad(d.getMinutes()) + ' ' + ampm;
+    }
+
+    function buildComment(c){
+        var el = document.createElement('div');
+        el.className = 'comment';
+        el.innerHTML =
+            '<div class="comment-card"></div>' +
+            '<div class="comment-meta">' +
+                '<span><span class="comment-author"></span> <span class="comment-date"></span></span>' +
+                '<button class="btn clear small icon comment-menu-btn" aria-label="Comment options" aria-haspopup="menu" aria-expanded="false"><i data-feather="more-horizontal"></i></button>' +
+            '</div>';
+        // user text goes in as text, never as HTML
+        el.querySelector('.comment-card').textContent = c.text;
+        el.querySelector('.comment-author').textContent = c.author;
+        el.querySelector('.comment-date').textContent = c.date;
+        return el;
+    }
+
+    // count badge on the comments button
+    function updateCount(){
+        var n = commentsList.querySelectorAll('.comment').length;
+        commentBadge.textContent = n || '';
+        commentsBtn.setAttribute('aria-label', n ? 'Comments (' + n + ')' : 'Comments');
+    }
+
+    sampleComments.forEach(function(c){ commentsList.appendChild(buildComment(c)); });
+    feather.replace();
+    updateCount();
+
+    // open / close the comments view
+    commentsBtn.addEventListener('click', function(){ sidebar.classList.add('comments-mode'); });
+    document.getElementById('btn-comments-back').addEventListener('click', function(){
+        closeMenu();
+        sidebar.classList.remove('comments-mode');
+    });
+
+    // "+": an editor at the top of the list, ready to type
+    document.getElementById('btn-add-comment').addEventListener('click', function(){
+        var existing = commentsList.querySelector('.comment-editor textarea');
+        if(existing){ existing.focus(); return; }
+
+        var editor = document.createElement('div');
+        editor.className = 'comment-card comment-editor';
+        editor.innerHTML =
+            '<textarea placeholder="New comment..." aria-label="New comment"></textarea>' +
+            '<div class="comment-editor-actions">' +
+                '<button class="btn outline small btn-discard">Discard</button>' +
+                '<button class="btn primary small btn-save">Save</button>' +
+            '</div>';
+        commentsList.prepend(editor);
+        commentsList.scrollTop = 0;
+        feather.replace();
+
+        var textarea = editor.querySelector('textarea');
+        textarea.focus();
+
+        // grow with the text in browsers without CSS field-sizing (the max-height still caps it)
+        if(!CSS.supports('field-sizing', 'content')){
+            textarea.addEventListener('input', function(){
+                textarea.style.height = 'auto';
+                textarea.style.height = textarea.scrollHeight + 'px';
+            });
+        }
+
+        editor.querySelector('.btn-discard').addEventListener('click', function(){ editor.remove(); });
+        editor.querySelector('.btn-save').addEventListener('click', function(){
+            var text = textarea.value.trim();
+            if(!text){ textarea.focus(); return; }
+            editor.replaceWith(buildComment({ text: text, author: CURRENT_USER, date: formatDate(new Date()) }));
+            feather.replace();
+            updateCount();
+        });
+    });
+
+    // "…" menu: opens under the clicked button, left edges aligned
+    function closeMenu(){
+        if(menuFor) {
+            var btn = menuFor.querySelector('.comment-menu-btn');
+            btn.classList.remove('active');
+            btn.setAttribute('aria-expanded', 'false');
+        }
+        menu.classList.remove('active');
+        menuFor = null;
+    }
+
+    commentsList.addEventListener('click', function(e){
+        var btn = e.target.closest('.comment-menu-btn');
+        if(!btn) return;
+        var comment = btn.closest('.comment');
+        if(menuFor === comment){ closeMenu(); return; }
+        closeMenu();
+        var r = btn.getBoundingClientRect();
+        menu.style.left = r.left + 'px';
+        menu.style.top  = (r.bottom + 4) + 'px';
+        menu.classList.add('active');
+        btn.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+        menuFor = comment;
+    });
+
+    menu.addEventListener('click', function(e){
+        var item = e.target.closest('[data-action]');
+        if(!item || !menuFor) return;
+        var comment = menuFor;
+        closeMenu();
+
+        if(item.dataset.action === 'delete'){
+            comment.remove();
+            updateCount();
+        } else if(item.dataset.action === 'send' && !comment.querySelector('.comment-sent')){
+            // demo only: mark the comment as sent
+            var sent = document.createElement('span');
+            sent.className = 'comment-sent';
+            sent.textContent = ' · Sent to accountant';
+            comment.querySelector('.comment-meta > span').appendChild(sent);
+        }
+    });
+
+    // close the menu on an outside click, Esc, or when the list scrolls (it's fixed to the screen)
+    document.addEventListener('click', function(e){
+        if(menuFor && !e.target.closest('#comment-options') && !e.target.closest('.comment-menu-btn')) closeMenu();
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
+    commentsList.addEventListener('scroll', closeMenu);
+</script>
+
+</body>
+
+</html>

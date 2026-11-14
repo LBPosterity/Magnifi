@@ -3,6 +3,34 @@
    @import url("styles.css");
    @import url("styles-reports.css"); */
 
+   
+
+/* Custom brand ------------------------------------------------
+   A customer's own brand colour in place of the Magnifi greens. Add .custom-brand to the cover or sidebar
+   and supply the colour, e.g. :root { --custom-brand: #f37227; } or style="--custom-brand: #f37227" */
+
+.custom-brand
+{
+    --custom-brand: purple;
+    --brand-green: var(--custom-brand);
+    --green-tint: var(--custom-brand);
+    --green-contrast: var(--custom-brand);
+    --green-contrast-text: var(--custom-brand);
+    --green-dark: var(--custom-brand);
+
+    --bg-light-green: color-mix(in srgb, var(--custom-brand) 20%, transparent);
+    --bg-light-green-hover: color-mix(in srgb, var(--custom-brand) 25%, transparent);
+
+    /* cover background: white, with the planes tinted in the brand colour */
+    --cover-bg-start: var(--white);
+    --cover-bg-end: var(--white);
+    --cover-plane-fill: color-mix(in srgb, var(--custom-brand) 8%, transparent);    /* back planes */
+    --cover-plane-front: color-mix(in srgb, var(--custom-brand) 14%, transparent);  /* front plane */
+    --cover-plane-edge: color-mix(in srgb, var(--custom-brand) 10%, transparent);   /* edge on each plane */
+}
+
+
+
 /* Report sidebar ------------------------------------------------ */
 
 .report-sidebar
@@ -444,117 +472,4 @@
 .report-cover.custom-logo
 {
     background: var(--white);
-}
-
-
-/* Custom brand ------------------------------------------------
-   A customer's own brand colour in place of the Magnifi greens. Add .custom-brand to the cover or sidebar
-   and supply the colour, e.g. :root { --custom-brand: #f37227; } or style="--custom-brand: #f37227" */
-
-.custom-brand
-{
-    --brand-green: var(--custom-brand);
-    --green-tint: var(--custom-brand);
-    --green-contrast: var(--custom-brand);
-    --green-contrast-text: var(--custom-brand);
-    --green-dark: var(--custom-brand);
-
-    --bg-light: var(--custom-brand);
-    --bg-light-green: color-mix(in srgb, var(--custom-brand) 20%, transparent);
-    --bg-light-green-hover: color-mix(in srgb, var(--custom-brand) 25%, transparent);
-
-    /* cover background: white, with the planes tinted in the brand colour */
-    --cover-bg-start: var(--white);
-    --cover-bg-end: var(--white);
-    --cover-plane-fill: color-mix(in srgb, var(--custom-brand) 8%, transparent);    /* back planes */
-    --cover-plane-front: color-mix(in srgb, var(--custom-brand) 14%, transparent);  /* front plane */
-    --cover-plane-edge: color-mix(in srgb, var(--custom-brand) 10%, transparent);   /* edge on each plane */
-}
-
-
-/* Custom brand B ------------------------------------------------
-   A quieter alternative to .custom-brand: the brand colour is kept for the accents (the main accent,
-   primary button text, the current contents item, focus rings) and everything that was green turns neutral grey.
-   Suits brand colours that would be too loud spread across the whole UI.
-   Add .custom-brand-b instead of .custom-brand, and supply the colour the same way: --custom-brand: #f37227 */
-
-.custom-brand-b
-{
-    /* brand colour for text on white: darkened towards the text colour so lighter brand colours stay readable */
-    --custom-brand-text: color-mix(in srgb, var(--custom-brand) 80%, var(--text));
-
-    /* the main accent */
-    --brand-green: var(--custom-brand);
-    --green-ring: color-mix(in srgb, var(--custom-brand) 30%, transparent);
-
-    /* everything else that was green: neutral greys at matching depths */
-    --green-tint: var(--hover);
-    --green-contrast: var(--text-light);
-    --green-contrast-text: var(--text);
-    --green-dark: var(--text);
-    --green-hover: var(--hover-transparent);
-    --bg-light-green: var(--hover);
-    --bg-light-green-hover: #E7EAF0;
-
-    /* primary button: white, lifted by a tight layered shadow */
-    --shadow-button: 0 0 0 1px #16273314,
-                     0 1px 1px #1627330F,
-                     0 2px 4px #1627330F;
-    --shadow-button-hover: 0 0 0 1px #1627331F,
-                           0 2px 3px #16273314,
-                           0 4px 8px #16273314;
-
-    /* cover background: white, with faint grey planes */
-    --cover-bg-start: var(--white);
-    --cover-bg-end: var(--white);
-    --cover-plane-fill: #3644580A;    /* back planes: text colour at 4% */
-    --cover-plane-front: #36445810;   /* front plane: text colour at 6% */
-    --cover-plane-edge: #3644580F;    /* edge on each plane */
-
-    & .btn.primary
-    {
-        background: var(--white);
-        border-color: transparent;
-        color: var(--custom-brand-text);
-        box-shadow: var(--shadow-button);
-
-        &:hover
-        {
-            background: var(--white);
-            box-shadow: var(--shadow-button-hover);
-        }
-    }
-
-    /* text buttons keep a touch of the brand */
-    & .btn.text
-    {
-        color: var(--custom-brand-text);
-    }
-
-    /* clear buttons hover in grey (styles.css gives them a fixed green) */
-    & .btn.clear:hover,
-    & .btn.clear.active
-    {
-        background: var(--bg-light-green);
-        border-color: var(--bg-light-green);
-    }
-
-    /* current contents item: brand text and a thin brand bar on its left */
-    & .report-contents a[aria-current="true"]
-    {
-        color: var(--custom-brand-text);
-        box-shadow: inset 2px 0 0 var(--custom-brand);
-    }
-
-    /* focus: brand outline on text inputs, brand arrow on the open report picker */
-    & input,
-    & .input
-    {
-        outline-color: var(--custom-brand);
-    }
-
-    & select:focus::picker-icon
-    {
-        color: var(--custom-brand);
-    }
 }

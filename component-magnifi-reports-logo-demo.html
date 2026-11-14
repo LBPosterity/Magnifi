@@ -54,6 +54,27 @@
         height: auto;
     }
 
+    /* customer logo at the top: a small Magnifi Report logo centred in the footer */
+    .report-footer
+    {
+        position: relative;
+    }
+
+    .footer-logo
+    {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: calc(50% + var(--size-1) / 2);   /* middle of the button row, below the footer's top padding */
+        translate: -50% -50%;
+        width: 100px;
+        height: auto;
+    }
+
+    .report-sidebar.custom-logo:not(.collapsed) .footer-logo
+    {
+        display: block;
+    }
 
 </style>
 
@@ -141,8 +162,10 @@
     </div>
 
     <div class="report-footer">
-        <button class="btn clear btn-exit">Exit Report</button>
-        <button class="btn clear btn-collapse" id="btn-collapse" aria-label="Collapse sidebar" aria-expanded="true"><i data-feather="chevrons-left"></i></button>
+        <button class="btn clear small btn-exit">Exit</button>
+        <!-- "powered by" Magnifi Report logo: only shows when a customer logo is at the top -->
+        <img class="footer-logo" src="assets/Magnifi%20Report%20Logo.png" alt="Magnifi Report">
+        <button class="btn clear small btn-collapse" id="btn-collapse" aria-label="Collapse sidebar" aria-expanded="true"><i data-feather="chevrons-left"></i></button>
     </div>
 
 </aside>
