@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Magnifi dark mode test</title>
+
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles-darkmode.css" id="test-page-dark">
+
+<style>
+    /* quick test page: each mockup is loaded in its own frame (so their styles don't clash), stacked down the page,
+       and the script adds styles-darkmode.css to each one. Needs Live Server: browsers block this for file:// pages */
+
+    body
+    {
+        margin: 0;
+        font-family: "Roboto", sans-serif;
+    }
+
+    .test-bar
+    {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: var(--size-2);
+        padding: var(--size-1) var(--size-3);
+        background: var(--white);
+        border-bottom: 1px solid var(--border-dark);
+    }
+
+    .test-section h2
+    {
+        margin: 0;
+        padding: var(--size-3) var(--size-3) var(--size-1);
+        font-size: 14px;
+        color: var(--text-light);
+    }
+
+    .test-section iframe
+    {
+        display: block;
+        width: 100%;
+        height: 100vh;
+        border: none;
+        border-top: 1px solid var(--border-dark);
+        border-bottom: 1px solid var(--border-dark);
+    }
+</style>
+</head>
+
+<body>
+
+<div class="test-bar">
+    <strong>Dark mode test</strong>
+    <button class="btn outline small" id="toggle-dark">Switch to light</button>
+</div>
+
+<div id="test-pages"></div>
+
+<script>
+    var PAGES = [
+        'component-magnifi-report-cover-page.html',
+        'component-magnifi-reports.html',
+        'component-signup-form.html',
+        'component-profit-loss-stepper.html',
+        'component-onboarding-card.html',
+        'dashboard-component-forecast.html',
+        'component-examples.html'
+    ];
+
+    var dark = true;
+    var frames = [];
+    var list = document.getElementById('test-pages');
+
+    PAGES.forEach(function(page){
+        var section = document.createElement('section');
+        section.className = 'test-section';
+        section.innerHTML = '<h2></h2><iframe></iframe>';
+        section.querySelector('h2').textContent = page;
+
+        var frame = section.querySelector('iframe');
+        frame.title = page;
+        frame.addEventListener('load', function(){ applyDark(frame); fitHeight(frame); });
+        frame.src = page;
+
+        frames.push(frame);
+        list.appendChild(section);
+    });
+
+    // add (or remove) the dark mode stylesheet at the very end of the page, so it wins over the page's own styles
+    function applyDark(frame){
+        var doc = frame.contentDocument;
+        if(!doc || !doc.body) return;   // file:// pages can't be reached: open this file through Live Server
+        var link = doc.getElementById('dark-mode-test');
+        if(dark && !link){
+            link = doc.createElement('link');
+            link.id = 'dark-mode-test';
+            link.rel = 'stylesheet';
+            link.href = 'styles-darkmode.css';
+            doc.body.appendChild(link);
+        } else if(!dark && link){
+            link.remove();
+        }
+    }
+
+    // pages taller than the screen get their full height; full-screen pages (covers, sidebar) stay one screen tall
+    function fitHeight(frame){
+        var doc = frame.contentDocument;
+        if(!doc) return;
+        setTimeout(function(){
+            var height = Math.max(window.innerHeight, doc.documentElement.scrollHeight);
+            frame.style.height = height + 'px';
+        }, 300);
+    }
+
+    document.getElementById('toggle-dark').addEventListener('click', function(){
+        dark = !dark;
+        this.textContent = dark ? 'Switch to light' : 'Switch to dark';
+        document.getElementById('test-page-dark').disabled = !dark;
+        frames.forEach(applyDark);
+    });
+</script>
+
+</body>
+</html>
